@@ -1,0 +1,176 @@
+[
+  {
+    "name": "University of Washington",
+    "location": "Seattle, Washington, USA",
+    "selectivity_level": "Moderately Selective (Top Public Research University)",
+    "acceptance_rate_estimate": "≈39%",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Computer Science",
+      "Engineering",
+      "Business",
+      "Biology",
+      "Public Health",
+      "Environmental Science",
+      "Data Science"
+    ],
+    "traits": {
+      "intellectual_vitality": 9,
+      "academic_rigor": 10,
+      "leadership": 6,
+      "initiative": 8,
+      "collaboration": 7,
+      "community_impact": 7,
+      "reflection_depth": 7,
+      "thematic_direction": 7,
+      "resilience": 6
+    },
+    "evaluation_weights": {
+      "gpa": 0.35,
+      "course_rigor": 0.20,
+      "extracurriculars": 0.15,
+      "leadership": 0.10,
+      "essay": 0.20
+    },
+    "summary": "The University of Washington is a major public research university with moderately selective admissions and a strong emphasis on academic achievement and rigor. According to its Common Data Set, the most important factors in admission decisions include rigor of secondary school coursework, academic GPA, and the application essay.",
+    "culture_notes": [
+      "Large public research university with strong emphasis on academic excellence and challenging coursework.",
+      "Application essays evaluate intellectual curiosity, reflection, and academic motivation.",
+      "Extracurricular involvement and community engagement are valued but secondary to academic rigor.",
+      "Test-blind admissions policy — SAT/ACT scores are not considered.",
+      "Direct-to-major programs require especially strong academic preparation."
+    ]
+  },
+  {
+    "name": "Washington State University",
+    "location": "Pullman, Washington, USA",
+    "selectivity_level": "Less Selective",
+    "acceptance_rate_estimate": "≈85–88%",
+    "essay_importance": "Considered",
+    "extracurricular_importance": "Considered",
+    "academic_rigor_importance": "Important",
+    "major_strengths": [
+      "Agriculture",
+      "Veterinary Medicine",
+      "Business",
+      "Communications",
+      "Hospitality Business Management",
+      "Engineering",
+      "Food Science"
+    ],
+    "traits": {
+      "intellectual_vitality": 6,
+      "academic_rigor": 7,
+      "leadership": 5,
+      "initiative": 6,
+      "collaboration": 6,
+      "community_impact": 5,
+      "reflection_depth": 5,
+      "thematic_direction": 5,
+      "resilience": 6
+    },
+    "evaluation_weights": {
+      "gpa": 0.45,
+      "course_rigor": 0.25,
+      "extracurriculars": 0.10,
+      "leadership": 0.05,
+      "essay": 0.15
+    },
+    "summary": "Washington State University is a large public land‑grant research university with broadly accessible admissions. Admissions decisions emphasize high school academic performance, including GPA and completion of college‑preparatory coursework.",
+    "culture_notes": [
+      "Large public land‑grant research university focused on access and public service.",
+      "Admissions prioritizes academic preparedness and completion of college‑prep coursework.",
+      "Extracurricular activities and personal qualities are considered but not primary factors.",
+      "Standardized test scores are optional or not required.",
+      "Broad access mission compared with more selective flagship universities."
+    ]
+  },
+  {
+    "name": "Gonzaga University",
+    "location": "Spokane, Washington, USA",
+    "selectivity_level": "Moderately Selective",
+    "acceptance_rate_estimate": "≈70–82%",
+    "essay_importance": "Important",
+    "extracurricular_importance": "Considered",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Business",
+      "Engineering",
+      "Nursing",
+      "Education",
+      "Political Science",
+      "Psychology",
+      "Biology"
+    ],
+    "traits": {
+      "intellectual_vitality": 7,
+      "academic_rigor": 8,
+      "leadership": 6,
+      "initiative": 6,
+      "collaboration": 7,
+      "community_impact": 8,
+      "reflection_depth": 8,
+      "thematic_direction": 6,
+      "resilience": 6
+    },
+    "evaluation_weights": {
+      "gpa": 0.30,
+      "course_rigor": 0.20,
+      "extracurriculars": 0.15,
+      "leadership": 0.10,
+      "essay": 0.25
+    },
+    "summary": "Gonzaga University is a private Jesuit Catholic university that uses a holistic admissions process emphasizing strong academic preparation, personal qualities, and community engagement. The admissions process reflects the Jesuit educational tradition emphasizing intellectual development, reflection, and commitment to service.",
+    "culture_notes": [
+      "Jesuit Catholic educational tradition emphasizing reflection and service.",
+      "Holistic admissions process considering academics, essays, and extracurricular involvement.",
+      "Community engagement and service are important aspects of the university culture.",
+      "Strong academic preparation expected but balanced with character and mission alignment."
+    ]
+  },
+  {
+    "name": "Seattle University",
+    "location": "Seattle, Washington, USA",
+    "selectivity_level": "Less Selective",
+    "acceptance_rate_estimate": "≈76–77%",
+    "essay_importance": "Important",
+    "extracurricular_importance": "Considered",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Business",
+      "Nursing",
+      "Law",
+      "Psychology",
+      "Public Affairs",
+      "Criminal Justice",
+      "Finance"
+    ],
+    "traits": {
+      "intellectual_vitality": 7,
+      "academic_rigor": 8,
+      "leadership": 6,
+      "initiative": 6,
+      "collaboration": 7,
+      "community_impact": 8,
+      "reflection_depth": 8,
+      "thematic_direction": 6,
+      "resilience": 6
+    },
+    "evaluation_weights": {
+      "gpa": 0.30,
+      "course_rigor": 0.20,
+      "extracurriculars": 0.15,
+      "leadership": 0.10,
+      "essay": 0.25
+    },
+    "summary": "Seattle University is a private Jesuit Catholic university that uses a holistic admissions process emphasizing academic preparation, personal reflection, and commitment to community engagement. Admissions considers GPA, coursework rigor, essays, and extracurricular involvement in evaluating applicants' readiness and alignment with the university's mission.",
+    "culture_notes": [
+      "Jesuit educational tradition emphasizing reflection and service.",
+      "Holistic admissions review including essays, recommendations, and extracurricular involvement.",
+      "Community engagement and social impact are important cultural values.",
+      "Essay prompts often encourage reflection on equity, belonging, and personal growth."
+    ]
+  }
+]
