@@ -1,7 +1,10 @@
 /**
  * Combines analyzer outputs into a single evaluation result.
- * Computes alignmentScore from weighted analyzer scores and merges strengths, weaknesses, suggestions.
+ * Weighted alignment score (0–10) uses university CDS-style weights when present.
+ * Insights are merged with semantic dedupe, contradiction removal, and strict caps.
  */
+
+const { postProcessInsights } = require('./insightPostProcess');
 
 const DEFAULT_WEIGHTS = {
   academic: 0.3,
@@ -13,25 +16,76 @@ const DEFAULT_WEIGHTS = {
 
 const ANALYZER_KEYS = ['academic', 'activities', 'honors', 'narrative', 'institutionalFit'];
 
-function uniqueMerge(arrays) {
-  const set = new Set();
-  for (const arr of arrays) {
-    if (Array.isArray(arr)) {
-      for (const item of arr) {
-        if (typeof item === 'string' && item.trim()) set.add(item.trim());
+/** Priority order for tie-breaking when flattening lists (higher-signal dimensions first). */
+const SOURCE_PRIORITY = ['academic', 'narrative', 'activities', 'honors', 'institutionalFit'];
+
+function numberOr(v, fallback) {
+  const n = typeof v === 'number' ? v : parseFloat(v);
+  return Number.isFinite(n) ? n : fallback;
+}
+
+/**
+ * Map university evaluation_weights (gpa, course_rigor, extracurriculars, leadership, essay)
+ * onto analyzer keys. Honors and fit share a small baseline slice so they still move the needle.
+ */
+function aggregatorWeightsFromUniversity(universityProfile) {
+  const ew = universityProfile?.evaluation_weights;
+  if (!ew || typeof ew !== 'object') {
+    return { ...DEFAULT_WEIGHTS };
+  }
+
+  const gpa = numberOr(ew.gpa, 0.25);
+  const cr = numberOr(ew.course_rigor, 0.2);
+  const ex = numberOr(ew.extracurriculars, 0.15);
+  const ld = numberOr(ew.leadership, 0.1);
+  const essay = numberOr(ew.essay, 0.2);
+
+  const cds = gpa + cr + ex + ld + essay;
+  if (cds <= 0) {
+    return { ...DEFAULT_WEIGHTS };
+  }
+
+  const coreScale = 0.88;
+  const academic = ((gpa + cr) / cds) * coreScale;
+  const activities = ((ex + ld) / cds) * coreScale;
+  const narrative = (essay / cds) * coreScale;
+  const honors = 0.06;
+  const institutionalFit = 0.06;
+  const total = academic + activities + narrative + honors + institutionalFit;
+
+  return {
+    academic: academic / total,
+    activities: activities / total,
+    honors: honors / total,
+    narrative: narrative / total,
+    institutionalFit: institutionalFit / total,
+  };
+}
+
+function flattenField(analyzerResults, field) {
+  const out = [];
+  let seq = 0;
+  for (const key of SOURCE_PRIORITY) {
+    const arr = analyzerResults[key]?.[field];
+    if (!Array.isArray(arr)) continue;
+    for (const item of arr) {
+      if (typeof item === 'string' && item.trim()) {
+        out.push(item.trim());
+        seq += 1;
       }
     }
   }
-  return [...set];
+  return out;
 }
 
 /**
  * @param {object} analyzerResults - Map of analyzer key -> { score, strengths, weaknesses, suggestions }
- * @param {object} [weights] - Optional weights (default DEFAULT_WEIGHTS)
- * @returns {object} { alignmentScore, academicStrength, activityImpact, honorsAwards, narrativeStrength, institutionalFit, strengths, weaknesses, suggestions }
+ * @param {object} [universityProfile] - Used to derive aggregator weights from evaluation_weights
+ * @returns {object} aggregated result fields
  */
-function aggregate(analyzerResults, weights = DEFAULT_WEIGHTS) {
-  const w = { ...DEFAULT_WEIGHTS, ...weights };
+function aggregate(analyzerResults, universityProfile = null) {
+  const w = universityProfile ? aggregatorWeightsFromUniversity(universityProfile) : { ...DEFAULT_WEIGHTS };
+
   let weightedSum = 0;
   let weightSum = 0;
   const scores = {};
@@ -47,9 +101,15 @@ function aggregate(analyzerResults, weights = DEFAULT_WEIGHTS) {
 
   const alignmentScore = weightSum > 0 ? Math.round((weightedSum / weightSum) * 10) / 10 : 0;
 
-  const strengths = uniqueMerge(ANALYZER_KEYS.map((k) => analyzerResults[k]?.strengths).filter(Boolean));
-  const weaknesses = uniqueMerge(ANALYZER_KEYS.map((k) => analyzerResults[k]?.weaknesses).filter(Boolean));
-  const suggestions = uniqueMerge(ANALYZER_KEYS.map((k) => analyzerResults[k]?.suggestions).filter(Boolean));
+  const rawStrengths = flattenField(analyzerResults, 'strengths');
+  const rawWeaknesses = flattenField(analyzerResults, 'weaknesses');
+  const rawSuggestions = flattenField(analyzerResults, 'suggestions');
+
+  const { strengths, weaknesses, suggestions } = postProcessInsights(
+    rawStrengths,
+    rawWeaknesses,
+    rawSuggestions
+  );
 
   return {
     alignmentScore,
@@ -68,4 +128,5 @@ module.exports = {
   aggregate,
   DEFAULT_WEIGHTS,
   ANALYZER_KEYS,
+  aggregatorWeightsFromUniversity,
 };

@@ -7,7 +7,7 @@ const router = express.Router();
 /**
  * POST /api/evaluateApplication
  * Body: { application: object, universities: string[] }
- * Returns: array of { university, alignmentScore, academicStrength, activityImpact, honorsAwards, narrativeStrength, institutionalFit, strengths, weaknesses, suggestions }
+ * Returns: array of evaluation objects (scores 0–10, capped insight lists, optional admissionsSummary)
  */
 router.post('/evaluateApplication', async (req, res, next) => {
   const validation = validateEvaluateRequest(req.body);
@@ -19,9 +19,11 @@ router.post('/evaluateApplication', async (req, res, next) => {
   }
 
   const { application, universities } = req.body;
+  console.log('REQUEST BODY:', JSON.stringify(req.body, null, 2));
   console.log('[API] POST /api/evaluateApplication received, universities:', universities?.length ?? 0, universities ?? []);
   try {
     const results = await evaluationService.evaluateApplication(application, universities);
+    console.log('FINAL EVALUATION RESULT:', JSON.stringify(results, null, 2));
     res.json(results);
   } catch (err) {
     next(err);

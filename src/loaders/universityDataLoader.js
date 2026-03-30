@@ -80,7 +80,11 @@ function init(dataPath) {
   for (const u of cachedUniversities) {
     cachedByName.set(normalizeName(u.name), u);
   }
-  console.log('University dataset loaded successfully.');
+  console.log(
+    '[UniversityDataLoader] Dataset ready:',
+    cachedUniversities.length,
+    'universities indexed by name'
+  );
 }
 
 /**

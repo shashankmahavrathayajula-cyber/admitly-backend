@@ -1,5 +1,6 @@
 const config = require('../../config');
 const openaiClient = require('../../utils/openaiClient');
+const toneGuidance = require('../analysisToneGuidance');
 
 const JSON_FORMAT_INSTRUCTIONS = `
 Return your evaluation as valid JSON only, with no other text:
@@ -55,6 +56,7 @@ Student application (essays, personal statement, narrative themes):
 ${JSON.stringify(applicationProfile, null, 2)}
 
 Consider reflection depth, thematic coherence, and fit with what the university values in essays (see culture_notes and essay_importance).
+${toneGuidance}
 ${JSON_FORMAT_INSTRUCTIONS}`;
 
     const result = await openaiClient.runAIAnalysis(prompt);

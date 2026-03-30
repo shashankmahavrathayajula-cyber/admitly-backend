@@ -34,9 +34,16 @@ function normalizeStructuredResult(parsed) {
   const score = typeof parsed.score === 'number' && !Number.isNaN(parsed.score)
     ? Math.max(0, Math.min(10, parsed.score))
     : 5;
-  const strengths = Array.isArray(parsed.strengths) ? parsed.strengths.filter((s) => typeof s === 'string').map((s) => String(s).trim()).filter(Boolean) : [];
-  const weaknesses = Array.isArray(parsed.weaknesses) ? parsed.weaknesses.filter((s) => typeof s === 'string').map((s) => String(s).trim()).filter(Boolean) : [];
-  const suggestions = Array.isArray(parsed.suggestions) ? parsed.suggestions.filter((s) => typeof s === 'string').map((s) => String(s).trim()).filter(Boolean) : [];
+  const cap = 4;
+  const strengths = Array.isArray(parsed.strengths)
+    ? parsed.strengths.filter((s) => typeof s === 'string').map((s) => String(s).trim()).filter(Boolean).slice(0, cap)
+    : [];
+  const weaknesses = Array.isArray(parsed.weaknesses)
+    ? parsed.weaknesses.filter((s) => typeof s === 'string').map((s) => String(s).trim()).filter(Boolean).slice(0, cap)
+    : [];
+  const suggestions = Array.isArray(parsed.suggestions)
+    ? parsed.suggestions.filter((s) => typeof s === 'string').map((s) => String(s).trim()).filter(Boolean).slice(0, cap)
+    : [];
   return { score, strengths, weaknesses, suggestions };
 }
 

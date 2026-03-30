@@ -1,6 +1,7 @@
 const config = require('../config');
 const { ANALYZERS } = require('./analyzers');
 const { aggregate } = require('./aggregator');
+const { computeAdmissionsSummary } = require('./admissionsSummary');
 
 const log = (msg) => {
   if (process.env.NODE_ENV === 'development') {
@@ -13,7 +14,7 @@ const log = (msg) => {
  * @param {object} applicationProfile - Student application data
  * @param {object} universityProfile - University data from dataset
  * @param {object} [options] - { weights, verbose }
- * @returns {Promise<object>} { university, alignmentScore, academicStrength, activityImpact, honorsAwards, narrativeStrength, institutionalFit, strengths, weaknesses, suggestions }
+ * @returns {Promise<object>} evaluation payload including admissionsSummary (band + reasoning)
  */
 async function evaluate(applicationProfile, universityProfile, options = {}) {
   const verbose = options.verbose ?? process.env.NODE_ENV === 'development';
@@ -40,7 +41,8 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
     }
   }
 
-  const aggregated = aggregate(results, options.weights);
+  const aggregated = aggregate(results, universityProfile);
+  const admissionsSummary = computeAdmissionsSummary(aggregated.alignmentScore, universityProfile);
 
   return {
     university: universityProfile.name,
@@ -53,6 +55,7 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
     strengths: Array.isArray(aggregated.strengths) ? aggregated.strengths : [],
     weaknesses: Array.isArray(aggregated.weaknesses) ? aggregated.weaknesses : [],
     suggestions: Array.isArray(aggregated.suggestions) ? aggregated.suggestions : [],
+    admissionsSummary,
   };
 }
 

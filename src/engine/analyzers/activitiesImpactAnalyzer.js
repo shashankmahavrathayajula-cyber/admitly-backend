@@ -1,5 +1,6 @@
 const config = require('../../config');
 const openaiClient = require('../../utils/openaiClient');
+const toneGuidance = require('../analysisToneGuidance');
 
 const JSON_FORMAT_INSTRUCTIONS = `
 Return your evaluation as valid JSON only, with no other text:
@@ -26,12 +27,24 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
   const weaknesses = [];
   const suggestions = [];
 
+  const deepSingle =
+    list.length === 1 &&
+    list.some((a) => {
+      const desc = String(a?.description ?? a?.details ?? '').length;
+      const role = String(a?.role ?? a?.title ?? a?.type ?? '').toLowerCase();
+      return desc > 100 || /president|captain|founder|lead|director|officer|chair/.test(role);
+    });
+
   if (list.length >= 3) {
     score += 2;
     strengths.push('Multiple extracurricular activities reported.');
   } else if (list.length >= 1) {
-    score += 1;
-    strengths.push('Some extracurricular involvement indicated.');
+    score += deepSingle ? 1.6 : 1;
+    strengths.push(
+      deepSingle
+        ? 'At least one activity shows depth (sustained role or detailed engagement).'
+        : 'Some extracurricular involvement indicated.'
+    );
   } else {
     score -= 1;
     weaknesses.push('Limited extracurricular activities listed.');
@@ -62,6 +75,7 @@ Student application (activities, leadership, involvement):
 ${JSON.stringify(applicationProfile, null, 2)}
 
 Consider depth of involvement, leadership, and alignment with the university's values (e.g. community impact, leadership).
+${toneGuidance}
 ${JSON_FORMAT_INSTRUCTIONS}`;
 
     const result = await openaiClient.runAIAnalysis(prompt);
