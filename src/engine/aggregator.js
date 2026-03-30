@@ -106,10 +106,19 @@ function aggregate(analyzerResults, universityProfile = null) {
   const rawWeaknesses = flattenField(analyzerResults, 'weaknesses');
   const rawSuggestions = flattenField(analyzerResults, 'suggestions');
 
+  const dimensionScores = {
+    academic: scores.academic ?? 0,
+    activities: scores.activities ?? 0,
+    honors: scores.honors ?? 0,
+    narrative: scores.narrative ?? 0,
+    institutionalFit: scores.institutionalFit ?? 0,
+  };
+
   const { strengths, weaknesses, suggestions } = postProcessInsights(
     rawStrengths,
     rawWeaknesses,
-    rawSuggestions
+    rawSuggestions,
+    dimensionScores
   );
 
   return {

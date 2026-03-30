@@ -7,7 +7,7 @@ const router = express.Router();
 /**
  * POST /api/evaluateApplication
  * Body: { application: object, universities: string[] }
- * Returns: array of evaluation objects (scores 0–10, capped insight lists, optional admissionsSummary)
+ * Returns: array of evaluation objects (scores 0–10, coreInsight, mostImportantNextStep, capped lists, optional admissionsSummary)
  */
 router.post('/evaluateApplication', async (req, res, next) => {
   const validation = validateEvaluateRequest(req.body);

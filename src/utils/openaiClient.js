@@ -129,6 +129,80 @@ async function runAIAnalysis(prompt, options = {}) {
   return result;
 }
 
+/**
+ * @param {*} parsed
+ * @returns {{ coreInsight: string, mostImportantNextStep: string } | null}
+ */
+function normalizeInsightSynthesis(parsed) {
+  if (parsed === null || typeof parsed !== 'object') return null;
+  const coreInsight =
+    typeof parsed.coreInsight === 'string' ? parsed.coreInsight.trim().replace(/\s+/g, ' ') : '';
+  const mostImportantNextStep =
+    typeof parsed.mostImportantNextStep === 'string'
+      ? parsed.mostImportantNextStep.trim().replace(/\s+/g, ' ')
+      : '';
+  if (!coreInsight || !mostImportantNextStep) return null;
+  return {
+    coreInsight: coreInsight.slice(0, 520),
+    mostImportantNextStep: mostImportantNextStep.slice(0, 360),
+  };
+}
+
+/**
+ * One-shot synthesis for executive insight + next step (JSON object, not analyzer shape).
+ */
+async function runInsightSynthesis(prompt, options = {}) {
+  if (!hasValidKey()) {
+    warnNoKey();
+    return null;
+  }
+
+  const OPENAI_API_KEY = getApiKey();
+  const model = options.model || 'gpt-4o-mini';
+  const maxTokens = options.maxTokens ?? 400;
+
+  const body = {
+    model,
+    max_tokens: maxTokens,
+    messages: [{ role: 'user', content: prompt }],
+  };
+
+  let response;
+  try {
+    response = await fetch(OPENAI_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify(body),
+    });
+  } catch (err) {
+    console.error('[openaiClient] Insight synthesis request failed:', err.message);
+    return null;
+  }
+
+  if (!response.ok) {
+    const errText = await response.text();
+    console.error('[openaiClient] Insight synthesis API error', response.status, errText);
+    return null;
+  }
+
+  let data;
+  try {
+    data = await response.json();
+  } catch {
+    return null;
+  }
+
+  const content = data.choices?.[0]?.message?.content;
+  if (content == null) return null;
+
+  const parsed = extractJson(content);
+  return normalizeInsightSynthesis(parsed);
+}
+
 module.exports = {
   runAIAnalysis,
+  runInsightSynthesis,
 };

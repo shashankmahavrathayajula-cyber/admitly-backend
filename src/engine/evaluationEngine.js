@@ -3,6 +3,7 @@ const { ANALYZERS } = require('./analyzers');
 const { aggregate } = require('./aggregator');
 const { computeAdmissionsSummary } = require('./admissionsSummary');
 const { applySelectivityCalibration } = require('./selectivityCalibration');
+const { synthesizeExecutiveInsights } = require('./insightSynthesis');
 
 const log = (msg) => {
   if (process.env.NODE_ENV === 'development') {
@@ -43,6 +44,7 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
   }
 
   const aggregated = aggregate(results, universityProfile);
+  const executive = await synthesizeExecutiveInsights(applicationProfile, universityProfile, aggregated);
   const alignmentScore = applySelectivityCalibration(aggregated.alignmentScore, universityProfile);
   const admissionsSummary = computeAdmissionsSummary(alignmentScore, universityProfile);
 
@@ -54,6 +56,8 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
     honorsAwards: aggregated.honorsAwards,
     narrativeStrength: aggregated.narrativeStrength,
     institutionalFit: aggregated.institutionalFit,
+    coreInsight: executive.coreInsight,
+    mostImportantNextStep: executive.mostImportantNextStep,
     strengths: Array.isArray(aggregated.strengths) ? aggregated.strengths : [],
     weaknesses: Array.isArray(aggregated.weaknesses) ? aggregated.weaknesses : [],
     suggestions: Array.isArray(aggregated.suggestions) ? aggregated.suggestions : [],
