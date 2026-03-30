@@ -1,59 +1,49 @@
 /**
- * Reach / Target / Safety from alignment score (0–10) and institutional selectivity.
+ * Reach / Target / Safety from competitiveness-adjusted alignment and institutional context.
  * Heuristic only — not a prediction of admission probability.
  */
 
-function parseAcceptanceRateFraction(estimate) {
-  if (estimate == null) return null;
-  const nums = String(estimate).match(/[\d.]+/g);
-  if (!nums || nums.length === 0) return null;
-  const values = nums.map(Number).filter((n) => !Number.isNaN(n));
-  if (values.length === 0) return null;
-  const avgPct = values.reduce((a, b) => a + b, 0) / values.length;
-  return avgPct > 1 ? avgPct / 100 : avgPct;
-}
+const {
+  parseAcceptanceRateFraction,
+  selectivityRank,
+  effectiveAdmitRate,
+} = require('./universitySignals');
 
-function selectivityRank(selectivityLevel) {
-  const s = String(selectivityLevel || '').toLowerCase();
-  if (/most selective|highly selective|extremely selective|ivy/i.test(s)) return 3;
-  if (/moderately selective|selective|competitive/i.test(s)) return 2;
-  if (/less selective|accessible|open/i.test(s)) return 1;
-  return 2;
+/**
+ * Band thresholds move with admit context: stricter "safety" at selective schools.
+ */
+function bandThresholds(rate) {
+  const r = typeof rate === 'number' && !Number.isNaN(rate) ? Math.min(0.98, Math.max(0.02, rate)) : 0.45;
+  const selectivityStress = 1 - r;
+  return {
+    safetyFloor: 5.8 + 2.6 * selectivityStress,
+    targetFloor: 4.2 + 2.2 * selectivityStress,
+  };
 }
 
 /**
- * @param {number} alignmentScore - 0–10 weighted alignment
+ * @param {number} alignmentScore - Competitiveness-adjusted headline (0–10)
  * @param {object} universityProfile
  * @returns {{ band: 'reach'|'target'|'safety', reasoning: string }}
  */
 function computeAdmissionsSummary(alignmentScore, universityProfile) {
   const score = typeof alignmentScore === 'number' && !Number.isNaN(alignmentScore) ? alignmentScore : 0;
-  const rate = parseAcceptanceRateFraction(universityProfile?.acceptance_rate_estimate);
-  const tier = selectivityRank(universityProfile?.selectivity_level);
   const name = universityProfile?.name || 'this institution';
-
-  const highlySelective = tier >= 3 || (rate != null && rate < 0.22);
+  const rate = effectiveAdmitRate(universityProfile);
+  const parsedRate = parseAcceptanceRateFraction(universityProfile?.acceptance_rate_estimate);
+  const { safetyFloor, targetFloor } = bandThresholds(rate);
 
   let band;
-  if (highlySelective) {
-    if (score >= 8.3) band = 'target';
-    else band = 'reach';
-  } else if (tier >= 2 || (rate != null && rate < 0.55)) {
-    if (score >= 7.8) band = 'safety';
-    else if (score >= 6) band = 'target';
-    else band = 'reach';
-  } else {
-    if (score >= 6.5) band = 'safety';
-    else if (score >= 4.8) band = 'target';
-    else band = 'reach';
-  }
+  if (score >= safetyFloor) band = 'safety';
+  else if (score >= targetFloor) band = 'target';
+  else band = 'reach';
 
-  const rateNote =
-    rate != null
-      ? ` ${name}'s approximate admit rate (~${Math.round(rate * 100)}%) frames how competitive a match this is.`
-      : '';
+  const rateSource =
+    parsedRate != null
+      ? `published admit-band (~${Math.round(rate * 100)}%)`
+      : `selectivity tier (estimated ~${Math.round(rate * 100)}% admit context)`;
 
-  const reasoning = `Your profile scores ${score.toFixed(1)}/10 on our weighted alignment rubric for ${name}.${rateNote} Given that bar, we label this a ${band.toUpperCase()} — a rough compass for planning, not a verdict.`;
+  const reasoning = `Headline score ${score.toFixed(1)}/10 is calibrated for how competitive admission is at ${name}, using ${rateSource}. At that bar, we map you to ${band.toUpperCase()} — a planning label, not an odds estimate.`;
 
   return { band, reasoning };
 }

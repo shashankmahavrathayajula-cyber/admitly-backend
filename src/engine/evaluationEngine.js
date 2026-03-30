@@ -2,6 +2,7 @@ const config = require('../config');
 const { ANALYZERS } = require('./analyzers');
 const { aggregate } = require('./aggregator');
 const { computeAdmissionsSummary } = require('./admissionsSummary');
+const { applySelectivityCalibration } = require('./selectivityCalibration');
 
 const log = (msg) => {
   if (process.env.NODE_ENV === 'development') {
@@ -14,7 +15,7 @@ const log = (msg) => {
  * @param {object} applicationProfile - Student application data
  * @param {object} universityProfile - University data from dataset
  * @param {object} [options] - { weights, verbose }
- * @returns {Promise<object>} evaluation payload including admissionsSummary (band + reasoning)
+ * @returns {Promise<object>} evaluation payload; alignmentScore is selectivity-calibrated; dimension scores are raw rubric scores
  */
 async function evaluate(applicationProfile, universityProfile, options = {}) {
   const verbose = options.verbose ?? process.env.NODE_ENV === 'development';
@@ -42,11 +43,12 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
   }
 
   const aggregated = aggregate(results, universityProfile);
-  const admissionsSummary = computeAdmissionsSummary(aggregated.alignmentScore, universityProfile);
+  const alignmentScore = applySelectivityCalibration(aggregated.alignmentScore, universityProfile);
+  const admissionsSummary = computeAdmissionsSummary(alignmentScore, universityProfile);
 
   return {
     university: universityProfile.name,
-    alignmentScore: aggregated.alignmentScore,
+    alignmentScore,
     academicStrength: aggregated.academicStrength,
     activityImpact: aggregated.activityImpact,
     honorsAwards: aggregated.honorsAwards,

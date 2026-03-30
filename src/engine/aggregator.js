@@ -99,6 +99,7 @@ function aggregate(analyzerResults, universityProfile = null) {
     weightSum += weight;
   }
 
+  /** Raw weighted rubric mean (0–10); evaluationEngine applies selectivity calibration for the API headline. */
   const alignmentScore = weightSum > 0 ? Math.round((weightedSum / weightSum) * 10) / 10 : 0;
 
   const rawStrengths = flattenField(analyzerResults, 'strengths');
