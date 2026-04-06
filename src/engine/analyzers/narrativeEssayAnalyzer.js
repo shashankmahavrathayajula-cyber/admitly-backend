@@ -29,6 +29,29 @@ function hasEssayBodyContent(applicationProfile) {
   return themeList.length > 0;
 }
 
+/** Word count from essay / personalStatement / essays.personalStatement / essays.supplemental only (same text sources as narrative body; themes excluded). */
+function getEssayWordCount(applicationProfile) {
+  const parts = [];
+  if (typeof applicationProfile?.essay === 'string' && applicationProfile.essay.trim()) {
+    parts.push(applicationProfile.essay.trim());
+  }
+  if (typeof applicationProfile?.personalStatement === 'string' && applicationProfile.personalStatement.trim()) {
+    parts.push(applicationProfile.personalStatement.trim());
+  }
+  const essays = applicationProfile?.essays;
+  if (essays && typeof essays === 'object') {
+    if (typeof essays.personalStatement === 'string' && essays.personalStatement.trim()) {
+      parts.push(essays.personalStatement.trim());
+    }
+    if (typeof essays.supplemental === 'string' && essays.supplemental.trim()) {
+      parts.push(essays.supplemental.trim());
+    }
+  }
+  const joined = parts.join(' ');
+  if (!joined.trim()) return 0;
+  return joined.split(/\s+/).filter(Boolean).length;
+}
+
 function ruleBasedAnalyze(applicationProfile, universityProfile) {
   const essayImportance = universityProfile.essay_importance || 'Considered';
   const priorities = getSchoolPriorities(universityProfile);
@@ -46,8 +69,29 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
   const suggestions = [];
 
   if (hasEssay) {
-    score += 2;
-    strengths.push(`Narrative text is present—readers at ${universityProfile.name} can score "${topTheme}" against institutional priorities.`);
+    const wordCount = getEssayWordCount(applicationProfile);
+    if (wordCount < 50) {
+      score += 0.8;
+      strengths.push(
+        `Brief narrative text is present but too short for readers at ${universityProfile.name} to fully assess "${topTheme}".`
+      );
+      suggestions.push(
+        `Expand the personal statement to give reviewers at ${universityProfile.name} enough material to evaluate "${topTheme}" — aim for 400+ words with specific examples.`
+      );
+    } else if (wordCount < 200) {
+      score += 1.4;
+      strengths.push(
+        `Narrative text is present but relatively short — readers at ${universityProfile.name} will have limited material to assess "${topTheme}" against institutional priorities.`
+      );
+      suggestions.push(
+        `Expand the personal statement to give reviewers at ${universityProfile.name} enough material to evaluate "${topTheme}" — aim for 400+ words with specific examples.`
+      );
+    } else {
+      score += 2;
+      strengths.push(
+        `Narrative text is present—readers at ${universityProfile.name} can score "${topTheme}" against institutional priorities.`
+      );
+    }
   } else if (essayImportance === 'Very Important') {
     score -= 1.2;
     weaknesses.push(`No essay or narrative excerpt provided; written work is very important at ${universityProfile.name}, so the file is under-specified for "${topTheme}".`);

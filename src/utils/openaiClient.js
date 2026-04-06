@@ -34,7 +34,7 @@ function normalizeStructuredResult(parsed) {
   const score = typeof parsed.score === 'number' && !Number.isNaN(parsed.score)
     ? Math.max(0, Math.min(10, parsed.score))
     : 5;
-  const cap = 4;
+  const cap = 3;
   const strengths = Array.isArray(parsed.strengths)
     ? parsed.strengths.filter((s) => typeof s === 'string').map((s) => String(s).trim()).filter(Boolean).slice(0, cap)
     : [];

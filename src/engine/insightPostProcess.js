@@ -29,10 +29,10 @@ function overlapRatio(a, b) {
   return inter / Math.min(A.size, B.size);
 }
 
-const { sanitizeOneLine } = require('./outputGuards');
+const { applyOutputGuards } = require('./outputGuards');
 
 const SIMILAR = 0.42;
-const MAX_ITEMS = 5;
+const MAX_ITEMS = 3;
 
 /** Analyzer keys aligned with aggregator scores object */
 const ANALYZER_KEYS = ['academic', 'activities', 'honors', 'narrative', 'institutionalFit'];
@@ -88,7 +88,11 @@ function dedupeOrdered(items, similarThreshold = SIMILAR) {
   for (const text of items) {
     if (typeof text !== 'string' || !text.trim()) continue;
     const t = text.trim();
-    const dup = kept.some((k) => overlapRatio(k, t) >= similarThreshold);
+    const dup = kept.some((k) => {
+      const threshold =
+        wordSet(k).size < 5 && wordSet(t).size < 5 ? 0.85 : similarThreshold;
+      return overlapRatio(k, t) >= threshold;
+    });
     if (!dup) kept.push(t);
   }
   return kept;
@@ -143,9 +147,9 @@ function postProcessInsights(strengths, weaknesses, suggestions, dimensionScores
   }
 
   return {
-    strengths: s.slice(0, MAX_ITEMS).map(sanitizeOneLine),
-    weaknesses: w.slice(0, MAX_ITEMS).map(sanitizeOneLine),
-    suggestions: su.slice(0, MAX_ITEMS).map(sanitizeOneLine),
+    strengths: applyOutputGuards(s.slice(0, MAX_ITEMS)),
+    weaknesses: applyOutputGuards(w.slice(0, MAX_ITEMS)),
+    suggestions: applyOutputGuards(su.slice(0, MAX_ITEMS)),
   };
 }
 

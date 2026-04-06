@@ -55,12 +55,46 @@ function sanitizeOneLine(text) {
   return t;
 }
 
+/**
+ * Drop insight lines that echo AI prompt/meta instructions (not fixable — remove entirely).
+ * @param {string[]} items
+ * @returns {string[]}
+ */
+function filterLeakedInstructions(items) {
+  if (!Array.isArray(items)) return items;
+  return items.filter((item) => {
+    if (typeof item !== 'string' || !item.trim()) return false;
+    const t = item;
+
+    if (/from the (excerpt|passage|text) above/i.test(t)) return false;
+    if (/verbatim\s+(quote|excerpt)/i.test(t)) return false;
+    if (/inside\s+(double\s+quotes|quotation\s+marks)/i.test(t)) return false;
+    if (/^(Add one strength|Add one weakness|Include a quote|Write a suggestion)\b/i.test(t.trim())) {
+      return false;
+    }
+    if (/\d+\s*[\u2013-]\s*\d+\s+word/i.test(t)) return false;
+
+    return true;
+  });
+}
+
+/**
+ * Phrase replacements (sanitizeOneLine) then strip leaked prompt-instruction lines.
+ * @param {string[]} items
+ * @returns {string[]}
+ */
+function applyOutputGuards(items) {
+  if (!Array.isArray(items)) return items;
+  const sanitized = items.map((s) => sanitizeOneLine(s));
+  return filterLeakedInstructions(sanitized);
+}
+
 function sanitizeInsightArrays(result) {
   if (!result || typeof result !== 'object') return result;
   const out = { ...result };
   for (const key of ['strengths', 'weaknesses', 'suggestions']) {
     if (Array.isArray(out[key])) {
-      out[key] = out[key].map((s) => sanitizeOneLine(s));
+      out[key] = applyOutputGuards(out[key]);
     }
   }
   return out;
@@ -69,4 +103,6 @@ function sanitizeInsightArrays(result) {
 module.exports = {
   sanitizeOneLine,
   sanitizeInsightArrays,
+  filterLeakedInstructions,
+  applyOutputGuards,
 };

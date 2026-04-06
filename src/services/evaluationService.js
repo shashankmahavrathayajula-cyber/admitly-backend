@@ -19,12 +19,11 @@ async function evaluateApplication(application, universityNames) {
     console.log('MATCHED PROFILES COUNT:', profiles.length);
     console.log('MATCHED PROFILES:', profiles);
   }
-  const results = [];
-
-  for (const universityProfile of profiles) {
-    const result = await evaluationEngine.evaluate(application, universityProfile);
-    results.push(result);
-  }
+  const results = await Promise.all(
+    profiles.map((universityProfile) =>
+      evaluationEngine.evaluate(application, universityProfile)
+    )
+  );
   if (config.isDevelopment) {
     console.log('EVAL SERVICE OUTPUT:', JSON.stringify(results, null, 2));
   }

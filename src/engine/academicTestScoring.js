@@ -55,7 +55,8 @@ function compactTestsForScoring(tests) {
 }
 
 /**
- * Small capped bump (0–0.5) for rule-based academic score. Never applied when test_blind / not_used.
+ * Small capped bump for rule-based academic score: up to +0.5 for strong scores, or -0.35 for weak
+ * scores at test_required schools. Never applied when test_blind / not_used.
  * @returns {number}
  */
 function academicScoreBumpFromTests(tests, policy) {
@@ -75,7 +76,14 @@ function academicScoreBumpFromTests(tests, policy) {
     else if (a >= 30) tier = Math.max(tier, 1);
   }
 
-  if (tier === 0) return 0;
+  if (tier === 0) {
+    if (policy === 'test_required') {
+      const weakSat = c.sat?.total != null && c.sat.total < 1100;
+      const weakAct = c.act?.composite != null && c.act.composite < 22;
+      if (weakSat || weakAct) return -0.35;
+    }
+    return 0;
+  }
   if (policy === 'test_required') {
     return tier === 2 ? 0.5 : 0.35;
   }

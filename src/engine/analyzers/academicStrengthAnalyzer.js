@@ -63,6 +63,11 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
     if (testBump > 0) {
       score += testBump;
       strengths.push('Strong SAT/ACT corroborates the transcript (secondary to GPA and rigor).');
+    } else if (testBump < 0) {
+      score += testBump;
+      weaknesses.push(
+        'Submitted test scores are below the typical range for this institution and may weaken the academic case.'
+      );
     } else if (tests?.sat || tests?.act) {
       strengths.push('Test scores on file; treated as supporting context alongside GPA and coursework.');
     } else if (testPolicy === 'test_required') {

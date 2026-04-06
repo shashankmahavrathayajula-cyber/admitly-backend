@@ -79,6 +79,45 @@ function contradictsStemActivityEngagement(line, intendedStr, sig) {
   );
 }
 
+/** ap_ib / honors / most_demanding on file — not 'standard' or empty. */
+function highCourseRigorOnFile(app) {
+  const cr = app?.courseRigor ?? app?.academics?.courseRigor;
+  if (typeof cr !== 'string') return false;
+  const v = cr.trim().toLowerCase();
+  return v === 'ap_ib' || v === 'honors' || v === 'most_demanding';
+}
+
+/**
+ * When rigorous coursework is declared, drop lines that falsely claim there is no AP/honors/rigor.
+ * (weaknesses + suggestions only)
+ */
+function contradictsDeclaredCourseRigor(line, app) {
+  if (!highCourseRigorOnFile(app)) return false;
+  return (
+    /less emphasis on academic coursework such as AP/i.test(line) ||
+    /no advanced coursework/i.test(line) ||
+    /lacks rigorous course/i.test(line) ||
+    /no AP or honors/i.test(line) ||
+    /limited course rigor/i.test(line)
+  );
+}
+
+/**
+ * When honors entries exist, drop lines that falsely claim there are no awards/honors.
+ * (weaknesses + suggestions only)
+ */
+function contradictsDeclaredHonors(line, app) {
+  const honors = app?.honors;
+  if (!Array.isArray(honors) || honors.length === 0) return false;
+  return (
+    /absence of specific awards/i.test(line) ||
+    /no awards or recognitions/i.test(line) ||
+    /\blacks awards\b/i.test(line) ||
+    /no honors listed/i.test(line) ||
+    /does not include awards/i.test(line)
+  );
+}
+
 function filterList(lines, app, kind) {
   const intended = normalizedIntendedMajor(app);
   const sig = summarizeStemAndLeadershipSignals(app);
@@ -87,6 +126,10 @@ function filterList(lines, app, kind) {
     if (contradictsDeclaredMajor(line, intended)) return false;
     if (contradictsDeclaredLeadership(line, sig)) return false;
     if (contradictsStemActivityEngagement(line, intended, sig)) return false;
+    if (kind !== 'strengths') {
+      if (contradictsDeclaredCourseRigor(line, app)) return false;
+      if (contradictsDeclaredHonors(line, app)) return false;
+    }
     if (kind === 'suggestions' && intended && /\bspecify\s+(your\s+)?intended\s+major\b/i.test(line)) {
       return false;
     }

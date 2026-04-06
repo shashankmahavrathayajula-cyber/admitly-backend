@@ -1,10 +1,8 @@
 /**
  * Combines analyzer outputs into a single evaluation result.
  * Weighted alignment score (0–10) uses university CDS-style weights when present.
- * Insights are merged with semantic dedupe, contradiction removal, and strict caps.
+ * Insights are flattened in analyzer priority order; dedupe, caps, and guards run in evaluationEngine.
  */
-
-const { postProcessInsights } = require('./insightPostProcess');
 
 const DEFAULT_WEIGHTS = {
   academic: 0.3,
@@ -106,21 +104,6 @@ function aggregate(analyzerResults, universityProfile = null) {
   const rawWeaknesses = flattenField(analyzerResults, 'weaknesses');
   const rawSuggestions = flattenField(analyzerResults, 'suggestions');
 
-  const dimensionScores = {
-    academic: scores.academic ?? 0,
-    activities: scores.activities ?? 0,
-    honors: scores.honors ?? 0,
-    narrative: scores.narrative ?? 0,
-    institutionalFit: scores.institutionalFit ?? 0,
-  };
-
-  const { strengths, weaknesses, suggestions } = postProcessInsights(
-    rawStrengths,
-    rawWeaknesses,
-    rawSuggestions,
-    dimensionScores
-  );
-
   return {
     alignmentScore,
     academicStrength: scores.academic ?? 0,
@@ -128,9 +111,9 @@ function aggregate(analyzerResults, universityProfile = null) {
     honorsAwards: scores.honors ?? 0,
     narrativeStrength: scores.narrative ?? 0,
     institutionalFit: scores.institutionalFit ?? 0,
-    strengths,
-    weaknesses,
-    suggestions,
+    strengths: rawStrengths,
+    weaknesses: rawWeaknesses,
+    suggestions: rawSuggestions,
   };
 }
 
