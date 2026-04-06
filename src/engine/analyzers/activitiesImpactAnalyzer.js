@@ -1,6 +1,9 @@
 const config = require('../../config');
 const openaiClient = require('../../utils/openaiClient');
 const toneGuidance = require('../analysisToneGuidance');
+const { sliceForActivities } = require('../universitySlices');
+const { buildActivitiesExcerpt } = require('../applicationExcerpt');
+const { summarizeStemAndLeadershipSignals } = require('../majorFitHelpers');
 
 const JSON_FORMAT_INSTRUCTIONS = `
 Return your evaluation as valid JSON only, with no other text:
@@ -19,7 +22,15 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
   const activities = applicationProfile?.activities ?? applicationProfile?.extracurriculars ?? [];
   const list = Array.isArray(activities) ? activities : [];
   const hasLeadership = Boolean(
-    applicationProfile?.leadershipRoles ?? applicationProfile?.leadership ?? list.some((a) => (a.role || a.type || '').toLowerCase().includes('lead'))
+    applicationProfile?.leadershipRoles ??
+      applicationProfile?.leadership ??
+      list.some(
+        (a) =>
+          a?.isLeadership ||
+          String(a?.role || a?.type || '')
+            .toLowerCase()
+            .includes('lead')
+      )
   );
 
   let score = 5;
@@ -58,6 +69,18 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
     strengths.push('Leadership experience aligns with institutional values.');
   }
 
+  const sig = summarizeStemAndLeadershipSignals(applicationProfile);
+  if (sig.founderCue) {
+    score += 0.6;
+    strengths.push('Founding or launching a club/effort reads as initiative, not passive membership.');
+  } else if (sig.leadershipFlag && list.length > 0) {
+    score += 0.35;
+  }
+  if (sig.yearsHigh) {
+    score += 0.45;
+    strengths.push('Multi-year involvement suggests sustained commitment.');
+  }
+
   score = Math.max(0, Math.min(10, Math.round(score * 10) / 10));
 
   return { score, strengths, weaknesses, suggestions };
@@ -68,13 +91,13 @@ async function analyze(applicationProfile, universityProfile) {
     const prompt = `You are an experienced university admissions officer.
 Evaluate the student's extracurricular activities and their impact for the given university.
 
-University profile:
-${JSON.stringify(universityProfile, null, 2)}
+University context (priorities + EC emphasis + tone):
+${JSON.stringify(sliceForActivities(universityProfile), null, 2)}
 
-Student application (activities, leadership, involvement):
-${JSON.stringify(applicationProfile, null, 2)}
+Student activities snapshot:
+${JSON.stringify(buildActivitiesExcerpt(applicationProfile), null, 2)}
 
-Consider depth of involvement, leadership, and alignment with the university's values (e.g. community impact, leadership).
+Judge depth, leadership, and alignment with the institutional priorities above—not generic resume praise.
 ${toneGuidance}
 ${JSON_FORMAT_INSTRUCTIONS}`;
 

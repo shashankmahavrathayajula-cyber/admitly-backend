@@ -41,7 +41,42 @@
       "Extracurricular involvement and community engagement are valued but secondary to academic rigor.",
       "Test-blind admissions policy — SAT/ACT scores are not considered.",
       "Direct-to-major programs require especially strong academic preparation."
-    ]
+    ],
+    "school_priorities": [
+      {
+        "theme": "Transcript rigor and GPA",
+        "reader_looks_for": "Challenging coursework in context of what your school offers; upward trend or sustained excellence; weak grades without context raise flags in a competitive Seattle-metro applicant pool."
+      },
+      {
+        "theme": "Coalition essay: reflection and voice",
+        "reader_looks_for": "Intellectual curiosity and motivation in your own words—not a second resume. Readers want a line of thought they can remember, not a list of wins."
+      },
+      {
+        "theme": "Activity depth versus résumé padding",
+        "reader_looks_for": "A few sustained roles with scope (time, people, outcome) beat many one-off clubs; show impact, not membership."
+      },
+      {
+        "theme": "Direct-to-major and capacity readiness",
+        "reader_looks_for": "For capped or selective majors, evidence you understand prerequisites and fit; vague interest signals you have not done basic program homework."
+      },
+      {
+        "theme": "Public research and Northwest practicality",
+        "reader_looks_for": "Initiative, collaboration, and problem-solving that fits a large public R1—concrete beats inspirational fluff tied to no action."
+      }
+    ],
+    "institutional_tone": "Seattle flagship: readers are direct, evidence-hungry, and tired of prestige cosplay. Reward numbers, timeframe, and responsibility—not adjectives. Test-blind: never treat SAT/ACT as a hook. Skeptical of service essays unless the student names a problem, tradeoff, and outcome. Northwest default: show you understand UW programs and Seattle campus scale, not just the brand name.",
+    "anti_patterns": [
+      "Achievement lists with no reflection, obstacle, or change over time.",
+      "Generic service or ‘passion’ language with no problem, action, and measurable outcome.",
+      "Résumé-padding extracurriculars with no sustained role or impact.",
+      "Rankings and prestige name-drops instead of course or program specifics.",
+      "Essays where ‘University of Washington’ could be swapped for any other flagship with no loss of meaning.",
+      "Applause-light writing: all success, no doubt, no decision, no cost."
+    ],
+    "standardized_testing": {
+      "policy": "test_blind",
+      "reviewer_note": "VERIFY: UW first-year admissions policy; confirm on admissions.uw.edu (policy can change)."
+    }
   },
   {
     "name": "Washington State University",
@@ -85,6 +120,37 @@
       "Extracurricular activities and personal qualities are considered but not primary factors.",
       "Standardized test scores are optional or not required.",
       "Broad access mission compared with more selective flagship universities."
+    ],
+    "school_priorities": [
+      {
+        "theme": "College-prep coursework and GPA",
+        "reader_looks_for": "Solid academic preparation for WSU coursework—rigor appropriate to your school, completion of core college-prep classes, and a GPA trajectory that suggests you can succeed here."
+      },
+      {
+        "theme": "Land-grant fit and program realism",
+        "reader_looks_for": "Clear interest in paths WSU actually offers (agriculture, veterinary health, engineering, business, hospitality, etc.)—not a generic ‘top university’ fantasy disconnected from Pullman and extension campuses."
+      },
+      {
+        "theme": "Persistence and campus readiness",
+        "reader_looks_for": "Signals you can handle a large residential public university—work habits, resilience, or responsibilities that show maturity without requiring Ivy polish."
+      },
+      {
+        "theme": "Access context when relevant",
+        "reader_looks_for": "First-generation, rural, employment, or family context that explains your path—used to understand preparation, not as a substitute for readiness."
+      },
+      {
+        "theme": "Essays as clarity, not theater",
+        "reader_looks_for": "Writing that explains obstacles, goals, and fit with WSU plainly; readers weight essays less than at hyper-selective peers—clarity and honesty beat ornate emptiness."
+      }
+    ],
+    "institutional_tone": "Land-grant and welcoming: readers want you to succeed if you are prepared. Practical, not cynical—less ‘prove you belong in an elite club,’ more ‘show you can do the work and belong in this community.’ Essays are useful for context and fit but are not the main gate; academic fundamentals come first. Pride in Cougar identity, statewide access, and hands-on fields—reward straightforward voice over performative prestige.",
+    "anti_patterns": [
+      "Ivy-mimic essays that ignore why WSU specifically versus any regional public.",
+      "Prestige signaling without tying to a real WSU program, campus, or outcome.",
+      "Long narrative polish that masks thin academic preparation.",
+      "Treating optional materials as optional in spirit but then submitting nothing—missed chance to explain gaps.",
+      "Generic ‘change the world’ claims with no local problem or personal responsibility.",
+      "Copy-paste essays that still say ‘Seattle’ or ‘UW’ from another application."
     ]
   },
   {
@@ -171,6 +237,646 @@
       "Holistic admissions review including essays, recommendations, and extracurricular involvement.",
       "Community engagement and social impact are important cultural values.",
       "Essay prompts often encourage reflection on equity, belonging, and personal growth."
+    ]
+  },
+  {
+    "name": "Massachusetts Institute of Technology",
+    "location": "Cambridge, Massachusetts, USA",
+    "selectivity_level": "Highly Selective (STEM-Intensive Private Research University)",
+    "acceptance_rate_estimate": "≈4–5% (VERIFY latest cycle — MIT)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Computer Science",
+      "Electrical Engineering",
+      "Mechanical Engineering",
+      "Mathematics",
+      "Physics",
+      "Economics",
+      "Biology"
+    ],
+    "traits": {
+      "intellectual_vitality": 10,
+      "academic_rigor": 10,
+      "leadership": 7,
+      "initiative": 9,
+      "collaboration": 8,
+      "community_impact": 6,
+      "reflection_depth": 7,
+      "thematic_direction": 7,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.30,
+      "course_rigor": 0.25,
+      "extracurriculars": 0.15,
+      "leadership": 0.10,
+      "essay": 0.20
+    },
+    "summary": "MIT is a highly selective private research university with a worldwide reputation in science and engineering. Admissions uses holistic review with heavy weight on academic preparation, technical depth, and fit with a rigorous, collaborative problem-solving culture—not startup polish alone. Confirm rates and deadlines on mitadmissions.org for the applicant’s cycle.",
+    "culture_notes": [
+      "STEM and quantitative depth matter; course rigor and evidence of sustained technical initiative are central.",
+      "Hands-on maker culture: projects, research, or builds that show how things work often read better than generic leadership lists or hype.",
+      "Essays should show judgment, curiosity, and how you use ideas—not prestige name-drops.",
+      "Highly competitive pool; small differences in preparation and fit narratives matter."
+    ],
+    "standardized_testing": {
+      "policy": "test_required",
+      "reviewer_note": "VERIFY mitadmissions.org/tests for the entry year—SAT or ACT required for domestic first-year applicants; confirm international, ESL, or hardship exceptions if advising edge cases."
+    },
+    "school_priorities": [
+      {
+        "theme": "STEM depth and technical rigor",
+        "reader_looks_for": "Evidence you can thrive in intense quantitative and technical work—coursework, projects, competitions, or research—not just course titles or awards."
+      },
+      {
+        "theme": "Initiative and hands-on problem solving",
+        "reader_looks_for": "Things you built, fixed, modeled, or debugged; scope, time invested, and what you learned when it failed—substance over pitch."
+      },
+      {
+        "theme": "Collaboration under pressure",
+        "reader_looks_for": "Team science, robotics, math circles, or labs where you contributed concretely—not vague ‘team player’ language."
+      },
+      {
+        "theme": "Essay specificity and voice",
+        "reader_looks_for": "Clear, non-generic reasons MIT fits you; avoid interchangeable prestige essays."
+      },
+      {
+        "theme": "Integrity of preparation",
+        "reader_looks_for": "Honest accounting of access and constraints; inflated claims without evidence hurt credibility."
+      }
+    ],
+    "institutional_tone": "Direct, technical, and evidence-first: reward rigorous work and things made or proved—less startup-theater than some peer privates, more depth and ‘does it work.’ Prestige signaling without mechanism reads hollow.",
+    "anti_patterns": [
+      "Prestige stacking without technical or intellectual substance.",
+      "Essays that could apply to any elite STEM school with no MIT-specific fit.",
+      "Résumé breadth with no deep thread or outcome.",
+      "Treating test scores or awards as a substitute for demonstrated curiosity.",
+      "Humble-brag lists with no failure, tradeoff, or decision.",
+      "Pitchy ‘innovation’ language with no homework, prototype, or honest limits."
+    ]
+  },
+  {
+    "name": "University of California, Berkeley",
+    "location": "Berkeley, California, USA",
+    "selectivity_level": "Highly Selective (Top Public Research University)",
+    "acceptance_rate_estimate": "≈10–13% (VERIFY latest cycle — Berkeley)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Computer Science",
+      "Engineering",
+      "Economics",
+      "Molecular Biology",
+      "Political Science",
+      "Data Science",
+      "Business (Haas)"
+    ],
+    "traits": {
+      "intellectual_vitality": 9,
+      "academic_rigor": 10,
+      "leadership": 7,
+      "initiative": 8,
+      "collaboration": 8,
+      "community_impact": 8,
+      "reflection_depth": 8,
+      "thematic_direction": 7,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.33,
+      "course_rigor": 0.22,
+      "extracurriculars": 0.15,
+      "leadership": 0.10,
+      "essay": 0.20
+    },
+    "summary": "UC Berkeley is a top public research university with holistic review within the UC application system. Academic achievement and course rigor in UC-approved a–g coursework are central; personal insight questions carry substantial weight. Confirm UC system rules, deadlines, and any scholarship-related testing nuances for the application year on admissions.berkeley.edu and UCOP.",
+    "culture_notes": [
+      "VERIFY: UC system policies (eligibility, PIQs, testing for admission vs scholarships) for the applicant’s cycle—confirm UCOP and admissions.berkeley.edu.",
+      "Intellectually intense public flagship: readers reward independence, analytical habits, and ideas pursued with rigor at scale—not just polished activity lists.",
+      "UC holistic review emphasizes GPA in context, rigor of high school coursework, and the PIQs.",
+      "Competitive applicant pool; clear, specific essays beat generic ‘passion’ language.",
+      "Strong STEM and social-science ecosystems; tie interests to concrete pathways when possible."
+    ],
+    "standardized_testing": {
+      "policy": "test_blind",
+      "reviewer_note": "VERIFY UCOP for the entry year—undergraduate admission decisions do not use SAT/ACT in recent UC policy; confirm scholarship or out-of-state reporting rules if relevant to the applicant."
+    },
+    "school_priorities": [
+      {
+        "theme": "UC academic record and a–g rigor",
+        "reader_looks_for": "Strong performance in college-prep coursework with appropriate rigor for what your school offers; context for trends and course access."
+      },
+      {
+        "theme": "Personal insight clarity",
+        "reader_looks_for": "Specific stories, choices, and growth; avoid interchangeable essays that could be any UC campus."
+      },
+      {
+        "theme": "Impact and initiative",
+        "reader_looks_for": "Leadership or depth with scope—time, people affected, outcomes—not padded club lists."
+      },
+      {
+        "theme": "Public research fit",
+        "reader_looks_for": "Why Berkeley’s academic intensity, research culture, and public mission—not rankings alone—match how you think and what you want to study."
+      },
+      {
+        "theme": "Access and context",
+        "reader_looks_for": "Family, work, or community responsibilities that frame achievement; honesty strengthens trust."
+      }
+    ],
+    "institutional_tone": "Evidence-forward and intellectually serious: readers reward specificity, independence of thought, and public-service realism—Berkeley reads more theoretically and rigor-forward than LA peers at similar selectivity. Avoid prestige cosplay; show how you reason and what you would throw yourself into.",
+    "anti_patterns": [
+      "PIQ responses that restate the activities list without reflection.",
+      "Generic ‘change the world’ claims with no local problem or mechanism.",
+      "Name-dropping Berkeley prestige without program specifics.",
+      "Treating standardized tests as decisive for UC admission—follow current UCOP rules; tests are not used in the core admit decision under recent policy.",
+      "Essays interchangeable with another UC campus with only find-replace edits."
+    ]
+  },
+  {
+    "name": "The University of Texas at Austin",
+    "location": "Austin, Texas, USA",
+    "selectivity_level": "Selective (Large Flagship Public University)",
+    "acceptance_rate_estimate": "≈26–32% (VERIFY latest cycle — UT Austin)",
+    "essay_importance": "Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Engineering",
+      "Computer Science",
+      "Business",
+      "Biology",
+      "Communications",
+      "Petroleum Engineering",
+      "Government"
+    ],
+    "traits": {
+      "intellectual_vitality": 8,
+      "academic_rigor": 9,
+      "leadership": 7,
+      "initiative": 8,
+      "collaboration": 7,
+      "community_impact": 7,
+      "reflection_depth": 6,
+      "thematic_direction": 6,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.34,
+      "course_rigor": 0.22,
+      "extracurriculars": 0.16,
+      "leadership": 0.08,
+      "essay": 0.20
+    },
+    "summary": "UT Austin is a large flagship public university with selective admissions for many programs. Academic performance and rigor are primary; Texas automatic admission rules apply for qualifying in-state students—others are reviewed holistically, with major capacity and state context often decisive. Confirm auto-admit thresholds, testing rules, and deadlines on admissions.utexas.edu for the entry year.",
+    "culture_notes": [
+      "VERIFY: Texas auto-admit rules, top-percent thresholds, and freshman testing expectations vary by entry year—confirm admissions.utexas.edu.",
+      "Large public flagship with strong engineering, business, and CS; many majors are capacity-constrained and competitively reviewed.",
+      "Holistic review for non-auto-admit paths; essays and activities help differentiate within a strong academic band.",
+      "Texas residency and class rank context can dominate the academic story for in-state applicants.",
+      "Readers value clarity about major choice, alternate paths, and realistic execution under enrollment limits—not generic flagship enthusiasm."
+    ],
+    "standardized_testing": {
+      "policy": "test_required",
+      "reviewer_note": "VERIFY admissions.utexas.edu for the entry year—UT has reinstated SAT/ACT for recent freshman cycles; confirm deadlines, how scores interact with auto-admit vs holistic review, and any stated exceptions."
+    },
+    "school_priorities": [
+      {
+        "theme": "Academic performance in context",
+        "reader_looks_for": "GPA, class rank (when applicable), and rigor appropriate to your high school; explain anomalies plainly."
+      },
+      {
+        "theme": "Major and capacity realism",
+        "reader_looks_for": "Especially for capacity-limited majors, evidence you understand competitiveness, prerequisites, and a credible Plan B if direct entry is unlikely."
+      },
+      {
+        "theme": "Leadership and depth at scale",
+        "reader_looks_for": "A few meaningful commitments with outcomes—better than many thin activities."
+      },
+      {
+        "theme": "Texas context when relevant",
+        "reader_looks_for": "Auto-admit framing vs holistic review—be accurate about your admissions pathway without over-claiming."
+      },
+      {
+        "theme": "Essays with specifics",
+        "reader_looks_for": "Why UT and why Austin—not generic flagship praise."
+      }
+    ],
+    "institutional_tone": "Structured and pragmatic Texas flagship: readers want clear academic readiness, honest major competitiveness under capacity limits, and straightforward essays—state pathways and enrollment constraints matter more than abstract ‘opportunity’ language. Energy helps when tied to execution and alternate routes.",
+    "anti_patterns": [
+      "Treating UT as a generic ‘prestige safety’ without major-aware planning.",
+      "Essays that could be any large state school with a city name swap.",
+      "Ignoring class rank / Texas context when it is central to the file.",
+      "Assuming tests are optional or ignoring official submission timing when policy expects scores for the cycle.",
+      "Vague engineering or CS interest with no coursework or project evidence."
+    ]
+  },
+  {
+    "name": "Stanford University",
+    "location": "Stanford, California, USA",
+    "selectivity_level": "Highly Selective (Private Research University)",
+    "acceptance_rate_estimate": "≈3–5% (VERIFY latest cycle)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Computer Science",
+      "Symbolic Systems",
+      "Engineering",
+      "Economics",
+      "Biology",
+      "International Relations",
+      "Product Design"
+    ],
+    "traits": {
+      "intellectual_vitality": 10,
+      "academic_rigor": 10,
+      "leadership": 8,
+      "initiative": 9,
+      "collaboration": 8,
+      "community_impact": 7,
+      "reflection_depth": 8,
+      "thematic_direction": 7,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.28,
+      "course_rigor": 0.24,
+      "extracurriculars": 0.16,
+      "leadership": 0.12,
+      "essay": 0.20
+    },
+    "summary": "Stanford is a highly selective private research university with holistic, context-aware review. Academic excellence, intellectual vitality, and sustained impact beyond transcripts matter; readers reward specificity, initiative, and fit with Stanford’s culture. Draft informed by Stanford Common Data Set (CDS) factor emphasis and admission.stanford.edu; VERIFY latest CDS and official site for cycle-specific rates, deadlines, and policies.",
+    "culture_notes": [
+      "VERIFY: Acceptance rates, testing rules, and deadlines vary by cycle—confirm admission.stanford.edu and the latest published Stanford CDS.",
+      "Holistic review: CDS-style factors include secondary-school rigor, GPA, essays, recommendations, extracurriculars, talent/ability, and character—read together in context; depth in a few activities beats thin résumé padding."
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY every admission cycle on admission.stanford.edu: Stanford’s standardized testing policy has changed over time (not permanent). Confirm whether tests are optional, required, or not used for the entry year, then update policy enum if needed—do not assume this field stays current without review."
+    },
+    "school_priorities": [
+      {
+        "theme": "Intellectual vitality and curiosity",
+        "reader_looks_for": "Evidence you pursue ideas for their own sake—coursework, research, projects, reading—not only awards. Specificity beats generic ‘passion.’"
+      },
+      {
+        "theme": "Impact and initiative",
+        "reader_looks_for": "Leadership or depth with scope: people affected, time invested, outcomes, failure, and what changed. Titles without mechanism read thin."
+      },
+      {
+        "theme": "Academic preparation in context",
+        "reader_looks_for": "Rigor available at your school, grades in context, constraints (access, health, work) stated plainly—honesty builds trust."
+      },
+      {
+        "theme": "Essay voice and intellectual fit",
+        "reader_looks_for": "Why this applicant and why Stanford—not interchangeable prestige prose. Personal, reflective, specific."
+      },
+      {
+        "theme": "Community and collaboration",
+        "reader_looks_for": "How you work with others and contribute beyond yourself—without generic service clichés."
+      }
+    ],
+    "institutional_tone": "Optimistic, rigorous, humane: reward curiosity and real problems solved. Skeptical of prestige cosplay and résumé stuffing; value clarity, self-awareness, and evidence. Favors builders who name tradeoffs.",
+    "anti_patterns": [
+      "Prestige stacking (awards, names) without intellectual substance or narrative.",
+      "Essays that work if ‘Stanford’ is replaced by any top-10 name.",
+      "Service stories with no named problem, action, or measurable outcome.",
+      "Achievement lists with no reflection, doubt, or growth over time.",
+      "Treating GPA or test scores as the entire case—context and vitality still matter."
+    ]
+  },
+  {
+    "name": "University of California, Los Angeles",
+    "location": "Los Angeles, California, USA",
+    "selectivity_level": "Highly Selective (Public Research University — UC System)",
+    "acceptance_rate_estimate": "≈9–10% (VERIFY latest cycle — UCLA-specific)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Film and Television",
+      "Engineering",
+      "Biology / Life Sciences",
+      "Psychology",
+      "Economics",
+      "Political Science",
+      "Computer Science"
+    ],
+    "traits": {
+      "intellectual_vitality": 7,
+      "academic_rigor": 10,
+      "leadership": 7,
+      "initiative": 8,
+      "collaboration": 8,
+      "community_impact": 8,
+      "reflection_depth": 7,
+      "thematic_direction": 8,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.32,
+      "course_rigor": 0.24,
+      "extracurriculars": 0.16,
+      "leadership": 0.08,
+      "essay": 0.20
+    },
+    "summary": "UCLA admits through the UC application using Personal Insight Questions (PIQs), not Common App essays. Review is holistic within a fixed system: college-prep coursework and GPA in context, activity lists, and PIQ responses carry most of the signal; SAT/ACT are not used in admission decisions under current UC test-blind policy. Draft informed by UC-reported factor emphasis and CDS-style documentation; VERIFY admission.ucla.edu and UCOP for cycle-specific rules and rates.",
+    "culture_notes": [
+      "VERIFY: UC system policies (testing, eligibility, PIQ count and word limits) change—confirm UCOP and UCLA admissions for the applicant’s cycle.",
+      "Personal Insight Questions (PIQs) are the UC short written responses—not Common App essays. Published count and limits are set per cycle on UCOP and UCLA admissions; clarity and direct evidence beat literary performance.",
+      "Holistic review weights academic record, course rigor relative to school offerings, extracurricular depth, and personal context.",
+      "Large public research environment: initiative and impact read best with timeframe, role, and concrete outcomes.",
+      "Test scores are not considered for UC admission decisions under current system policy—do not treat SAT/ACT as levers."
+    ],
+    "standardized_testing": {
+      "policy": "test_blind",
+      "reviewer_note": "VERIFY UC system policy for current cycle via UCOP (University of California Office of the President) and UCLA Undergraduate Admission. Policy has changed historically; do not assume permanence—confirm test-blind status for the entry year."
+    },
+    "school_priorities": [
+      {
+        "theme": "Academic record and a–g rigor in context",
+        "reader_looks_for": "Grades in UC-required college-prep coursework, rigor your school actually offers, and trends explained plainly—weak patterns without context raise questions in a competitive pool."
+      },
+      {
+        "theme": "PIQ substance and prompt fit",
+        "reader_looks_for": "Each response maps to the specific prompt—answer that question, not a generic life arc. Do not reuse one narrative across prompts or paste Common App essays; give structured, question-driven answers with concrete detail for each PIQ."
+      },
+      {
+        "theme": "Sustained extracurricular involvement",
+        "reader_looks_for": "Depth over spikes: years in role, hours where relevant, responsibility, and outcomes—not undifferentiated club lists."
+      },
+      {
+        "theme": "Initiative within real constraints",
+        "reader_looks_for": "Leadership or projects that show judgment and follow-through given what was available at school, home, or work—name constraints when they matter."
+      },
+      {
+        "theme": "Context and contribution",
+        "reader_looks_for": "Background, responsibilities, or community ties that explain achievement and how you’ll contribute to the campus environment—without cliché."
+      }
+    ],
+    "institutional_tone": "Structured and pragmatic: reward clear evidence in PIQs and activities, school-contextual GPA interpretation, and initiative that shows up in facts. System-aware—readers know the UC rubric and a–g framework; skeptical of polish without substance, copy-paste non-UC essays, or test-score talk (not applicable for admission).",
+    "anti_patterns": [
+      "PIQ responses that ignore the prompt or recycle a generic personal statement.",
+      "Overly flowery or literary writing that hides missing specifics, numbers, or roles.",
+      "Activity lists with titles but no duration, responsibility, or impact.",
+      "Common App or private-school essays pasted with minimal UC-specific revision.",
+      "Treating SAT/ACT as if they decide admission—irrelevant under UC test-blind policy for admission.",
+      "Prestige name-drops or awards without explaining what you did and what changed.",
+      "Vague ‘passion’ language with no course, project, or community anchor."
+    ]
+  },
+  {
+    "name": "Harvard University",
+    "location": "Cambridge, Massachusetts, USA",
+    "selectivity_level": "Highly Selective (Private Ivy League Research University)",
+    "acceptance_rate_estimate": "≈3–4% (VERIFY latest cycle — Harvard College)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Government",
+      "Economics",
+      "Computer Science",
+      "Biology",
+      "History",
+      "Psychology",
+      "Applied Mathematics"
+    ],
+    "traits": {
+      "intellectual_vitality": 9,
+      "academic_rigor": 10,
+      "leadership": 8,
+      "initiative": 8,
+      "collaboration": 7,
+      "community_impact": 8,
+      "reflection_depth": 9,
+      "thematic_direction": 8,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.30,
+      "course_rigor": 0.24,
+      "extracurriculars": 0.14,
+      "leadership": 0.12,
+      "essay": 0.20
+    },
+    "summary": "Harvard College admits through holistic review with a very high academic bar: strong secondary-school achievement, demanding coursework, teacher and counselor recommendations, sustained extracurricular distinction, and essays that show mature judgment and perspective—less novelty-for-its-own-sake than breadth with scholarly grounding. Draft informed by Harvard Common Data Set–style factor emphasis and college.harvard.edu; VERIFY acceptance rate and deadlines for each cycle.",
+    "culture_notes": [
+      "VERIFY: Acceptance rates and application deadlines vary by cycle—confirm college.harvard.edu and the published Common Data Set for the applicant’s entry year.",
+      "Liberal arts college within a research university: readers reward depth in fields of interest and seriousness of purpose, not résumé sprawl or undifferentiated achievement lists.",
+      "Holistic review weighs academic record, recommendations, activities, personal qualities, and writing together—no single line carries the file.",
+      "Leadership and impact read best with scope beyond title: institutions or communities affected, duration, and evidence of judgment.",
+      "SAT and ACT are required for typical applicants; Harvard’s FAQ describes limited alternative credentials when tests are truly inaccessible—use official guidance for hardship or international edge cases."
+    ],
+    "standardized_testing": {
+      "policy": "test_required",
+      "reviewer_note": "Harvard currently requires SAT or ACT scores for most applicants; confirm college.harvard.edu (standardized testing FAQ) for the entry year if you are advising on fee waivers, alternative exams in documented hardship, or rare policy updates—update the policy enum only if Harvard changes the requirement."
+    },
+    "school_priorities": [
+      {
+        "theme": "Academic excellence and preparation",
+        "reader_looks_for": "Near-elite grades in the most demanding coursework your school offers; consistency and upward trends matter, with context for any dips."
+      },
+      {
+        "theme": "Disciplinary depth and scholarly seriousness",
+        "reader_looks_for": "Sustained academic seriousness in one or more fields: advanced coursework, reading, research, or inquiry that shows depth and disciplined intellectual work—not a wide scatter of activities without real mastery anywhere."
+      },
+      {
+        "theme": "Leadership and impact in context",
+        "reader_looks_for": "Responsibility with measurable scope: whom you served, what you built or changed, and why it mattered beyond a title or club name."
+      },
+      {
+        "theme": "Character and maturity",
+        "reader_looks_for": "Judgment, integrity, and how you treat peers and obligations—signals from recommenders and narrative, not self-praise alone."
+      },
+      {
+        "theme": "Essays: reflection and perspective",
+        "reader_looks_for": "Substantive personal writing with perspective and self-awareness—less performative quirk, more honest reckoning with choices, limits, and growth."
+      }
+    ],
+    "institutional_tone": "Composed and institutionally serious: reward disciplined excellence, evidence of sustained scholarly work, and mature judgment. Evaluative rather than promotional—skeptical of prestige signaling, inflated résumés, and essays that perform without substance. Traditionally academic: depth, rigor, and civic or intellectual contribution read stronger than builder narratives or curiosity-as-brand.",
+    "anti_patterns": [
+      "Achievement inflation: awards and numbers without narrative of effort, obstacle, or learning.",
+      "Performative leadership: titles and photos without responsibility, scope, or outcome.",
+      "Over-crafted essays that hide the applicant behind style—no real dilemma, change, or perspective.",
+      "Prestige name-drops (programs, professors, brands) with no demonstrated engagement.",
+      "Strategic ‘packaging’ that reads as gaming elite admissions rather than genuine development.",
+      "Generic service or impact claims with no named beneficiary, action, or tradeoff.",
+      "Startup or maker hype without scholarly grounding—velocity and pitch tone where readers want evidence of study, judgment, and follow-through.",
+      "Treating Harvard as a prize rather than a place—essays interchangeable with any Ivy if the proper nouns were swapped."
+    ]
+  },
+  {
+    "name": "University of Michigan – Ann Arbor",
+    "location": "Ann Arbor, Michigan, USA",
+    "selectivity_level": "Highly Selective (Public Flagship Research University)",
+    "acceptance_rate_estimate": "≈15–18% (VERIFY latest cycle — U-M Ann Arbor)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Engineering",
+      "Business",
+      "Computer Science",
+      "Psychology",
+      "Political Science",
+      "Biology",
+      "Data Science"
+    ],
+    "traits": {
+      "intellectual_vitality": 8,
+      "academic_rigor": 9,
+      "leadership": 8,
+      "initiative": 8,
+      "collaboration": 8,
+      "community_impact": 8,
+      "reflection_depth": 7,
+      "thematic_direction": 7,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.30,
+      "course_rigor": 0.22,
+      "extracurriculars": 0.18,
+      "leadership": 0.10,
+      "essay": 0.20
+    },
+    "summary": "University of Michigan—Ann Arbor admits through holistic review centered on strong academic preparation and rigor alongside a developed activity profile: high school achievement, demanding coursework, recommendations, and essays that show clear direction and fit with Michigan’s colleges, research breadth, and public mission—not generic appetite for a large campus alone. Draft informed by CDS-style factor emphasis and admissions.umich.edu; VERIFY acceptance rate, deadlines, and school-specific rules for the entry year.",
+    "culture_notes": [
+      "VERIFY: Acceptance rates, deadlines, and pathway-specific rules vary—confirm admissions.umich.edu and the published Common Data Set for the applicant’s cycle.",
+      "Holistic file review: readers weigh academics, activities, recommendations, and personal writing together—unlike UC-style review, where PIQ prompts and a–g coursework framing carry much of the structured written signal.",
+      "Large, diverse flagship: balance depth in a few commitments with evidence you can contribute to research, student organizations, or civic life at scale—not only individual achievement.",
+      "Specificity about schools, majors, research, or communities at Ann Arbor strengthens the case more than generic praise for size, reputation, or atmosphere.",
+      "VERIFY: Competitive programs or direct-admission paths may add requirements—confirm school/college pages when advising major choice.",
+      "Holistic review rewards leadership and initiative with real scope; thin résumés spread across many unrelated activities read weaker than focused engagement with outcomes."
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY University of Michigan standardized testing policy for the current cycle on admissions.umich.edu—U-M has moved toward test-optional for recent cycles; confirm whether SAT/ACT submission is optional, how scores are used when submitted, and any school-specific guidance."
+    },
+    "school_priorities": [
+      {
+        "theme": "Academic preparation and rigor in context",
+        "reader_looks_for": "Strong grades in demanding coursework your school offers—not a demand for perfect records without context. Explain dips or constraints plainly; upward trends and consistent effort help."
+      },
+      {
+        "theme": "Extracurricular depth with room for breadth",
+        "reader_looks_for": "A few sustained roles with responsibility, time, and outcomes—plus enough variety to show you are more than one note. Avoid a long list of shallow memberships."
+      },
+      {
+        "theme": "Leadership and initiative",
+        "reader_looks_for": "Projects, teams, work, or community roles where you drove decisions, handled tradeoffs, and affected people or systems—titles matter less than mechanism and follow-through."
+      },
+      {
+        "theme": "Fit with a large public campus",
+        "reader_looks_for": "Why Michigan’s scale and structure fit your goals: named colleges or programs, research or applied interests, and how you would use breadth of opportunity—not enthusiasm for ‘a big school’ or rankings alone."
+      },
+      {
+        "theme": "Contribution to campus and community",
+        "reader_looks_for": "How you will add to a large public research environment—labs, teams, student orgs, service, or peer communities—with a plausible role; avoid generic ‘give back’ language detached from what you would actually do."
+      },
+      {
+        "theme": "Essays: direction and authentic voice",
+        "reader_looks_for": "Clear interests, goals, and self-awareness in your own words; readers respond to straightforward insight and specificity over ornate prestige prose or interchangeable flagship essays."
+      }
+    ],
+    "institutional_tone": "Confident flagship-public: reward serious academics and sustained extracurricular substance—less system-rigid than UC holistic packaging, less formal or scholar-only than typical Ivy reads. Broad opportunity matters, but ground it in coursework, programs, and research culture; skeptical of undifferentiated club lists, atmosphere-only essays, or prestige without a concrete plan for Michigan’s colleges and communities.",
+    "anti_patterns": [
+      "Shallow involvement across many activities with no depth, outcome, or narrative of growth.",
+      "No clear academic or extracurricular direction—readers cannot see what you would actually do on campus.",
+      "Essays that lean on atmosphere, size, or fandom without tying goals to specific colleges, programs, or research paths at U-M.",
+      "No plausible idea of contribution to a public research environment—only what Michigan can do for you, not how you engage peers, labs, or programs.",
+      "Prestige stacking (rankings, name-drops) without coursework, projects, or fit with specific paths at U-M.",
+      "Treating optional tests as irrelevant without reading current policy—when submitted, scores sit in context with the rest of the file.",
+      "Copy-paste essays that still reference another state’s public system or UC application structure."
+    ]
+  },
+  {
+    "name": "University of Southern California",
+    "location": "Los Angeles, California, USA",
+    "selectivity_level": "Highly Selective (Private Research University)",
+    "acceptance_rate_estimate": "≈9–11% (VERIFY latest cycle — USC)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Cinematic Arts",
+      "Business",
+      "Engineering",
+      "Communication",
+      "Computer Science",
+      "International Relations",
+      "Architecture"
+    ],
+    "traits": {
+      "intellectual_vitality": 8,
+      "academic_rigor": 9,
+      "leadership": 8,
+      "initiative": 9,
+      "collaboration": 8,
+      "community_impact": 7,
+      "reflection_depth": 7,
+      "thematic_direction": 8,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.28,
+      "course_rigor": 0.23,
+      "extracurriculars": 0.16,
+      "leadership": 0.13,
+      "essay": 0.20
+    },
+    "summary": "USC admits through holistic review at a highly selective private research university: strong secondary-school achievement and rigor, recommendations, sustained activities with initiative, and essays that communicate direction and fit with specific schools and programs—not generic private-college ambition. Draft informed by CDS-style factor emphasis and admission.usc.edu; VERIFY acceptance rate, deadlines, and school-specific requirements for the entry year.",
+    "culture_notes": [
+      "VERIFY: Acceptance rates, deadlines, program-specific rules, and (where relevant) standardized testing or merit-scholarship policy for the entry year—confirm admission.usc.edu and the published Common Data Set.",
+      "Private holistic review—not the UC system: no PIQs or a–g as the governing frame; narrative, activities, and school fit carry the story.",
+      "Interdisciplinary, preprofessional, and industry-connected culture is real—reward concrete ties to USC schools, cohorts, or pathways, not LA lifestyle wallpaper.",
+      "Collaboration and communication matter: readers look for how you work with others and articulate goals with clarity.",
+      "Testing and scholarship rules are published per cycle on official undergraduate admission pages—treat them as current for that year, not assumed permanent.",
+      "Dense pathways and school-level communities reward initiative with follow-through more than undifferentiated résumé breadth."
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY USC undergraduate standardized testing policy for the current cycle on admission.usc.edu—test-optional policies evolve; confirm whether SAT/ACT submission is optional, how scores are used when submitted, and any school- or scholarship-specific expectations."
+    },
+    "school_priorities": [
+      {
+        "theme": "Academic preparation and rigor",
+        "reader_looks_for": "Strong grades in demanding coursework; rigor your school offers, with context for trends or constraints—perfection without narrative is less persuasive than consistent seriousness."
+      },
+      {
+        "theme": "Direction and fit with USC schools and programs",
+        "reader_looks_for": "Intentional pathway choices—schools, majors, minors, cohorts, or combined programs—with a clear through-line of what you will pursue and why that structure fits your goals, not a prestige list of names."
+      },
+      {
+        "theme": "Sustained engagement and initiative",
+        "reader_looks_for": "Depth over decoration: roles with time, responsibility, and outcomes—projects, work, arts, research, or community leadership with a through-line."
+      },
+      {
+        "theme": "Communication and personal narrative",
+        "reader_looks_for": "Essays and short answers that sound like a real person with goals—clear voice, specific choices, and reflection; polished is fine, hollow is not."
+      },
+      {
+        "theme": "Contribution to a collaborative, high-opportunity campus",
+        "reader_looks_for": "How you add to school-level communities—teams, studios, labs, or peer networks—where collaboration is part of the program culture, not generic service clichés."
+      },
+      {
+        "theme": "Applied and interdisciplinary mindset",
+        "reader_looks_for": "Links between interests—arts and business, engineering and health communication, policy and media—when authentic; avoids reading as a single buzzword cluster with no coursework or project evidence."
+      }
+    ],
+    "institutional_tone": "Selective private university: reward intentional pathway fit, preprofessional clarity, and articulate initiative—school- and program-driven, not generic ‘big opportunity’ scale. More narrative-forward than UC system review, less abstract or builder-myth than many Bay Area privates, less seminar-formal than Ivy reads. Polished voice helps when backed by substance; skeptical of LA glamor, industry name-drops, or prestige without a USC-shaped plan.",
+    "anti_patterns": [
+      "Los Angeles or ‘industry town’ essays with no academic anchor or named USC program path.",
+      "Entertainment, media, or startup name-drops without demonstrated coursework, projects, or sustained involvement.",
+      "Prestige signaling (rankings, brands) without direction—why USC’s schools and networks, not only status.",
+      "Interchangeable private-university essays that work if ‘USC’ is swapped for another selective coastal school.",
+      "Vague ambition (‘change the world,’ ‘make an impact’) with no concrete next step, major, or resource you would use.",
+      "Treating optional tests as meaningless—when submitted, scores are read in holistic context; follow current official policy.",
+      "UC application habits carried over—PIQ-style blocks or a–g framing where USC expects cohesive narrative and school fit."
     ]
   }
 ]

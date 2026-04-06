@@ -143,8 +143,8 @@ function normalizeInsightSynthesis(parsed) {
       : '';
   if (!coreInsight || !mostImportantNextStep) return null;
   return {
-    coreInsight: coreInsight.slice(0, 520),
-    mostImportantNextStep: mostImportantNextStep.slice(0, 360),
+    coreInsight: coreInsight.slice(0, 720),
+    mostImportantNextStep: mostImportantNextStep.slice(0, 400),
   };
 }
 

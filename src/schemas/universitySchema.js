@@ -98,6 +98,65 @@ function validateUniversityEntry(entry, index = 0) {
     return { valid: false, error: `Entry at index ${index} (${entry.name}): "culture_notes" must be an array of strings` };
   }
 
+  const enriched = validateOptionalEnrichment(entry, index);
+  if (!enriched.valid) return enriched;
+
+  return { valid: true };
+}
+
+/**
+ * Optional high-leverage fields (school_priorities, institutional_tone, anti_patterns).
+ * Omitted entries validate as before; when present, shape must be correct.
+ */
+function validateOptionalEnrichment(entry, index) {
+  if (entry.school_priorities !== undefined) {
+    if (!Array.isArray(entry.school_priorities) || entry.school_priorities.length === 0) {
+      return {
+        valid: false,
+        error: `Entry at index ${index} (${entry.name}): "school_priorities" must be a non-empty array when provided`,
+      };
+    }
+    for (let i = 0; i < entry.school_priorities.length; i++) {
+      const p = entry.school_priorities[i];
+      if (!p || typeof p !== 'object') {
+        return { valid: false, error: `Entry at index ${index} (${entry.name}): school_priorities[${i}] must be an object with theme and reader_looks_for` };
+      }
+      if (!isNonEmptyString(p.theme) || !isNonEmptyString(p.reader_looks_for)) {
+        return {
+          valid: false,
+          error: `Entry at index ${index} (${entry.name}): school_priorities[${i}] requires non-empty "theme" and "reader_looks_for" strings`,
+        };
+      }
+    }
+  }
+
+  if (entry.institutional_tone !== undefined && !isNonEmptyString(entry.institutional_tone)) {
+    return { valid: false, error: `Entry at index ${index} (${entry.name}): "institutional_tone" must be a non-empty string when provided` };
+  }
+
+  if (entry.anti_patterns !== undefined) {
+    if (!Array.isArray(entry.anti_patterns) || !entry.anti_patterns.every((s) => typeof s === 'string' && s.trim())) {
+      return { valid: false, error: `Entry at index ${index} (${entry.name}): "anti_patterns" must be an array of non-empty strings when provided` };
+    }
+  }
+
+  if (entry.standardized_testing !== undefined) {
+    const st = entry.standardized_testing;
+    if (st === null || typeof st !== 'object') {
+      return { valid: false, error: `Entry at index ${index} (${entry.name}): "standardized_testing" must be an object when provided` };
+    }
+    const allowed = ['test_blind', 'test_optional', 'test_required', 'not_used'];
+    if (typeof st.policy !== 'string' || !allowed.includes(st.policy.trim())) {
+      return {
+        valid: false,
+        error: `Entry at index ${index} (${entry.name}): standardized_testing.policy must be one of: ${allowed.join(', ')}`,
+      };
+    }
+    if (st.reviewer_note !== undefined && typeof st.reviewer_note !== 'string') {
+      return { valid: false, error: `Entry at index ${index} (${entry.name}): standardized_testing.reviewer_note must be a string when provided` };
+    }
+  }
+
   return { valid: true };
 }
 
@@ -125,6 +184,7 @@ function describeStructure(obj) {
 module.exports = {
   validateUniversityEntry,
   describeStructure,
+  validateOptionalEnrichment,
   REQUIRED_KEYS,
   REQUIRED_TRAIT_KEYS,
   REQUIRED_WEIGHT_KEYS,

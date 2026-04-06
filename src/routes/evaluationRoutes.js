@@ -1,6 +1,7 @@
 const express = require('express');
 const evaluationService = require('../services/evaluationService');
 const { validateEvaluateRequest } = require('../schemas/applicationSchema');
+const config = require('../config');
 
 const router = express.Router();
 
@@ -19,11 +20,15 @@ router.post('/evaluateApplication', async (req, res, next) => {
   }
 
   const { application, universities } = req.body;
-  console.log('REQUEST BODY:', JSON.stringify(req.body, null, 2));
+  if (config.isDevelopment) {
+    console.log('REQUEST BODY:', JSON.stringify(req.body, null, 2));
+  }
   console.log('[API] POST /api/evaluateApplication received, universities:', universities?.length ?? 0, universities ?? []);
   try {
     const results = await evaluationService.evaluateApplication(application, universities);
-    console.log('FINAL EVALUATION RESULT:', JSON.stringify(results, null, 2));
+    if (config.isDevelopment) {
+      console.log('FINAL EVALUATION RESULT:', JSON.stringify(results, null, 2));
+    }
     res.json(results);
   } catch (err) {
     next(err);

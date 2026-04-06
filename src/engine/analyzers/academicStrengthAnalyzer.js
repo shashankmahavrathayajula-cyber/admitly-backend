@@ -1,6 +1,13 @@
 const config = require('../../config');
 const openaiClient = require('../../utils/openaiClient');
 const toneGuidance = require('../analysisToneGuidance');
+const { sliceForAcademic } = require('../universitySlices');
+const { buildAcademicExcerpt } = require('../applicationExcerpt');
+const { courseRigorIndicated } = require('../../schemas/canonicalApplication');
+const {
+  getStandardizedTestingPolicy,
+  academicScoreBumpFromTests,
+} = require('../academicTestScoring');
 
 const JSON_FORMAT_INSTRUCTIONS = `
 Return your evaluation as valid JSON only, with no other text:
@@ -14,9 +21,10 @@ Return your evaluation as valid JSON only, with no other text:
 function ruleBasedAnalyze(applicationProfile, universityProfile) {
   const weights = universityProfile.evaluation_weights || {};
 
-  const appGpa = applicationProfile?.gpa ?? applicationProfile?.GPA;
+  const appGpa =
+    applicationProfile?.gpa ?? applicationProfile?.GPA ?? applicationProfile?.academics?.gpa;
   const gpa = typeof appGpa === 'number' ? appGpa : parseFloat(appGpa);
-  const hasRigor = Boolean(applicationProfile?.courseRigor ?? applicationProfile?.course_rigor ?? applicationProfile?.apCourses ?? applicationProfile?.honorsCourses);
+  const hasRigor = courseRigorIndicated(applicationProfile);
 
   let score = 5;
   const strengths = [];
@@ -47,6 +55,21 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
     suggestions.push('Consider highlighting advanced or rigorous coursework if applicable.');
   }
 
+  const testPolicy = getStandardizedTestingPolicy(universityProfile);
+  const tests = applicationProfile?.tests ?? applicationProfile?.academics?.tests;
+  const testBump = academicScoreBumpFromTests(tests, testPolicy);
+
+  if (testPolicy !== 'test_blind' && testPolicy !== 'not_used') {
+    if (testBump > 0) {
+      score += testBump;
+      strengths.push('Strong SAT/ACT corroborates the transcript (secondary to GPA and rigor).');
+    } else if (tests?.sat || tests?.act) {
+      strengths.push('Test scores on file; treated as supporting context alongside GPA and coursework.');
+    } else if (testPolicy === 'test_required') {
+      suggestions.push('SAT/ACT scores are part of the expected academic record at this institution when available.');
+    }
+  }
+
   score = Math.max(0, Math.min(10, Math.round(score * 10) / 10));
 
   return { score, strengths, weaknesses, suggestions };
@@ -57,13 +80,13 @@ async function analyze(applicationProfile, universityProfile) {
     const prompt = `You are an experienced university admissions officer.
 Evaluate the student's academic preparation and strength for the given university.
 
-University profile:
-${JSON.stringify(universityProfile, null, 2)}
+University context (sliced — academic + priorities relevant to coursework):
+${JSON.stringify(sliceForAcademic(universityProfile), null, 2)}
 
-Student application (academic-related):
-${JSON.stringify(applicationProfile, null, 2)}
+Student academic snapshot (not the full application):
+${JSON.stringify(buildAcademicExcerpt(applicationProfile), null, 2)}
 
-Consider GPA, course rigor, test scores if mentioned, and fit with the university's academic expectations.
+Consider GPA, course rigor, and fit with this university's academic expectations. If the snapshot omits GPA, say so in weaknesses.
 ${toneGuidance}
 ${JSON_FORMAT_INSTRUCTIONS}`;
 

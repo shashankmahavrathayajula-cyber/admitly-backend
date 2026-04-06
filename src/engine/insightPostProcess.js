@@ -29,6 +29,8 @@ function overlapRatio(a, b) {
   return inter / Math.min(A.size, B.size);
 }
 
+const { sanitizeOneLine } = require('./outputGuards');
+
 const SIMILAR = 0.42;
 const MAX_ITEMS = 5;
 
@@ -141,9 +143,9 @@ function postProcessInsights(strengths, weaknesses, suggestions, dimensionScores
   }
 
   return {
-    strengths: s.slice(0, MAX_ITEMS),
-    weaknesses: w.slice(0, MAX_ITEMS),
-    suggestions: su.slice(0, MAX_ITEMS),
+    strengths: s.slice(0, MAX_ITEMS).map(sanitizeOneLine),
+    weaknesses: w.slice(0, MAX_ITEMS).map(sanitizeOneLine),
+    suggestions: su.slice(0, MAX_ITEMS).map(sanitizeOneLine),
   };
 }
 

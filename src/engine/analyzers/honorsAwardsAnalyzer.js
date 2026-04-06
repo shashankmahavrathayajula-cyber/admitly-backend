@@ -1,6 +1,9 @@
 const config = require('../../config');
 const openaiClient = require('../../utils/openaiClient');
 const toneGuidance = require('../analysisToneGuidance');
+const { sliceForHonors } = require('../universitySlices');
+const { buildHonorsExcerpt } = require('../applicationExcerpt');
+const { summarizeStemAndLeadershipSignals } = require('../majorFitHelpers');
 
 const JSON_FORMAT_INSTRUCTIONS = `
 Return your evaluation as valid JSON only, with no other text:
@@ -37,23 +40,34 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
   return { score, strengths, weaknesses, suggestions };
 }
 
+function applyHonorsActivityGuards(result, applicationProfile) {
+  if (!result || typeof result !== 'object') return result;
+  const sig = summarizeStemAndLeadershipSignals(applicationProfile);
+  if (!sig.founderCue && !sig.leadershipFlag) return result;
+  const weaknesses = (result.weaknesses || []).filter(
+    (w) => !/\bno\s+evidence\s+of\s+sustained\s+leadership\b/i.test(String(w))
+  );
+  return { ...result, weaknesses };
+}
+
 async function analyze(applicationProfile, universityProfile) {
   if (config.useAIAnalyzers) {
     const prompt = `You are an experienced university admissions officer.
 Evaluate the student's honors and awards for the given university.
 
-University profile:
-${JSON.stringify(universityProfile, null, 2)}
+University context:
+${JSON.stringify(sliceForHonors(universityProfile), null, 2)}
 
-Student application (honors, awards, recognition):
-${JSON.stringify(applicationProfile, null, 2)}
+Student honors snapshot:
+${JSON.stringify(buildHonorsExcerpt(applicationProfile), null, 2)}
 
-Consider prestige, relevance to the institution, and how they strengthen the application.
+Honors-only scope: leadership claims belong in activities; do not claim "no sustained leadership" if extracurriculars likely include officer/founder roles (not visible in this honors list).
+Consider prestige, relevance to this institution's priorities, and how awards strengthen the overall story.
 ${toneGuidance}
 ${JSON_FORMAT_INSTRUCTIONS}`;
 
     const result = await openaiClient.runAIAnalysis(prompt);
-    if (result) return result;
+    if (result) return applyHonorsActivityGuards(result, applicationProfile);
   }
 
   return ruleBasedAnalyze(applicationProfile, universityProfile);

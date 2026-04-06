@@ -1,0 +1,79 @@
+{
+  "_file_note": "Example only — not loaded by the server. Copy fields into data/universities.json after review. Remove _file_note before merging.",
+  "name": "Stanford University",
+  "location": "Stanford, California, USA",
+  "selectivity_level": "Highly Selective (Private Research University)",
+  "acceptance_rate_estimate": "≈3–4%",
+  "essay_importance": "Very Important",
+  "extracurricular_importance": "Very Important",
+  "academic_rigor_importance": "Very Important",
+  "major_strengths": [
+    "Computer Science",
+    "Human-Centered AI / Symbolic Systems",
+    "Engineering",
+    "Economics",
+    "Biology",
+    "International Relations",
+    "Product Design"
+  ],
+  "traits": {
+    "intellectual_vitality": 10,
+    "academic_rigor": 10,
+    "leadership": 8,
+    "initiative": 9,
+    "collaboration": 8,
+    "community_impact": 7,
+    "reflection_depth": 8,
+    "thematic_direction": 7,
+    "resilience": 7
+  },
+  "evaluation_weights": {
+    "gpa": 0.28,
+    "course_rigor": 0.24,
+    "extracurriculars": 0.16,
+    "leadership": 0.12,
+    "essay": 0.20
+  },
+  "summary": "Stanford is a highly selective private research university on a quarter system with holistic review. Academic excellence, intellectual vitality, and impact beyond the classroom matter; readers look for depth, initiative, and fit with Stanford’s open, entrepreneurial culture. VERIFY acceptance rate and testing policy on admission.stanford.edu before production use.",
+  "culture_notes": [
+    "Holistic review: no single factor decides admission; context for achievement is expected.",
+    "Intellectual vitality and genuine curiosity—especially in essays and teacher signals—carry heavy weight.",
+    "Extracurricular depth (sustained commitment, scope, outcomes) preferred over long undifferentiated lists.",
+    "Stanford’s Bay Area / entrepreneurial context rewards initiative and real-world problem framing when authentic.",
+    "REVIEWER: Confirm current standardized testing policy annually (test-optional policies evolve)."
+  ],
+  "standardized_testing": {
+    "policy": "test_optional",
+    "reviewer_note": "VERIFY on admission.stanford.edu for the application cycle; treat policy enum as draft until confirmed."
+  },
+  "school_priorities": [
+    {
+      "theme": "Intellectual vitality and curiosity",
+      "reader_looks_for": "Evidence you pursue ideas for their own sake—through coursework, research, projects, or reading—not only for trophies. Specificity beats generic ‘passion.’"
+    },
+    {
+      "theme": "Impact and initiative",
+      "reader_looks_for": "Leadership or depth with scope: people affected, time invested, outcomes, failure, and what changed. Vague titles without mechanism read thin."
+    },
+    {
+      "theme": "Academic preparation in context",
+      "reader_looks_for": "Rigor your school offers, grades in context, and any constraints (access, health, work) explained plainly—honesty builds trust."
+    },
+    {
+      "theme": "Essay voice and fit",
+      "reader_looks_for": "Why Stanford and this applicant—not interchangeable prestige prose. Personal, reflective, and specific."
+    },
+    {
+      "theme": "Community and collaboration",
+      "reader_looks_for": "How you work with others, learn from peers, or contribute beyond self—without service clichés."
+    }
+  ],
+  "institutional_tone": "Optimistic, rigorous, and humane: reward genuine curiosity and real problems solved. Skeptical of prestige cosplay and résumé stuffing; impressed by clarity, self-awareness, and evidence. Bay Area energy favors builders and learners who name tradeoffs.",
+  "anti_patterns": [
+    "Prestige stacking (awards and names) without intellectual substance or story.",
+    "Essays that could swap ‘Stanford’ for any top-10 school with no loss of meaning.",
+    "Service narratives with no named problem, action, or outcome.",
+    "Achievement lists with no reflection, doubt, or change over time.",
+    "Treating test scores or GPA as the whole story—context and vitality matter."
+  ]
+}
