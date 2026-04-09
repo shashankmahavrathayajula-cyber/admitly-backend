@@ -177,7 +177,7 @@ const PROFILES = {
       ultraSelective: { min: 2.5, max: 4.0 },
       highlySelective: { min: 1.5, max: 3.5 },
       selective: { min: 2.0, max: 4.0 },
-      accessible: { min: 1.5, max: 5.0 },
+      accessible: { min: 1.0, max: 5.0 },
     },
     expectedBands: {
       stanford: 'reach',

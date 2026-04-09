@@ -7,6 +7,7 @@ const { synthesizeExecutiveInsights } = require('./insightSynthesis');
 const { postProcessInsights } = require('./insightPostProcess');
 const { applyStructuredInputGuards } = require('./inputConsistencyGuards');
 const { normalizeApplicationInput } = require('../schemas/canonicalApplication');
+const { assessCoherence } = require('./coherenceAssessment');
 
 const log = (msg) => {
   if (process.env.NODE_ENV === 'development') {
@@ -52,7 +53,29 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
 
   const aggregated = aggregate(results, universityProfile);
 
-  const guarded = applyStructuredInputGuards(aggregated, app);
+  // Cross-dimension coherence assessment
+  const coherence = assessCoherence(app, {
+    academic: aggregated.academicStrength,
+    activities: aggregated.activityImpact,
+    honors: aggregated.honorsAwards,
+    narrative: aggregated.narrativeStrength,
+    institutionalFit: aggregated.institutionalFit,
+  }, universityProfile);
+
+  // Apply coherence adjustment to the raw alignment score before selectivity calibration
+  const coherenceAdjustedAlignment = Math.max(1.0, Math.min(9.5,
+    aggregated.alignmentScore + coherence.bonus - coherence.penalty
+  ));
+
+  // Prepend coherence feedback (it's cross-dimensional, so it goes first)
+  const mergedStrengths = [...coherence.strengths, ...(aggregated.strengths || [])];
+  const mergedWeaknesses = [...coherence.weaknesses, ...(aggregated.weaknesses || [])];
+
+  const guarded = applyStructuredInputGuards({
+    ...aggregated,
+    strengths: mergedStrengths,
+    weaknesses: mergedWeaknesses,
+  }, app);
   const dimensionScores = {
     academic: aggregated.academicStrength,
     activities: aggregated.activityImpact,
@@ -75,7 +98,11 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
   };
 
   const executive = await synthesizeExecutiveInsights(app, universityProfile, merged);
-  const alignmentScore = applySelectivityCalibration(aggregated.alignmentScore, universityProfile);
+  const calibratedAlignment = applySelectivityCalibration(coherenceAdjustedAlignment, universityProfile);
+  let alignmentScore = Math.min(9.9, calibratedAlignment);
+  if (calibratedAlignment >= 9.9) {
+    alignmentScore = Math.min(9.9, Math.round(coherenceAdjustedAlignment * 10) / 10);
+  }
   const admissionsSummary = computeAdmissionsSummary(alignmentScore, universityProfile);
 
   const result = {
