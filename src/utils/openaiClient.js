@@ -69,8 +69,9 @@ function extractJson(content) {
  * Uses OPENAI_API_KEY from process.env. If missing, logs a warning and returns null.
  *
  * @param {string} prompt - Full evaluation prompt (including university profile, application, and JSON output instructions)
- * @param {object} [options] - { model?: string, maxTokens?: number }
- * @returns {Promise<{ score: number, strengths: string[], weaknesses: string[], suggestions: string[] } | null>}
+ * @param {object} [options] - { model?: string, maxTokens?: number, parseMode?: 'structured' | 'json' }
+ *   parseMode 'json' returns the raw parsed JSON object (e.g. essay analysis). Default 'structured' keeps evaluator shape.
+ * @returns {Promise<object | { score: number, strengths: string[], weaknesses: string[], suggestions: string[] } | null>}
  */
 async function runAIAnalysis(prompt, options = {}) {
   if (!hasValidKey()) {
@@ -80,8 +81,9 @@ async function runAIAnalysis(prompt, options = {}) {
 
   const OPENAI_API_KEY = getApiKey();
 
-  const model = options.model || 'gpt-4o-mini';
+  const model = options.model ?? 'gpt-4o-mini';
   const maxTokens = options.maxTokens ?? 1024;
+  const parseMode = options.parseMode || 'structured';
 
   const body = {
     model,
@@ -125,6 +127,9 @@ async function runAIAnalysis(prompt, options = {}) {
   }
 
   const parsed = extractJson(content);
+  if (parseMode === 'json') {
+    return parsed && typeof parsed === 'object' ? parsed : null;
+  }
   const result = normalizeStructuredResult(parsed);
   return result;
 }
