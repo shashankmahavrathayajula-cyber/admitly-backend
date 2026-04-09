@@ -1,6 +1,9 @@
 const express = require('express');
 const evaluationService = require('../services/evaluationService');
 const { validateEvaluateRequest } = require('../schemas/applicationSchema');
+const { requireAuth } = require('../middleware/requireAuth');
+const { rateLimit } = require('../middleware/rateLimit');
+const { saveEvaluation } = require('../services/evaluationStorage');
 const config = require('../config');
 
 const router = express.Router();
@@ -10,7 +13,7 @@ const router = express.Router();
  * Body: { application: object, universities: string[] }
  * Returns: array of evaluation objects (scores 0–10, coreInsight, mostImportantNextStep, capped lists, optional admissionsSummary)
  */
-router.post('/evaluateApplication', async (req, res, next) => {
+router.post('/evaluateApplication', requireAuth, rateLimit, async (req, res, next) => {
   const validation = validateEvaluateRequest(req.body);
   if (!validation.valid) {
     return res.status(400).json({
@@ -29,6 +32,8 @@ router.post('/evaluateApplication', async (req, res, next) => {
     if (config.isDevelopment) {
       console.log('FINAL EVALUATION RESULT:', JSON.stringify(results, null, 2));
     }
+    saveEvaluation(req.userId, req.body.application, req.body.universities, results)
+      .catch(err => console.error('[Storage] Background save failed:', err));
     res.json(results);
   } catch (err) {
     next(err);

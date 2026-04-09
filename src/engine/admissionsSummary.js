@@ -15,9 +15,10 @@ const {
 function bandThresholds(rate) {
   const r = typeof rate === 'number' && !Number.isNaN(rate) ? Math.min(0.98, Math.max(0.02, rate)) : 0.45;
   const selectivityStress = 1 - r;
+  const ultraBoost = r < 0.15 ? Math.pow((0.15 - r) / 0.15, 0.6) * 1.5 : 0;
   return {
-    safetyFloor: 5.8 + 2.6 * selectivityStress,
-    targetFloor: 4.2 + 2.2 * selectivityStress,
+    safetyFloor: 5.8 + 2.6 * selectivityStress + ultraBoost,
+    targetFloor: 4.2 + 2.2 * selectivityStress + ultraBoost,
   };
 }
 
@@ -52,4 +53,6 @@ module.exports = {
   computeAdmissionsSummary,
   parseAcceptanceRateFraction,
   selectivityRank,
+  bandThresholds,
+  effectiveAdmitRate,
 };
