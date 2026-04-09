@@ -78,7 +78,7 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
   const alignmentScore = applySelectivityCalibration(aggregated.alignmentScore, universityProfile);
   const admissionsSummary = computeAdmissionsSummary(alignmentScore, universityProfile);
 
-  return {
+  const result = {
     university: universityProfile.name,
     alignmentScore,
     academicStrength: aggregated.academicStrength,
@@ -93,6 +93,24 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
     suggestions: Array.isArray(merged.suggestions) ? merged.suggestions : [],
     admissionsSummary,
   };
+
+  if (!result.weaknesses || result.weaknesses.length === 0) {
+    const dims = {
+      'academic preparation': result.academicStrength,
+      'extracurricular depth': result.activityImpact,
+      'honors and recognition': result.honorsAwards,
+      'essay and narrative': result.narrativeStrength,
+      'institutional fit': result.institutionalFit,
+    };
+    const weakest = Object.entries(dims).sort((a, b) => a[1] - b[1])[0];
+    result.weaknesses = [`Among your dimensions, ${weakest[0]} (${weakest[1].toFixed(1)}/10) has the most room for growth relative to ${result.university}'s expectations.`];
+  }
+
+  if (!result.suggestions || result.suggestions.length === 0) {
+    result.suggestions = [`Strengthen your weakest area — even at a well-matched school, demonstrating growth in every dimension makes your application more compelling.`];
+  }
+
+  return result;
 }
 
 module.exports = {
