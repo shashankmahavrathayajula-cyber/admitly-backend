@@ -1,43 +1,38 @@
-const config = require('../../config');
-const openaiClient = require('../../utils/openaiClient');
-const toneGuidance = require('../analysisToneGuidance');
-const { sliceForHonors } = require('../universitySlices');
-const { buildHonorsExcerpt } = require('../applicationExcerpt');
 const { summarizeStemAndLeadershipSignals } = require('../majorFitHelpers');
-
-const JSON_FORMAT_INSTRUCTIONS = `
-Return your evaluation as valid JSON only, with no other text:
-{
-  "score": number from 1-10,
-  "strengths": ["string", ...],
-  "weaknesses": ["string", ...],
-  "suggestions": ["string", ...]
-}`;
+const { getBenchmarks, scoreHonors } = require('../benchmarkScoring');
 
 function ruleBasedAnalyze(applicationProfile, universityProfile) {
+  const benchmarks = getBenchmarks(universityProfile.name);
+  const score = scoreHonors(applicationProfile, benchmarks);
   const honors = applicationProfile?.honors ?? applicationProfile?.awards ?? [];
   const list = Array.isArray(honors) ? honors : [];
-
-  let score = 5;
   const strengths = [];
   const weaknesses = [];
   const suggestions = [];
 
-  if (list.length >= 2) {
-    score += 2;
-    strengths.push('Multiple honors or awards strengthen the profile.');
-  } else if (list.length === 1) {
-    score += 1;
-    strengths.push('Honors or awards noted.');
+  if (score >= 7.5) {
+    strengths.push(`Honors and awards provide strong external validation for ${universityProfile.name}.`);
+  } else if (score >= 5.5) {
+    strengths.push(`Honors profile is reasonable for ${universityProfile.name}.`);
+    suggestions.push('Add detail on award selectivity, level, and context to strengthen impact.');
+  } else if (score >= 3.0) {
+    weaknesses.push(`Honors distinction appears below the typical range seen at ${universityProfile.name}.`);
+    suggestions.push('Pursue opportunities with clearer selectivity and broader recognition.');
   } else {
-    score -= 0.5;
-    weaknesses.push('No honors or awards listed.');
-    suggestions.push('Include any academic, leadership, or community awards if applicable.');
+    weaknesses.push(`Honors profile is currently a significant gap for ${universityProfile.name}.`);
+    suggestions.push('Build toward competitive distinctions and document level/prestige explicitly.');
   }
 
-  score = Math.max(0, Math.min(10, Math.round(score * 10) / 10));
+  if (list.length === 0) {
+    weaknesses.push('No honors or awards were provided for evaluation.');
+  }
 
-  return { score, strengths, weaknesses, suggestions };
+  return {
+    score: Math.max(1.0, Math.min(9.5, Math.round(score * 10) / 10)),
+    strengths,
+    weaknesses,
+    suggestions,
+  };
 }
 
 function applyHonorsActivityGuards(result, applicationProfile) {
@@ -51,26 +46,8 @@ function applyHonorsActivityGuards(result, applicationProfile) {
 }
 
 async function analyze(applicationProfile, universityProfile) {
-  if (config.useAIAnalyzers) {
-    const prompt = `You are an experienced university admissions officer.
-Evaluate the student's honors and awards for the given university.
-
-University context:
-${JSON.stringify(sliceForHonors(universityProfile), null, 2)}
-
-Student honors snapshot:
-${JSON.stringify(buildHonorsExcerpt(applicationProfile), null, 2)}
-
-Honors-only scope: leadership claims belong in activities; do not claim "no sustained leadership" if extracurriculars likely include officer/founder roles (not visible in this honors list).
-Consider prestige, relevance to this institution's priorities, and how awards strengthen the overall story.
-${toneGuidance}
-${JSON_FORMAT_INSTRUCTIONS}`;
-
-    const result = await openaiClient.runAIAnalysis(prompt);
-    if (result) return applyHonorsActivityGuards(result, applicationProfile);
-  }
-
-  return ruleBasedAnalyze(applicationProfile, universityProfile);
+  const ruled = ruleBasedAnalyze(applicationProfile, universityProfile);
+  return applyHonorsActivityGuards(ruled, applicationProfile);
 }
 
 module.exports = { analyze };

@@ -79,6 +79,8 @@ function normalizeApplicationInput(raw) {
   const gpa = raw.gpa ?? raw.GPA ?? academics.gpa ?? null;
   const courseRigor =
     raw.courseRigor ?? raw.course_rigor ?? academics.courseRigor ?? academics.course_rigor ?? null;
+  const apCoursesTaken = raw.apCoursesTaken ?? academics.apCoursesTaken ?? null;
+  const apCoursesAvailable = raw.apCoursesAvailable ?? academics.apCoursesAvailable ?? null;
   const intendedMajor =
     (typeof raw.intendedMajor === 'string' && raw.intendedMajor) ||
     (typeof raw.intended_major === 'string' && raw.intended_major) ||
@@ -104,12 +106,16 @@ function normalizeApplicationInput(raw) {
       courseRigor: academics.courseRigor !== undefined ? academics.courseRigor : courseRigor,
       intendedMajor: academics.intendedMajor !== undefined ? academics.intendedMajor : intendedMajor,
       ...(apCourses != null ? { apCourses } : {}),
+      ...(apCoursesTaken != null ? { apCoursesTaken } : {}),
+      ...(apCoursesAvailable != null ? { apCoursesAvailable } : {}),
       ...(tests ? { tests } : {}),
     },
     gpa,
     courseRigor,
     intendedMajor,
     ...(apCourses != null ? { apCourses } : {}),
+    ...(apCoursesTaken != null ? { apCoursesTaken } : {}),
+    ...(apCoursesAvailable != null ? { apCoursesAvailable } : {}),
     ...(tests ? { tests } : {}),
     essays,
     activities: Array.isArray(raw.activities) ? raw.activities : [],

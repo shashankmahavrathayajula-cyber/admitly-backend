@@ -1,31 +1,8 @@
-const config = require('../../config');
-const openaiClient = require('../../utils/openaiClient');
-const toneGuidance = require('../analysisToneGuidance');
-const { sliceForInstitutionalFit } = require('../universitySlices');
-const { buildInstitutionalFitContext } = require('../applicationExcerpt');
 const {
   matchIntendedMajorToStrengths,
   summarizeStemAndLeadershipSignals,
 } = require('../majorFitHelpers');
 
-const JSON_FORMAT_INSTRUCTIONS = `
-Return your evaluation as valid JSON only, with no other text:
-{
-  "score": number from 1-10,
-  "strengths": ["string", ...],
-  "weaknesses": ["string", ...],
-  "suggestions": ["string", ...]
-}`;
-
-const FIT_HARD_RULES = `
-=== HARD RULES (correctness) ===
-1) The JSON block "student_fit_context" includes intendedMajor and activities[]. Treat that list as authoritative for STEM/CS/leadership signals. Do NOT claim the application is silent on major, CS prep, or hands-on engagement if intendedMajor is non-empty OR activities show coding, robotics, CS clubs, founding roles, or multi-year STEM work.
-2) Separate "essay/supplement thin or generic" from "no major or no preparation." If the file lists an intended major and STEM activities, weaknesses may critique essay specificity or school-tied detail—but must NOT say "no mention of major," "no intended major," or "no references to computer science" as an application-wide fact.
-3) If major_strengths lists Engineering or STEM buckets and the student intends Computer Science or Software, treat that as alignment (computing sits inside those strengths unless the catalog explicitly excludes it).
-
-=== EXPRESSION (when signals are strong) ===
-4) When intended_major_vs_catalog matches AND activity_signals show stemCue plus (founderCue OR leadershipFlag OR yearsHigh), the file shows strong program alignment: fit score should usually be 7.5–9 unless weaknesses are essay-only. Strengths must sound confident and cite activities by name (from student_fit_context)—e.g. "demonstrates clear preparation for [major]" with concrete clubs/roles, not neutral hedging.
-`;
 
 function activityNamesSnippet(applicationProfile, max = 3) {
   const raw = applicationProfile?.activities ?? applicationProfile?.extracurriculars ?? [];
@@ -48,7 +25,7 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
   const { matched, matchKind } = matchIntendedMajorToStrengths(intended, majorStrengths);
   const sig = summarizeStemAndLeadershipSignals(applicationProfile);
 
-  let score = 5;
+  let score = 2;
   const strengths = [];
   const weaknesses = [];
   const suggestions = [];
@@ -59,9 +36,9 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
     Boolean(matched && sig.stemCue && intendedStr && (sig.founderCue || sig.leadershipFlag || sig.yearsHigh));
 
   if (matched) {
-    score += matchKind === 'direct' ? 2.5 : 2.3;
+    score += matchKind === 'direct' ? 3.75 : 3.45;
     if (strongStemFit) {
-      score += 0.45;
+      score += 0.675;
       const names = activityNamesSnippet(applicationProfile);
       strengths.push(
         names
@@ -76,44 +53,44 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
       );
     }
   } else if (intendedStr) {
-    score += 0.5;
+    score += 0.75;
     suggestions.push('Name a specific department or pathway and tie it to one on-campus resource.');
   }
 
   if (!strongStemFit && sig.stemCue && (matched || intendedStr)) {
-    score += 0.85;
+    score += 1.275;
     strengths.push('Activities (coding, robotics, or related STEM work) back up the stated field.');
   } else if (!strongStemFit && sig.stemCue) {
-    score += 0.45;
+    score += 0.675;
     strengths.push('Extracurriculars show technical or STEM engagement.');
   }
 
   if (!strongStemFit && (sig.founderCue || sig.leadershipFlag)) {
-    score += 0.65;
+    score += 0.975;
     strengths.push('Founding or leading a club/team adds depth beyond casual membership.');
   } else if (strongStemFit && (sig.founderCue || sig.leadershipFlag)) {
-    score += 0.35;
+    score += 0.525;
   }
 
   if (sig.yearsHigh) {
-    score += sig.stemCue ? 0.5 : 0.35;
+    score += sig.stemCue ? 0.75 : 0.525;
   }
 
   if (matched && sig.stemCue && sig.founderCue && sig.yearsHigh) {
-    score += 0.35;
+    score += 0.525;
   }
 
   if (!intendedStr && majorStrengths.length > 0) {
-    score -= 0.5;
+    score -= 0.75;
     weaknesses.push('Intended major is not specified; reviewers cannot map the file to a program story.');
   }
 
   const cultureNotes = universityProfile.culture_notes || [];
   if (cultureNotes.length > 0) {
-    score += 0.5;
+    score += 0.75;
   }
 
-  score = Math.max(0, Math.min(10, Math.round(score * 10) / 10));
+  score = Math.max(1.0, Math.min(9.5, Math.round(score * 10) / 10));
 
   return { score, strengths, weaknesses, suggestions };
 }
@@ -140,9 +117,9 @@ function applyStrongSignalFitFloor(result, applicationProfile, universityProfile
   const tierB = matched && sig.stemCue && stemMajor && (sig.founderCue || sig.leadershipFlag);
   const tierC = matched && sig.stemCue && stemMajor;
 
-  if (tierA) score = Math.max(score, 8.2);
-  else if (tierB) score = Math.max(score, 7.6);
-  else if (tierC) score = Math.max(score, 6.8);
+  if (tierA) score = Math.max(score, 8.5);
+  else if (tierB) score = Math.max(score, 8.0);
+  else if (tierC) score = Math.max(score, 7.2);
 
   return {
     ...result,
@@ -196,41 +173,9 @@ function applyInstitutionalFitGuards(result, applicationProfile) {
 }
 
 async function analyze(applicationProfile, universityProfile) {
-  const fitContext = buildInstitutionalFitContext(applicationProfile);
-  const majorSignals = matchIntendedMajorToStrengths(
-    fitContext.intendedMajor,
-    universityProfile?.major_strengths || []
-  );
-  const activitySignals = summarizeStemAndLeadershipSignals(applicationProfile);
-
-  if (config.useAIAnalyzers) {
-    const prompt = `You are an experienced university admissions officer.
-Evaluate institutional fit: major/program alignment, mission, and realistic engagement with what this school offers.
-
-University context:
-${JSON.stringify(sliceForInstitutionalFit(universityProfile), null, 2)}
-
-Pre-computed signals (do not contradict):
-- intended_major_vs_catalog: ${JSON.stringify(majorSignals)}
-- activity_signals (coding/robotics/leadership/years): ${JSON.stringify(activitySignals)}
-
-Student fit context (authoritative — includes activities; use this before claiming "missing" preparation):
-${JSON.stringify(fitContext, null, 2)}
-
-${FIT_HARD_RULES}
-Align bullets with ranked priorities and tone; name concrete school-linked detail where the file allows it.
-${toneGuidance}
-${JSON_FORMAT_INSTRUCTIONS}`;
-
-    const result = await openaiClient.runAIAnalysis(prompt);
-    if (result) {
-      const guarded = applyInstitutionalFitGuards(result, applicationProfile);
-      return applyStrongSignalFitFloor(guarded, applicationProfile, universityProfile);
-    }
-  }
-
   const ruled = ruleBasedAnalyze(applicationProfile, universityProfile);
-  return applyStrongSignalFitFloor(ruled, applicationProfile, universityProfile);
+  const guarded = applyInstitutionalFitGuards(ruled, applicationProfile);
+  return applyStrongSignalFitFloor(guarded, applicationProfile, universityProfile);
 }
 
 module.exports = { analyze };

@@ -3,6 +3,7 @@ const openaiClient = require('../../utils/openaiClient');
 const toneGuidance = require('../analysisToneGuidance');
 const { sliceForNarrative, getSchoolPriorities } = require('../universitySlices');
 const { buildEssayNarrativeExcerpt } = require('../applicationExcerpt');
+const { getBenchmarks, scoreNarrative } = require('../benchmarkScoring');
 
 const JSON_FORMAT_INSTRUCTIONS = `
 Return your evaluation as valid JSON only, with no other text:
@@ -60,59 +61,46 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
   const writtenLabel = isUW ? 'Coalition essay or personal statement' : 'personal statement or supplemental writing';
 
   const hasEssay = hasEssayBodyContent(applicationProfile);
-  const themes = applicationProfile?.narrativeThemes ?? applicationProfile?.themes ?? [];
-  const themeList = Array.isArray(themes) ? themes : [];
+  const benchmarks = getBenchmarks(universityProfile.name);
+  const score = scoreNarrative(applicationProfile, benchmarks);
+  const multiplier = benchmarks?.narrative?.essay_importance_multiplier || 1.0;
 
-  let score = 5;
   const strengths = [];
   const weaknesses = [];
   const suggestions = [];
 
-  if (hasEssay) {
-    const wordCount = getEssayWordCount(applicationProfile);
-    if (wordCount < 50) {
-      score += 0.8;
-      strengths.push(
-        `Brief narrative text is present but too short for readers at ${universityProfile.name} to fully assess "${topTheme}".`
-      );
-      suggestions.push(
-        `Expand the personal statement to give reviewers at ${universityProfile.name} enough material to evaluate "${topTheme}" — aim for 400+ words with specific examples.`
-      );
-    } else if (wordCount < 200) {
-      score += 1.4;
-      strengths.push(
-        `Narrative text is present but relatively short — readers at ${universityProfile.name} will have limited material to assess "${topTheme}" against institutional priorities.`
-      );
-      suggestions.push(
-        `Expand the personal statement to give reviewers at ${universityProfile.name} enough material to evaluate "${topTheme}" — aim for 400+ words with specific examples.`
-      );
-    } else {
-      score += 2;
-      strengths.push(
-        `Narrative text is present—readers at ${universityProfile.name} can score "${topTheme}" against institutional priorities.`
-      );
-    }
-  } else if (essayImportance === 'Very Important') {
-    score -= 1.2;
-    weaknesses.push(`No essay or narrative excerpt provided; written work is very important at ${universityProfile.name}, so the file is under-specified for "${topTheme}".`);
-    suggestions.push(`Add ${writtenLabel} so reviewers can judge fit with institutional priorities starting with "${topTheme}".`);
-  } else if (essayImportance === 'Important') {
-    score -= 0.6;
-    weaknesses.push(`No essay or narrative excerpt provided; written materials matter at ${universityProfile.name} for interpreting preparation and fit.`);
-    suggestions.push(`Add ${writtenLabel} to give context aligned with "${topTheme}".`);
+  if (!hasEssay) {
+    weaknesses.push(
+      `No essay or narrative excerpt provided; essays are ${essayImportance.toLowerCase()} at ${universityProfile.name}, which limits evaluation of "${topTheme}".`
+    );
+    suggestions.push(`Add ${writtenLabel} so reviewers can assess fit with priorities like "${topTheme}".`);
+  } else if (score >= 7.5) {
+    strengths.push(
+      `Narrative content provides strong evidence for readers at ${universityProfile.name}, where essay signals are weighted with multiplier ${multiplier.toFixed(2)}.`
+    );
+  } else if (score >= 5.5) {
+    strengths.push(
+      `Essay narrative is reasonably developed for ${universityProfile.name} and gives reviewers material to assess "${topTheme}".`
+    );
+    suggestions.push(
+      `Tighten specificity and reflection so your writing more clearly advances "${topTheme}" for ${universityProfile.name}.`
+    );
+  } else if (score >= 3.0) {
+    weaknesses.push(
+      `Narrative strength appears below the typical level expected for ${universityProfile.name}, especially for "${topTheme}".`
+    );
+    suggestions.push(`Provide clearer, concrete examples and reflection tied directly to "${topTheme}".`);
   } else {
-    weaknesses.push(`No narrative excerpt on file; at ${universityProfile.name} essays are ${essayImportance.toLowerCase()}, but omitting narrative removes context for "${topTheme}".`);
-    suggestions.push(`Optional: add a short ${writtenLabel} to clarify preparation or obstacles—still useful when essays are weighted lower.`);
+    weaknesses.push(`Narrative is currently a major gap for ${universityProfile.name} given the role essays play in review.`);
+    suggestions.push(`Substantially revise ${writtenLabel} with specific experiences, reflection, and school-relevant direction.`);
   }
 
-  if (themeList.length >= 1) {
-    score += 1;
-    strengths.push(`Declared themes give reviewers a thread (${themeList.slice(0, 3).join('; ')}).`);
-  }
-
-  score = Math.max(0, Math.min(10, Math.round(score * 10) / 10));
-
-  return { score, strengths, weaknesses, suggestions };
+  return {
+    score: Math.max(1.0, Math.min(9.5, Math.round(score * 10) / 10)),
+    strengths,
+    weaknesses,
+    suggestions,
+  };
 }
 
 function buildNarrativePrompt(universitySlice, essayExcerpt) {
@@ -191,13 +179,22 @@ function reinforceQuoteRule(result, essayExcerpt) {
 }
 
 async function analyze(applicationProfile, universityProfile) {
+  const benchmarks = getBenchmarks(universityProfile.name);
+  const benchmarkScore = scoreNarrative(applicationProfile, benchmarks);
+
   if (config.useAIAnalyzers) {
     const universitySlice = sliceForNarrative(universityProfile);
     const essayExcerpt = buildEssayNarrativeExcerpt(applicationProfile, 6500);
     const prompt = buildNarrativePrompt(universitySlice, essayExcerpt);
 
     const result = await openaiClient.runAIAnalysis(prompt, { maxTokens: 1200 });
-    if (result) return reinforceQuoteRule(result, essayExcerpt);
+    if (result) {
+      const reinforced = reinforceQuoteRule(result, essayExcerpt);
+      return {
+        ...reinforced,
+        score: Math.max(1.0, Math.min(9.5, Math.round(benchmarkScore * 10) / 10)),
+      };
+    }
   }
 
   return ruleBasedAnalyze(applicationProfile, universityProfile);

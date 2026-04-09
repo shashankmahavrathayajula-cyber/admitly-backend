@@ -1,58 +1,42 @@
-const config = require('../../config');
-const openaiClient = require('../../utils/openaiClient');
-const toneGuidance = require('../analysisToneGuidance');
-const { sliceForAcademic } = require('../universitySlices');
-const { buildAcademicExcerpt } = require('../applicationExcerpt');
 const { courseRigorIndicated } = require('../../schemas/canonicalApplication');
+const { getBenchmarks, scoreAcademic } = require('../benchmarkScoring');
 const {
   getStandardizedTestingPolicy,
   academicScoreBumpFromTests,
 } = require('../academicTestScoring');
 
-const JSON_FORMAT_INSTRUCTIONS = `
-Return your evaluation as valid JSON only, with no other text:
-{
-  "score": number from 1-10,
-  "strengths": ["string", ...],
-  "weaknesses": ["string", ...],
-  "suggestions": ["string", ...]
-}`;
-
 function ruleBasedAnalyze(applicationProfile, universityProfile) {
-  const weights = universityProfile.evaluation_weights || {};
-
-  const appGpa =
-    applicationProfile?.gpa ?? applicationProfile?.GPA ?? applicationProfile?.academics?.gpa;
-  const gpa = typeof appGpa === 'number' ? appGpa : parseFloat(appGpa);
+  const benchmarks = getBenchmarks(universityProfile.name);
+  const score = scoreAcademic(applicationProfile, benchmarks);
   const hasRigor = courseRigorIndicated(applicationProfile);
-
-  let score = 5;
   const strengths = [];
   const weaknesses = [];
   const suggestions = [];
 
-  if (typeof gpa === 'number' && !Number.isNaN(gpa)) {
-    if (gpa >= 3.8) {
-      score += 3;
-      strengths.push('Strong GPA relative to competitive admissions.');
-    } else if (gpa >= 3.5) {
-      score += 1.5;
-      strengths.push('Solid academic GPA.');
-    } else if (gpa < 3.0) {
-      score -= 2;
-      weaknesses.push('GPA may be below typical range for this institution.');
-      suggestions.push('Highlight upward trend or context in additional materials if applicable.');
-    }
+  if (score >= 7.5) {
+    strengths.push(`Academic profile is strong and aligns well with typical expectations at ${universityProfile.name}.`);
+    if (hasRigor) strengths.push('Course rigor is clearly indicated, reinforcing readiness for advanced coursework.');
+  } else if (score >= 5.5) {
+    strengths.push(`Academic preparation appears solid for ${universityProfile.name}, with room to sharpen the strongest signals.`);
+    suggestions.push(
+      hasRigor
+        ? 'Improve or better contextualize GPA consistency to strengthen the academic case.'
+        : 'Add clearer evidence of rigorous coursework (AP/IB/honors/advanced classes) to improve academic positioning.'
+    );
+  } else if (score >= 3.0) {
+    weaknesses.push(`Academic profile appears below the typical range expected at ${universityProfile.name}.`);
+    suggestions.push(
+      hasRigor
+        ? 'Prioritize raising classroom performance and provide context for lower grades where relevant.'
+        : 'Build a stronger academic baseline with sustained grades and clearly documented rigorous coursework.'
+    );
   } else {
-    weaknesses.push('No GPA provided for evaluation.');
-    suggestions.push('Include GPA or equivalent academic metrics for a more accurate assessment.');
-  }
-
-  if (hasRigor) {
-    score += 1;
-    strengths.push('Course rigor (AP/honors/advanced coursework) indicated.');
-  } else {
-    suggestions.push('Consider highlighting advanced or rigorous coursework if applicable.');
+    weaknesses.push(`There is a significant academic gap relative to ${universityProfile.name}'s typical expectations.`);
+    suggestions.push(
+      hasRigor
+        ? 'Urgently improve core academic performance and present concrete evidence of readiness in high-level coursework.'
+        : 'Urgently strengthen both grades and course rigor; the current academic profile is unlikely to be competitive.'
+    );
   }
 
   const testPolicy = getStandardizedTestingPolicy(universityProfile);
@@ -61,10 +45,8 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
 
   if (testPolicy !== 'test_blind' && testPolicy !== 'not_used') {
     if (testBump > 0) {
-      score += testBump;
       strengths.push('Strong SAT/ACT corroborates the transcript (secondary to GPA and rigor).');
     } else if (testBump < 0) {
-      score += testBump;
       weaknesses.push(
         'Submitted test scores are below the typical range for this institution and may weaken the academic case.'
       );
@@ -75,30 +57,15 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
     }
   }
 
-  score = Math.max(0, Math.min(10, Math.round(score * 10) / 10));
-
-  return { score, strengths, weaknesses, suggestions };
+  return {
+    score: Math.max(1.0, Math.min(9.5, Math.round(score * 10) / 10)),
+    strengths,
+    weaknesses,
+    suggestions,
+  };
 }
 
 async function analyze(applicationProfile, universityProfile) {
-  if (config.useAIAnalyzers) {
-    const prompt = `You are an experienced university admissions officer.
-Evaluate the student's academic preparation and strength for the given university.
-
-University context (sliced — academic + priorities relevant to coursework):
-${JSON.stringify(sliceForAcademic(universityProfile), null, 2)}
-
-Student academic snapshot (not the full application):
-${JSON.stringify(buildAcademicExcerpt(applicationProfile), null, 2)}
-
-Consider GPA, course rigor, and fit with this university's academic expectations. If the snapshot omits GPA, say so in weaknesses.
-${toneGuidance}
-${JSON_FORMAT_INSTRUCTIONS}`;
-
-    const result = await openaiClient.runAIAnalysis(prompt);
-    if (result) return result;
-  }
-
   return ruleBasedAnalyze(applicationProfile, universityProfile);
 }
 
