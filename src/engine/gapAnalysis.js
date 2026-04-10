@@ -484,14 +484,25 @@ async function generateGapAnalysis(evaluationResult, universityProfile, applicat
   const schoolName = universityProfile.name || 'Unknown';
   const timelineStage = normalizeTimelineStage(options?.timelineStage);
 
-  // Extract dimension scores from evaluation result
-  const dimensionScores = {
-    academic: evaluationResult.academicStrength ?? evaluationResult.academic ?? 0,
-    activities: evaluationResult.activityImpact ?? evaluationResult.activities ?? 0,
-    honors: evaluationResult.honorsAwards ?? evaluationResult.honors ?? 0,
-    narrative: evaluationResult.narrativeStrength ?? evaluationResult.narrative ?? 0,
-    institutionalFit: evaluationResult.institutionalFit ?? 0,
+  // Extract dimension scores — handle both camelCase (from live eval) and snake_case (from Supabase)
+  const raw = {
+    academic: evaluationResult.academicStrength ?? evaluationResult.academic_strength ?? evaluationResult.academic ?? 0,
+    activities: evaluationResult.activityImpact ?? evaluationResult.activity_impact ?? evaluationResult.activities ?? 0,
+    honors: evaluationResult.honorsAwards ?? evaluationResult.honors_awards ?? evaluationResult.honors ?? 0,
+    narrative: evaluationResult.narrativeStrength ?? evaluationResult.narrative_strength ?? evaluationResult.narrative ?? 0,
+    institutionalFit: evaluationResult.institutionalFit ?? evaluationResult.institutional_fit ?? evaluationResult.fit ?? 0,
   };
+
+  // Detect if scores are on 0-100 display scale and normalize to 0-10
+  const maxScore = Math.max(...Object.values(raw));
+  const dimensionScores = {};
+  for (const [key, val] of Object.entries(raw)) {
+    dimensionScores[key] = maxScore > 10 ? val / 10 : val;
+  }
+
+  const rawAlignment = evaluationResult.alignmentScore ?? evaluationResult.alignment_score ?? evaluationResult.alignment ?? 0;
+  const alignmentScore = rawAlignment > 10 ? rawAlignment / 10 : rawAlignment;
+  const band = evaluationResult.admissionsSummary?.band ?? evaluationResult.band ?? 'unknown';
 
   // LAYER 1: Compute gaps (pure math)
   const rawGapMap = computeGapMap(dimensionScores, universityProfile);
@@ -540,8 +551,8 @@ async function generateGapAnalysis(evaluationResult, universityProfile, applicat
   // LAYER 3: Assemble complete gap analysis
   return {
     school: schoolName,
-    alignmentScore: evaluationResult.alignmentScore ?? evaluationResult.alignment ?? 0,
-    band: evaluationResult.admissionsSummary?.band || evaluationResult.band || 'unknown',
+    alignmentScore,
+    band,
 
     // Gap map (visual data for frontend)
     gapMap: gapMap.map(g => ({
