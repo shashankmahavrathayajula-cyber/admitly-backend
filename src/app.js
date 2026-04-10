@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const evaluationRoutes = require('./routes/evaluationRoutes');
 const essayRoutes = require('./routes/essayRoutes');
+const gapRoutes = require('./routes/gapRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -15,6 +16,7 @@ app.get('/health', (req, res) => {
 
 app.use('/api', evaluationRoutes);
 app.use('/api', essayRoutes);
+app.use('/api', gapRoutes);
 
 app.use(errorHandler);
 
