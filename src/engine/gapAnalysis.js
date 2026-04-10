@@ -13,7 +13,6 @@
  */
 
 const openaiClient = require('../utils/openaiClient');
-const { getBenchmarks } = require('./benchmarkScoring');
 const { getSchoolPriorities } = require('./universitySlices');
 const { applyOutputGuards } = require('./outputGuards');
 const { effectiveAdmitRate } = require('./universitySignals');
@@ -105,48 +104,47 @@ function getSchoolWeights(universityProfile) {
 
 /**
  * Compute benchmark targets for each dimension at a school.
- * "Target" = the "average admitted student" benchmark score.
- * "Stretch" = the "strong admitted student" benchmark score.
+ * Selectivity sets a base bar; per-dimension targets scale with that school's evaluation weights.
  */
 function computeTargets(universityProfile) {
-  const benchmarks = getBenchmarks(universityProfile.name);
-  const targets = {};
-
-  // For each dimension, the "target" is the score an average admitted student would get,
-  // and "stretch" is what a strong admitted student would get.
-  // We approximate: average benchmark → 6.0-7.0, strong benchmark → 8.0-9.0
-  for (const [dim, meta] of Object.entries(DIMENSIONS)) {
-    targets[dim] = {
-      target: 7.0,  // Default target score (average admitted)
-      stretch: 8.5,  // Default stretch score (strong admitted)
-    };
-  }
-
-  // Adjust based on school selectivity (0–1 admit rate from parsed estimate or tier fallback)
   const rate = effectiveAdmitRate(universityProfile);
   const pct = rate * 100;
-  const selectivity = pct < 10 ? 'ultra' : pct < 20 ? 'high' : pct < 40 ? 'selective' : 'accessible';
+  const weights = getSchoolWeights(universityProfile);
 
-  if (selectivity === 'ultra') {
-    for (const dim of Object.keys(targets)) {
-      targets[dim].target = 8.0;
-      targets[dim].stretch = 9.5;
-    }
-  } else if (selectivity === 'high') {
-    for (const dim of Object.keys(targets)) {
-      targets[dim].target = 7.0;
-      targets[dim].stretch = 8.5;
-    }
-  } else if (selectivity === 'selective') {
-    for (const dim of Object.keys(targets)) {
-      targets[dim].target = 6.0;
-      targets[dim].stretch = 7.5;
-    }
+  // Base targets by selectivity
+  let baseTarget;
+  let baseStretch;
+  if (pct < 10) {
+    baseTarget = 7.5;
+    baseStretch = 9.0;
+  } else if (pct < 20) {
+    baseTarget = 6.5;
+    baseStretch = 8.0;
+  } else if (pct < 40) {
+    baseTarget = 5.5;
+    baseStretch = 7.0;
   } else {
-    for (const dim of Object.keys(targets)) {
-      targets[dim].target = 5.0;
-      targets[dim].stretch = 6.5;
-    }
+    baseTarget = 4.5;
+    baseStretch = 6.0;
+  }
+
+  // Adjust per dimension based on weight
+  // Higher-weighted dimensions get higher targets (the school cares more)
+  // Lower-weighted dimensions get lower targets (less scrutiny)
+  const avgWeight = 0.2; // 5 dimensions, equal would be 0.2 each
+  const targets = {};
+
+  for (const [dim, meta] of Object.entries(DIMENSIONS)) {
+    const w = weights[dim] || 0.2;
+    // Scale factor: if weight is 2x average, target goes up ~0.8; if 0.5x, target goes down ~0.4
+    const scaleFactor = (w / avgWeight - 1) * 0.8;
+    const dimTarget = Math.round(Math.min(9.5, Math.max(3.0, baseTarget + scaleFactor)) * 10) / 10;
+    const dimStretch = Math.round(Math.min(9.5, Math.max(4.0, baseStretch + scaleFactor)) * 10) / 10;
+
+    targets[dim] = {
+      target: dimTarget,
+      stretch: dimStretch,
+    };
   }
 
   return targets;
