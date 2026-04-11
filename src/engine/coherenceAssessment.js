@@ -1,3 +1,5 @@
+const { computeRigorFromCourses } = require('./benchmarkScoring');
+
 /**
  * Cross-dimension coherence assessment.
  * Runs after individual analyzers, adjusts the alignment score
@@ -38,7 +40,9 @@ function assessCoherence(application, dimensionScores, universityProfile) {
   ).toLowerCase();
 
   const gpa = application.gpa ?? application.academics?.gpa;
-  const rigor = application.courseRigor ?? application.academics?.courseRigor ?? '';
+  const rigorComputed = computeRigorFromCourses(application);
+  const rigor =
+    rigorComputed || application.courseRigor || application.academics?.courseRigor || '';
   const schoolName = universityProfile?.name || 'this institution';
 
   // ── 1. Major-Activity Alignment ──

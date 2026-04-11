@@ -19,6 +19,22 @@
  * courseRigor (UI): 'standard' | 'honors' | 'ap_ib' | 'most_demanding' | ''
  */
 
+/** Parse AP count from API (number or numeric string); null if absent/invalid. */
+function coerceNonNegativeInt(val) {
+  if (val == null || val === '') return null;
+  const n = typeof val === 'number' ? val : parseInt(String(val).trim(), 10);
+  if (Number.isNaN(n) || n < 0) return null;
+  return n;
+}
+
+/** When course rigor dropdown is empty, infer from AP count (aligns with academic UX). */
+function deriveCourseRigorFromApCount(apTaken) {
+  if (apTaken == null) return null;
+  if (apTaken >= 4) return 'ap_ib';
+  if (apTaken >= 1) return 'honors';
+  return 'standard';
+}
+
 function normalizeTestsObject(raw) {
   const t =
     raw?.tests ??
@@ -77,11 +93,20 @@ function normalizeApplicationInput(raw) {
   const academics = raw.academics && typeof raw.academics === 'object' ? raw.academics : {};
 
   const gpa = raw.gpa ?? raw.GPA ?? academics.gpa ?? null;
-  const courseRigor =
+  let courseRigor =
     raw.courseRigor ?? raw.course_rigor ?? academics.courseRigor ?? academics.course_rigor ?? null;
-  const apCoursesTaken = raw.apCoursesTaken ?? raw.academics?.apCoursesTaken ?? academics.apCoursesTaken ?? null;
-  const apCoursesAvailable =
+  const apCoursesTakenRaw =
+    raw.apCoursesTaken ?? raw.academics?.apCoursesTaken ?? academics.apCoursesTaken ?? null;
+  const apCoursesAvailableRaw =
     raw.apCoursesAvailable ?? raw.academics?.apCoursesAvailable ?? academics.apCoursesAvailable ?? null;
+  const apCoursesTaken = coerceNonNegativeInt(apCoursesTakenRaw);
+  const apCoursesAvailable = coerceNonNegativeInt(apCoursesAvailableRaw);
+
+  const rigorUnset =
+    courseRigor == null || (typeof courseRigor === 'string' && !String(courseRigor).trim());
+  if (rigorUnset && apCoursesTaken != null) {
+    courseRigor = deriveCourseRigorFromApCount(apCoursesTaken);
+  }
   const intendedMajor =
     (typeof raw.intendedMajor === 'string' && raw.intendedMajor) ||
     (typeof raw.intended_major === 'string' && raw.intended_major) ||
@@ -104,7 +129,7 @@ function normalizeApplicationInput(raw) {
     academics: {
       ...academics,
       gpa: academics.gpa !== undefined ? academics.gpa : gpa,
-      courseRigor: academics.courseRigor !== undefined ? academics.courseRigor : courseRigor,
+      courseRigor: courseRigor != null ? courseRigor : academics.courseRigor,
       intendedMajor: academics.intendedMajor !== undefined ? academics.intendedMajor : intendedMajor,
       ...(apCourses != null ? { apCourses } : {}),
       apCoursesTaken,
@@ -131,6 +156,8 @@ function normalizeApplicationInput(raw) {
 function courseRigorIndicated(app) {
   const cr = app?.courseRigor ?? app?.academics?.courseRigor;
   if (typeof cr === 'string' && cr.trim() && cr !== 'standard') return true;
+  const taken = coerceNonNegativeInt(app?.apCoursesTaken ?? app?.academics?.apCoursesTaken);
+  if (taken != null && taken > 0) return true;
   const ap =
     app?.apCourses ?? app?.honorsCourses ?? app?.academics?.apCourses ?? app?.academics?.honorsCourses;
   return Array.isArray(ap) && ap.length > 0;

@@ -46,11 +46,18 @@ function rigorLevel(rigor) {
   return map[String(rigor || '').toLowerCase()] ?? 0;
 }
 
-function computeRigorFromCourses(profile) {
-  const taken = profile.apCoursesTaken ?? profile.academics?.apCoursesTaken;
-  const available = profile.apCoursesAvailable ?? profile.academics?.apCoursesAvailable;
+function coerceNonNegativeInt(val) {
+  if (val == null || val === '') return null;
+  const n = typeof val === 'number' ? val : parseInt(String(val).trim(), 10);
+  if (Number.isNaN(n) || n < 0) return null;
+  return n;
+}
 
-  if (typeof taken === 'number' && taken >= 0) {
+function computeRigorFromCourses(profile) {
+  const taken = coerceNonNegativeInt(profile.apCoursesTaken ?? profile.academics?.apCoursesTaken);
+  const available = coerceNonNegativeInt(profile.apCoursesAvailable ?? profile.academics?.apCoursesAvailable);
+
+  if (taken != null && taken >= 0) {
     if (typeof available === 'number' && available > 0) {
       const ratio = taken / available;
       if (ratio >= 0.7) return 'most_demanding';

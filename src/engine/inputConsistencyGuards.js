@@ -3,7 +3,7 @@
  * Runs after all analyzers merge — fixes AI/prompt drift in any single analyzer.
  */
 
-const { normalizeApplicationInput } = require('../schemas/canonicalApplication');
+const { normalizeApplicationInput, courseRigorIndicated } = require('../schemas/canonicalApplication');
 const { summarizeStemAndLeadershipSignals } = require('./majorFitHelpers');
 
 function normalizedIntendedMajor(app) {
@@ -79,12 +79,9 @@ function contradictsStemActivityEngagement(line, intendedStr, sig) {
   );
 }
 
-/** ap_ib / honors / most_demanding on file — not 'standard' or empty. */
+/** Declared rigor (dropdown) or AP counts / honors course list — used to drop contradictory rigor lines. */
 function highCourseRigorOnFile(app) {
-  const cr = app?.courseRigor ?? app?.academics?.courseRigor;
-  if (typeof cr !== 'string') return false;
-  const v = cr.trim().toLowerCase();
-  return v === 'ap_ib' || v === 'honors' || v === 'most_demanding';
+  return courseRigorIndicated(app);
 }
 
 /**
