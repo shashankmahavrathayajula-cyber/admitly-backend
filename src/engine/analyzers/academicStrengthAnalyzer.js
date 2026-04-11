@@ -51,7 +51,7 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
         'Submitted test scores are below the typical range for this institution and may weaken the academic case.'
       );
     } else if (tests?.sat || tests?.act) {
-      strengths.push('Test scores on file; treated as supporting context alongside GPA and coursework.');
+      strengths.push('Your application includes test scores; reviewers treat them as supporting context alongside GPA and coursework.');
     } else if (testPolicy === 'test_required') {
       suggestions.push('SAT/ACT scores are part of the expected academic record at this institution when available.');
     }
@@ -66,12 +66,6 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
 }
 
 async function analyze(applicationProfile, universityProfile) {
-  console.log(
-    '[SMOKE] Academic analyzer received - courseRigor:',
-    applicationProfile.courseRigor,
-    'apCoursesTaken:',
-    applicationProfile.apCoursesTaken,
-  );
   return ruleBasedAnalyze(applicationProfile, universityProfile);
 }
 

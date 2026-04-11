@@ -56,7 +56,7 @@ function ruleBasedSynthesis(applicationProfile, universityProfile, aggregated) {
   if (spread(scores) < 1.25) {
     coreInsight = `Rubric subscores look even, but ${uni} is not a generic review: priorities start with “${p1?.theme || 'stated factors'}” and “${p2?.theme || 'fit'}” with essay weight “${syn.essay_importance || 'unknown'}.”`;
   } else {
-    coreInsight = `Strongest signal: ${DIM_LABEL[strongestKey]} (${strongestVal.toFixed(1)}/10); largest gap: ${DIM_LABEL[weakestKey]} (${weakestVal.toFixed(1)}/10). At ${uni}, align the file with “${p1?.theme || 'top priorities'}” given essay importance ${syn.essay_importance || 'unknown'}.`;
+    coreInsight = `Strongest signal: ${DIM_LABEL[strongestKey]} (${strongestVal.toFixed(1)}/10); largest gap: ${DIM_LABEL[weakestKey]} (${weakestVal.toFixed(1)}/10). At ${uni}, align your application with “${p1?.theme || 'top priorities'}” given essay importance ${syn.essay_importance || 'unknown'}.`;
   }
 
   if (toneClip) {
@@ -103,6 +103,7 @@ Differentiation (critical—same applicant might apply to multiple schools):
 - Do NOT write a paragraph that would still make sense if the school name were deleted (no all-purpose “strong applicant” filler).
 
 Rules:
+- Write to the student: use "your application" / "you" where natural; write as a counselor to the applicant, not in internal admissions shorthand.
 - mostImportantNextStep: One imperative for THIS school only; reference one priority theme by exact title or name the city/campus (Pullman vs Seattle) if it clarifies fit.
 - Use ONLY the evidence below plus subscores—do not invent applicant facts.
 - Do NOT re-hash raw GPA unless the bullets already center on academics.

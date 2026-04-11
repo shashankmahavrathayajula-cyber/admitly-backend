@@ -82,7 +82,7 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
 
   if (!intendedStr && majorStrengths.length > 0) {
     score -= 0.75;
-    weaknesses.push('Intended major is not specified; reviewers cannot map the file to a program story.');
+    weaknesses.push('Without an intended major, reviewers cannot connect your application to a clear program story.');
   }
 
   const cultureNotes = universityProfile.culture_notes || [];
@@ -128,7 +128,7 @@ function applyStrongSignalFitFloor(result, applicationProfile, universityProfile
 }
 
 /**
- * Remove weaknesses that contradict structured application facts (major + activities on file).
+ * Remove weaknesses that contradict structured application facts (major and activities in the application).
  */
 function applyInstitutionalFitGuards(result, applicationProfile) {
   if (!result || typeof result !== 'object') return result;

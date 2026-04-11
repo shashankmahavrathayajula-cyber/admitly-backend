@@ -158,6 +158,7 @@ ${essayExcerpt.narrative_excerpt}
 6) No weak openers: "Consider", "It is important to", "Additionally", "In today's competitive".
 7) Max 3 strings per list. Suggestions must each map to one named priority theme.
 8) Do not use these phrases in YOUR writing: "authentic intellectual curiosity," "intellectual curiosity is evident," "aligning well with"—tie claims to lines from the excerpt instead.
+9) Address the student directly ("your application", "your profile", "you"); write as a counselor to the applicant, not in internal admissions shorthand.
 
 ${toneGuidance}
 ${JSON_FORMAT_INSTRUCTIONS}`;

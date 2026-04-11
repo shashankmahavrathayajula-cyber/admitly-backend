@@ -17,7 +17,7 @@ function normalizedIntendedMajor(app) {
   return typeof m === 'string' ? m.trim() : '';
 }
 
-/** True when the line is clearly about written materials, not the whole file. */
+/** True when the line is clearly about written materials, not the whole application. */
 function isEssayOrWritingScoped(text) {
   return /\b(essay|essays|personal statement|coalition|supplemental|written materials|narrative|writing|excerpt)\b/i.test(
     text
@@ -25,7 +25,7 @@ function isEssayOrWritingScoped(text) {
 }
 
 /**
- * When intended major is on file, drop lines that falsely deny the application mentions a major.
+ * When intended major is listed in the application, drop lines that falsely deny the application mentions a major.
  * Keeps essay-scoped critiques (e.g. PS does not tie to CS).
  */
 function contradictsDeclaredMajor(line, intendedStr) {
