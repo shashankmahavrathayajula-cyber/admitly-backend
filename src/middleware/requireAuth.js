@@ -10,6 +10,7 @@ async function requireAuth(req, res, next) {
     return res.status(401).json({ error: 'Invalid or expired token' });
   }
   req.userId = user.id;
+  req.userEmail = user.email || '';
   next();
 }
 

@@ -13,6 +13,7 @@
 
 const express = require('express');
 const { requireAuth } = require('../middleware/requireAuth');
+const { attachTier, checkSchoolListAccess } = require('../middleware/tierAccess');
 const { buildSchoolList } = require('../engine/schoolListBuilder');
 
 const router = express.Router();
@@ -24,6 +25,14 @@ function listAuth(req, res, next) {
     return next();
   }
   return requireAuth(req, res, next);
+}
+
+/** Preserve local dev when SCHOOL_LIST_DEV_NO_AUTH=1 (paid check would otherwise block). */
+function maybeCheckSchoolListAccess(req, res, next) {
+  if (process.env.NODE_ENV !== 'production' && process.env.SCHOOL_LIST_DEV_NO_AUTH === '1') {
+    return next();
+  }
+  return checkSchoolListAccess(req, res, next);
 }
 
 // School list rate limiting (this is an expensive operation — runs all schools)
@@ -55,7 +64,7 @@ function validateListRequest(body) {
   return { valid: true };
 }
 
-router.post('/buildSchoolList', listAuth, listRateLimit, async (req, res, next) => {
+router.post('/buildSchoolList', listAuth, attachTier, maybeCheckSchoolListAccess, listRateLimit, async (req, res, next) => {
   const validation = validateListRequest(req.body);
   if (!validation.valid) {
     return res.status(400).json({ error: 'Validation failed', details: validation.errors });
