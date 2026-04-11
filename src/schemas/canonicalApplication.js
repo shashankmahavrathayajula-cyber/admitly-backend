@@ -124,7 +124,7 @@ function normalizeApplicationInput(raw) {
 
   const tests = normalizeTestsObject({ ...raw, academics: { ...academics } });
 
-  return {
+  const output = {
     ...raw,
     academics: {
       ...academics,
@@ -147,6 +147,15 @@ function normalizeApplicationInput(raw) {
     activities: Array.isArray(raw.activities) ? raw.activities : [],
     honors: Array.isArray(raw.honors) ? raw.honors : [],
   };
+  console.log(
+    '[SMOKE] Normalized courseRigor:',
+    output.courseRigor,
+    'apCoursesTaken:',
+    output.apCoursesTaken,
+    'apCoursesAvailable:',
+    output.apCoursesAvailable,
+  );
+  return output;
 }
 
 /**

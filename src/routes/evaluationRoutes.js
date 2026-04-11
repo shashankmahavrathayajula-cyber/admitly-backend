@@ -54,6 +54,13 @@ router.post('/evaluateApplication', requireAuth, attachTier, checkEvaluationLimi
   if (config.isDevelopment) {
     console.log('REQUEST BODY:', JSON.stringify(req.body, null, 2));
   }
+  console.log('[SMOKE] Raw request body academics:', JSON.stringify(req.body.application?.academics));
+  console.log(
+    '[SMOKE] Raw apCoursesTaken:',
+    req.body.application?.apCoursesTaken,
+    'apCoursesAvailable:',
+    req.body.application?.apCoursesAvailable,
+  );
   console.log('[API] POST /api/evaluateApplication received, universities:', universities?.length ?? 0, universities ?? []);
   try {
     const results = await evaluationService.evaluateApplication(application, universities);

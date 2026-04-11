@@ -51,6 +51,17 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
     }
   }
 
+  console.log(
+    '[SMOKE] Dimension scores:',
+    JSON.stringify({
+      academic: results.academic?.score,
+      activities: results.activities?.score,
+      honors: results.honors?.score,
+      narrative: results.narrative?.score,
+      institutionalFit: results.institutionalFit?.score,
+    }),
+  );
+
   const aggregated = aggregate(results, universityProfile);
 
   // Cross-dimension coherence assessment
@@ -104,6 +115,7 @@ async function evaluate(applicationProfile, universityProfile, options = {}) {
     alignmentScore = Math.min(9.9, Math.round(coherenceAdjustedAlignment * 10) / 10);
   }
   const admissionsSummary = computeAdmissionsSummary(alignmentScore, universityProfile);
+  console.log('[SMOKE] Final alignmentScore:', alignmentScore, 'band:', admissionsSummary?.band);
 
   const result = {
     university: universityProfile.name,

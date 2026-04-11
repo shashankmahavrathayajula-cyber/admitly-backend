@@ -66,6 +66,12 @@ function ruleBasedAnalyze(applicationProfile, universityProfile) {
 }
 
 async function analyze(applicationProfile, universityProfile) {
+  console.log(
+    '[SMOKE] Academic analyzer received - courseRigor:',
+    applicationProfile.courseRigor,
+    'apCoursesTaken:',
+    applicationProfile.apCoursesTaken,
+  );
   return ruleBasedAnalyze(applicationProfile, universityProfile);
 }
 
