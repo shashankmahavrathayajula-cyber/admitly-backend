@@ -28,9 +28,17 @@ router.post('/checkout', requireAuth, async (req, res, next) => {
     });
   }
 
-  // Build success/cancel URLs
-  const origin = req.headers.origin || req.headers.referer || 'https://admitly-insight-engine.lovable.app';
-  const baseUrl = origin.replace(/\/$/, '');
+  // Hardcode allowed redirect URLs — never trust Origin/Referer headers
+  const ALLOWED_ORIGINS = [
+    'https://admitly-insight-engine.lovable.app',
+    'https://useadmitly.com',
+  ];
+
+  const origin = req.headers.origin || '';
+  const baseUrl = ALLOWED_ORIGINS.includes(origin)
+    ? origin
+    : 'https://admitly-insight-engine.lovable.app';
+
   const successUrl = `${baseUrl}/dashboard?payment=success&tier=${tier}`;
   const cancelUrl = `${baseUrl}/dashboard?payment=cancelled`;
 

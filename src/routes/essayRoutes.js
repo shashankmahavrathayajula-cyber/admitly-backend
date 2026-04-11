@@ -130,6 +130,10 @@ router.post('/analyzeEssay', essayAuth, attachTier, essayRateLimit, async (req, 
       { essayType: essayType || 'Personal Statement' }
     );
 
+    if (result.error) {
+      return res.status(502).json({ error: result.error, school: result.school });
+    }
+
     // Save analysis to Supabase (fire-and-forget)
     saveEssayAnalysis(req.userId, universityName, essayType, result)
       .catch(err => console.error('[EssayAnalyzer] Background save failed:', err.message));

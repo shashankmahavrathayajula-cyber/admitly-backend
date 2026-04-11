@@ -150,6 +150,10 @@ router.post('/gapAnalysis', gapAuth, attachTier, gapRateLimit, async (req, res, 
       timelineStage,
     });
 
+    if (result.error) {
+      return res.status(502).json({ error: result.error, school: result.school });
+    }
+
     res.json(result);
   } catch (err) {
     console.error('[GapAnalysis] Failed:', err);
