@@ -24,6 +24,33 @@ router.post('/evaluateApplication', requireAuth, attachTier, checkEvaluationLimi
   }
 
   const { application, universities } = req.body;
+
+  // Validate payload (limits and shape)
+  if (!application || typeof application !== 'object') {
+    return res.status(400).json({ error: 'Missing or invalid "application" field' });
+  }
+  if (!universities || !Array.isArray(universities) || universities.length === 0) {
+    return res.status(400).json({ error: 'Missing or invalid "universities" field' });
+  }
+  if (universities.length > 5) {
+    return res.status(400).json({ error: 'Maximum 5 universities per evaluation' });
+  }
+
+  const activities = application.activities || application.extracurriculars || [];
+  if (Array.isArray(activities) && activities.length > 15) {
+    return res.status(400).json({ error: 'Maximum 15 activities allowed' });
+  }
+
+  const honors = application.honors || application.awards || [];
+  if (Array.isArray(honors) && honors.length > 15) {
+    return res.status(400).json({ error: 'Maximum 15 honors allowed' });
+  }
+
+  const essay = application.essays?.personalStatement || application.personalStatement || application.essay || '';
+  if (typeof essay === 'string' && essay.length > 15000) {
+    return res.status(400).json({ error: 'Essay text exceeds maximum length (15,000 characters)' });
+  }
+
   if (config.isDevelopment) {
     console.log('REQUEST BODY:', JSON.stringify(req.body, null, 2));
   }
