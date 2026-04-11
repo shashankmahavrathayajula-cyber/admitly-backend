@@ -81,10 +81,12 @@ async function handleCheckoutCompleted(session) {
     return;
   }
 
-  // Season expiry: January 31 of next year (covers Aug-Jan season)
+  // Season expires Jan 31 of the NEXT year if we're past Jan 31 of this year
   const now = new Date();
-  const expiryYear = now.getMonth() >= 7 ? now.getFullYear() + 1 : now.getFullYear(); // If Aug+ → next Jan
-  const expiresAt = new Date(expiryYear, 0, 31, 23, 59, 59).toISOString(); // Jan 31
+  const thisYearExpiry = new Date(now.getFullYear(), 0, 31, 23, 59, 59);
+  const expiresAt = now > thisYearExpiry
+    ? new Date(now.getFullYear() + 1, 0, 31, 23, 59, 59).toISOString()
+    : thisYearExpiry.toISOString();
 
   const { error } = await supabase
     .from('subscriptions')
