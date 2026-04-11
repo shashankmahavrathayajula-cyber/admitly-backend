@@ -21,6 +21,7 @@ const { attachTier } = require('../middleware/tierAccess');
 const { analyzeEssay } = require('../engine/essayAnalyzer');
 const universityDataLoader = require('../loaders/universityDataLoader');
 const { normalizeApplicationInput } = require('../schemas/canonicalApplication');
+const { supabase } = require('../lib/supabase');
 
 const router = express.Router();
 
@@ -147,13 +148,19 @@ router.post('/analyzeEssay', essayAuth, attachTier, essayRateLimit, async (req, 
 
 /**
  * Save essay analysis to Supabase for history/tracking.
- * Uses the evaluation_cache table pattern — lightweight, fire-and-forget.
  */
 async function saveEssayAnalysis(userId, universityName, essayType, result) {
   try {
-    // We'll store essay analyses in a lightweight way
-    // For now, log it — a dedicated table can be added later if needed
-    console.log(`[EssayAnalyzer] Analysis saved for user ${userId}, school: ${universityName}`);
+    if (result.error) return; // Don't save failed analyses
+    const { error } = await supabase
+      .from('essay_analyses')
+      .insert({
+        user_id: userId,
+        university_name: universityName,
+      });
+    if (error) {
+      console.error('[EssayAnalyzer] Save failed:', error.message);
+    }
   } catch (err) {
     console.error('[EssayAnalyzer] Save failed:', err.message);
   }
