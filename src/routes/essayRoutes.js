@@ -17,6 +17,7 @@
 
 const express = require('express');
 const { requireAuth } = require('../middleware/requireAuth');
+const { attachTier } = require('../middleware/tierAccess');
 const { analyzeEssay } = require('../engine/essayAnalyzer');
 const universityDataLoader = require('../loaders/universityDataLoader');
 const { normalizeApplicationInput } = require('../schemas/canonicalApplication');
@@ -34,17 +35,24 @@ function essayAuth(req, res, next) {
 
 // Essay-specific rate limiting (separate from evaluation limits)
 const essayLimits = new Map();
-const MAX_ESSAY_ANALYSES_PER_DAY = 5;
 
 function essayRateLimit(req, res, next) {
   const userId = req.userId;
+  const tier = req.userTier || 'free';
   const today = new Date().toISOString().slice(0, 10);
   const key = `essay:${userId}:${today}`;
   const count = essayLimits.get(key) || 0;
-  if (count >= MAX_ESSAY_ANALYSES_PER_DAY) {
-    return res.status(429).json({
-      error: 'Daily essay analysis limit reached (5 per day)',
-      retryable: false,
+
+  // Free: 1 per day, Paid: 10 per day
+  const maxAllowed = tier === 'free' ? 1 : 10;
+
+  if (count >= maxAllowed) {
+    return res.status(403).json({
+      error: tier === 'free'
+        ? 'You\'ve used your free essay analysis. Upgrade to Season Pass for unlimited essay feedback.'
+        : 'Daily essay analysis limit reached. Try again tomorrow.',
+      upgradeRequired: tier === 'free',
+      retryable: tier !== 'free',
     });
   }
   essayLimits.set(key, count + 1);
@@ -83,7 +91,7 @@ function validateEssayRequest(body) {
   };
 }
 
-router.post('/analyzeEssay', essayAuth, essayRateLimit, async (req, res, next) => {
+router.post('/analyzeEssay', essayAuth, attachTier, essayRateLimit, async (req, res, next) => {
   const validation = validateEssayRequest(req.body);
   if (!validation.valid) {
     return res.status(400).json({ error: 'Validation failed', details: validation.errors });

@@ -16,6 +16,7 @@
 
 const express = require('express');
 const { requireAuth } = require('../middleware/requireAuth');
+const { attachTier } = require('../middleware/tierAccess');
 const { generateGapAnalysis } = require('../engine/gapAnalysis');
 const evaluationEngine = require('../engine/evaluationEngine');
 const universityDataLoader = require('../loaders/universityDataLoader');
@@ -39,17 +40,24 @@ function gapAuth(req, res, next) {
 
 // Gap analysis rate limiting (separate from evaluation and essay limits)
 const gapLimits = new Map();
-const MAX_GAP_ANALYSES_PER_DAY = 3;
 
 function gapRateLimit(req, res, next) {
   const userId = req.userId;
+  const tier = req.userTier || 'free';
   const today = new Date().toISOString().slice(0, 10);
   const key = `gap:${userId}:${today}`;
   const count = gapLimits.get(key) || 0;
-  if (count >= MAX_GAP_ANALYSES_PER_DAY) {
-    return res.status(429).json({
-      error: 'Daily gap analysis limit reached (3 per day)',
-      retryable: false,
+
+  // Free: 1 per day, Paid: 5 per day
+  const maxAllowed = tier === 'free' ? 1 : 5;
+
+  if (count >= maxAllowed) {
+    return res.status(403).json({
+      error: tier === 'free'
+        ? 'You\'ve used your free action plan. Upgrade to Season Pass for unlimited gap analyses.'
+        : 'Daily gap analysis limit reached. Try again tomorrow.',
+      upgradeRequired: tier === 'free',
+      retryable: tier !== 'free',
     });
   }
   gapLimits.set(key, count + 1);
@@ -88,7 +96,7 @@ function validateGapRequest(body) {
   };
 }
 
-router.post('/gapAnalysis', gapAuth, gapRateLimit, async (req, res, next) => {
+router.post('/gapAnalysis', gapAuth, attachTier, gapRateLimit, async (req, res, next) => {
   const validation = validateGapRequest(req.body);
   if (!validation.valid) {
     return res.status(400).json({ error: 'Validation failed', details: validation.errors });
