@@ -179,21 +179,16 @@ function reinforceQuoteRule(result, essayExcerpt) {
 }
 
 async function analyze(applicationProfile, universityProfile) {
-  const benchmarks = getBenchmarks(universityProfile.name);
-  const benchmarkScore = scoreNarrative(applicationProfile, benchmarks);
-
   if (config.useAIAnalyzers) {
     const universitySlice = sliceForNarrative(universityProfile);
     const essayExcerpt = buildEssayNarrativeExcerpt(applicationProfile, 6500);
     const prompt = buildNarrativePrompt(universitySlice, essayExcerpt);
-
     const result = await openaiClient.runAIAnalysis(prompt, { maxTokens: 1200 });
     if (result) {
-      const reinforced = reinforceQuoteRule(result, essayExcerpt);
-      return {
-        ...reinforced,
-        score: Math.max(1.0, Math.min(9.5, Math.round(benchmarkScore * 10) / 10)),
-      };
+      const benchmarks = getBenchmarks(universityProfile.name);
+      const benchmarkScore = scoreNarrative(applicationProfile, benchmarks);
+      const guarded = reinforceQuoteRule({ ...result, score: benchmarkScore }, essayExcerpt);
+      return guarded;
     }
   }
 

@@ -88,6 +88,7 @@ async function runAIAnalysis(prompt, options = {}) {
   const body = {
     model,
     max_tokens: maxTokens,
+    temperature: 0.3,
     messages: [{ role: 'user', content: prompt }],
   };
 
@@ -169,6 +170,7 @@ async function runInsightSynthesis(prompt, options = {}) {
   const body = {
     model,
     max_tokens: maxTokens,
+    temperature: 0.3,
     messages: [{ role: 'user', content: prompt }],
   };
 
