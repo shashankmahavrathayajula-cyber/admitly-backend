@@ -29,10 +29,10 @@
     },
     "evaluation_weights": {
       "gpa": 0.35,
-      "course_rigor": 0.20,
+      "course_rigor": 0.2,
       "extracurriculars": 0.15,
-      "leadership": 0.10,
-      "essay": 0.20
+      "leadership": 0.1,
+      "essay": 0.2
     },
     "summary": "The University of Washington is a major public research university with moderately selective admissions and a strong emphasis on academic achievement and rigor. According to its Common Data Set, the most important factors in admission decisions include rigor of secondary school coursework, academic GPA, and the application essay.",
     "culture_notes": [
@@ -109,7 +109,7 @@
     "evaluation_weights": {
       "gpa": 0.45,
       "course_rigor": 0.25,
-      "extracurriculars": 0.10,
+      "extracurriculars": 0.1,
       "leadership": 0.05,
       "essay": 0.15
     },
@@ -182,11 +182,11 @@
       "resilience": 7
     },
     "evaluation_weights": {
-      "gpa": 0.30,
+      "gpa": 0.3,
       "course_rigor": 0.25,
       "extracurriculars": 0.15,
-      "leadership": 0.10,
-      "essay": 0.20
+      "leadership": 0.1,
+      "essay": 0.2
     },
     "summary": "MIT is a highly selective private research university with a worldwide reputation in science and engineering. Admissions uses holistic review with heavy weight on academic preparation, technical depth, and fit with a rigorous, collaborative problem-solving culture—not startup polish alone. Confirm rates and deadlines on mitadmissions.org for the applicant’s cycle.",
     "culture_notes": [
@@ -263,8 +263,8 @@
       "gpa": 0.33,
       "course_rigor": 0.22,
       "extracurriculars": 0.15,
-      "leadership": 0.10,
-      "essay": 0.20
+      "leadership": 0.1,
+      "essay": 0.2
     },
     "summary": "UC Berkeley is a top public research university with holistic review within the UC application system. Academic achievement and course rigor in UC-approved a–g coursework are central; personal insight questions carry substantial weight. Confirm UC system rules, deadlines, and any scholarship-related testing nuances for the application year on admissions.berkeley.edu and UCOP.",
     "culture_notes": [
@@ -342,7 +342,7 @@
       "course_rigor": 0.22,
       "extracurriculars": 0.16,
       "leadership": 0.08,
-      "essay": 0.20
+      "essay": 0.2
     },
     "summary": "UT Austin is a large flagship public university with selective admissions for many programs. Academic performance and rigor are primary; Texas automatic admission rules apply for qualifying in-state students—others are reviewed holistically, with major capacity and state context often decisive. Confirm auto-admit thresholds, testing rules, and deadlines on admissions.utexas.edu for the entry year.",
     "culture_notes": [
@@ -420,7 +420,7 @@
       "course_rigor": 0.24,
       "extracurriculars": 0.16,
       "leadership": 0.12,
-      "essay": 0.20
+      "essay": 0.2
     },
     "summary": "Stanford is a highly selective private research university with holistic, context-aware review. Academic excellence, intellectual vitality, and sustained impact beyond transcripts matter; readers reward specificity, initiative, and fit with Stanford’s culture. Draft informed by Stanford Common Data Set (CDS) factor emphasis and admission.stanford.edu; VERIFY latest CDS and official site for cycle-specific rates, deadlines, and policies.",
     "culture_notes": [
@@ -495,7 +495,7 @@
       "course_rigor": 0.24,
       "extracurriculars": 0.16,
       "leadership": 0.08,
-      "essay": 0.20
+      "essay": 0.2
     },
     "summary": "UCLA admits through the UC application using Personal Insight Questions (PIQs), not Common App essays. Review is holistic within a fixed system: college-prep coursework and GPA in context, activity lists, and PIQ responses carry most of the signal; SAT/ACT are not used in admission decisions under current UC test-blind policy. Draft informed by UC-reported factor emphasis and CDS-style documentation; VERIFY admission.ucla.edu and UCOP for cycle-specific rules and rates.",
     "culture_notes": [
@@ -571,11 +571,11 @@
       "resilience": 7
     },
     "evaluation_weights": {
-      "gpa": 0.30,
+      "gpa": 0.3,
       "course_rigor": 0.24,
       "extracurriculars": 0.14,
       "leadership": 0.12,
-      "essay": 0.20
+      "essay": 0.2
     },
     "summary": "Harvard College admits through holistic review with a very high academic bar: strong secondary-school achievement, demanding coursework, teacher and counselor recommendations, sustained extracurricular distinction, and essays that show mature judgment and perspective—less novelty-for-its-own-sake than breadth with scholarly grounding. Draft informed by Harvard Common Data Set–style factor emphasis and college.harvard.edu; VERIFY acceptance rate and deadlines for each cycle.",
     "culture_notes": [
@@ -652,11 +652,11 @@
       "resilience": 7
     },
     "evaluation_weights": {
-      "gpa": 0.30,
+      "gpa": 0.3,
       "course_rigor": 0.22,
       "extracurriculars": 0.18,
-      "leadership": 0.10,
-      "essay": 0.20
+      "leadership": 0.1,
+      "essay": 0.2
     },
     "summary": "University of Michigan—Ann Arbor admits through holistic review centered on strong academic preparation and rigor alongside a developed activity profile: high school achievement, demanding coursework, recommendations, and essays that show clear direction and fit with Michigan’s colleges, research breadth, and public mission—not generic appetite for a large campus alone. Draft informed by CDS-style factor emphasis and admissions.umich.edu; VERIFY acceptance rate, deadlines, and school-specific rules for the entry year.",
     "culture_notes": [
@@ -741,7 +741,7 @@
       "course_rigor": 0.23,
       "extracurriculars": 0.16,
       "leadership": 0.13,
-      "essay": 0.20
+      "essay": 0.2
     },
     "summary": "USC admits through holistic review at a highly selective private research university: strong secondary-school achievement and rigor, recommendations, sustained activities with initiative, and essays that communicate direction and fit with specific schools and programs—not generic private-college ambition. Draft informed by CDS-style factor emphasis and admission.usc.edu; VERIFY acceptance rate, deadlines, and school-specific requirements for the entry year.",
     "culture_notes": [
@@ -791,6 +791,1146 @@
       "Vague ambition (‘change the world,’ ‘make an impact’) with no concrete next step, major, or resource you would use.",
       "Treating optional tests as meaningless—when submitted, scores are read in holistic context; follow current official policy.",
       "UC application habits carried over—PIQ-style blocks or a–g framing where USC expects cohesive narrative and school fit."
+    ]
+  },
+  {
+    "name": "Yale University",
+    "location": "New Haven, Connecticut, USA",
+    "selectivity_level": "Highly Selective",
+    "acceptance_rate_estimate": "≈3.9–4.5% (VERIFY latest cycle — Yale)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Political Science",
+      "History",
+      "English",
+      "Economics",
+      "Law (pre-law pipeline)",
+      "Drama/Theater",
+      "Psychology"
+    ],
+    "traits": {
+      "intellectual_vitality": 10,
+      "academic_rigor": 10,
+      "leadership": 9,
+      "initiative": 9,
+      "collaboration": 9,
+      "community_impact": 10,
+      "reflection_depth": 10,
+      "thematic_direction": 8,
+      "resilience": 8
+    },
+    "evaluation_weights": {
+      "gpa": 0.25,
+      "course_rigor": 0.25,
+      "extracurriculars": 0.18,
+      "leadership": 0.12,
+      "essay": 0.2
+    },
+    "summary": "Yale employs an intensely holistic review rating eight factors as 'Very Important,' seeking students who will stretch their talents in service of something larger than themselves. The residential college system and liberal arts breadth are central to Yale's identity, and admissions readers look for intellectual curiosity, authenticity, and deep community engagement. Draft informed by Yale Common Data Set 2024-2025; VERIFY admissions.yale.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — Yale requires standardized testing but accepts SAT, ACT, AP, or IB exams (test-flexible)",
+      "Yale explicitly does NOT track demonstrated interest — campus visits and emails have zero admissions impact",
+      "The residential college system (14 colleges, random assignment) is the heart of Yale's community model — applicants should understand this is non-negotiable",
+      "Yale values building a diverse class of 'exceptional individuals of all types' — NOT well-rounded individuals but a well-rounded class",
+      "Legacy is rated only 'Considered' — same level as geographic residence and work experience"
+    ],
+    "standardized_testing": {
+      "policy": "test_required",
+      "reviewer_note": "VERIFY admissions.yale.edu for entry year — Yale is test-flexible: accepts SAT, ACT, AP, or IB scores. No score cutoffs. 61% of Fall 2024 enrollees submitted SAT, 25% submitted ACT."
+    },
+    "school_priorities": [
+      {
+        "theme": "Intellectual Curiosity Beyond the Classroom",
+        "reader_looks_for": "Evidence of self-directed intellectual exploration — independent reading, research projects, or deep dives into topics not required by school."
+      },
+      {
+        "theme": "Concern for Something Larger Than Yourself",
+        "reader_looks_for": "Sustained commitment to community, social impact, or public service — not one-off volunteer trips but ongoing engagement."
+      },
+      {
+        "theme": "Authenticity and Self-Knowledge",
+        "reader_looks_for": "Essays and activities that feel genuinely personal — Yale explicitly warns that essays should 'sound like the person who writes it.'"
+      },
+      {
+        "theme": "Residential Community Fit",
+        "reader_looks_for": "Evidence the applicant will thrive in Yale's close-knit residential college system — collaborative spirit, willingness to engage across difference."
+      },
+      {
+        "theme": "Intellectual Humility",
+        "reader_looks_for": "Willingness to engage with opposing viewpoints constructively — one of Yale's essay options explicitly asks about this."
+      }
+    ],
+    "institutional_tone": "Yale's admissions office reads with a 1967 Brewster-era lens: they are looking for future leaders who combine intellectual ambition with genuine concern for others. Readers are skeptical of resume-padding and 'any top school' framing — they want to see why Yale specifically. The tone is warm but exacting.",
+    "anti_patterns": [
+      "Essays that could work for any Ivy by swapping the school name",
+      "Activity lists that show breadth without depth",
+      "Overemphasis on test scores or academic metrics as identity",
+      "Career-focused framing without intellectual curiosity",
+      "Ignoring the residential college system",
+      "Manufactured adversity or performative vulnerability"
+    ]
+  },
+  {
+    "name": "Princeton University",
+    "location": "Princeton, New Jersey, USA",
+    "selectivity_level": "Highly Selective",
+    "acceptance_rate_estimate": "≈4.5–5% (VERIFY latest cycle — Princeton)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Mathematics",
+      "Physics",
+      "Economics",
+      "Computer Science",
+      "Public Policy (Woodrow Wilson School/SPIA)",
+      "Philosophy",
+      "Molecular Biology"
+    ],
+    "traits": {
+      "intellectual_vitality": 10,
+      "academic_rigor": 10,
+      "leadership": 8,
+      "initiative": 9,
+      "collaboration": 8,
+      "community_impact": 9,
+      "reflection_depth": 9,
+      "thematic_direction": 8,
+      "resilience": 8
+    },
+    "evaluation_weights": {
+      "gpa": 0.25,
+      "course_rigor": 0.25,
+      "extracurriculars": 0.18,
+      "leadership": 0.12,
+      "essay": 0.2
+    },
+    "summary": "Princeton rates nine factors as 'Very Important' including standardized test scores — one of the few ultra-selective schools to do so — reflecting its emphasis on raw academic horsepower alongside holistic review. The university's undergraduate-focused mission, senior thesis requirement, and residential college system distinguish it from research-university peers. Draft informed by Princeton Common Data Set 2024-2025; VERIFY admission.princeton.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — Princeton is currently test-optional but rates test scores 'Very Important' in CDS C7, suggesting scores are heavily weighted when submitted",
+      "Princeton is the only Ivy+ school to rate standardized test scores as 'Very Important' — if you have strong scores, submit them",
+      "The senior thesis is a defining Princeton experience — admissions readers look for students who show capacity for deep, independent intellectual work",
+      "Princeton has Restrictive Early Action (not binding ED) with a November 1 deadline",
+      "68.5% of enrolled students had a 4.0 GPA — academic expectations are at the ceiling"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY admission.princeton.edu for entry year — Princeton is test-optional but uniquely rates test scores 'Very Important' in CDS C7. 77% of enrolled Class of 2028 submitted test scores."
+    },
+    "school_priorities": [
+      {
+        "theme": "Independent Scholarly Capacity",
+        "reader_looks_for": "Evidence of ability to sustain deep intellectual work — research projects, independent studies, or self-directed academic exploration. The senior thesis requirement means Princeton needs students who can drive their own inquiry."
+      },
+      {
+        "theme": "Service and Civic Engagement",
+        "reader_looks_for": "Princeton's informal motto is 'in the nation's service and the service of humanity.' Readers look for genuine public-service orientation, not resume-driven volunteerism."
+      },
+      {
+        "theme": "Academic Versatility",
+        "reader_looks_for": "Strength across disciplines — Princeton's liberal arts model expects students to take distribution requirements seriously."
+      },
+      {
+        "theme": "Residential Community Contribution",
+        "reader_looks_for": "Fit for Princeton's seven residential colleges and eating club culture — evidence of collaborative spirit and social engagement."
+      }
+    ],
+    "institutional_tone": "Princeton reads with an eye for intellectual depth and academic firepower more than any other Ivy. The admissions office values raw brilliance paired with humility and service orientation. They are skeptical of applicants who seem purely career-driven — Princeton's culture prizes knowledge for its own sake.",
+    "anti_patterns": [
+      "Applications that treat Princeton as a stepping stone to Wall Street without intellectual substance",
+      "Lack of academic depth — superficial engagement with many subjects rather than deep mastery of at least one",
+      "Not submitting test scores when they are strong — Princeton rates them 'Very Important'",
+      "Generic 'Why Princeton' essays that could apply to any Ivy",
+      "Activity lists dominated by participation without intellectual substance",
+      "Ignoring Princeton's undergraduate focus"
+    ]
+  },
+  {
+    "name": "Columbia University in the City of New York",
+    "location": "New York, New York, USA",
+    "selectivity_level": "Highly Selective",
+    "acceptance_rate_estimate": "≈4–5% (VERIFY latest cycle — Columbia)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Economics",
+      "Political Science",
+      "Computer Science",
+      "English/Creative Writing",
+      "History",
+      "Architecture",
+      "Film/Visual Arts"
+    ],
+    "traits": {
+      "intellectual_vitality": 10,
+      "academic_rigor": 10,
+      "leadership": 8,
+      "initiative": 9,
+      "collaboration": 7,
+      "community_impact": 8,
+      "reflection_depth": 10,
+      "thematic_direction": 9,
+      "resilience": 8
+    },
+    "evaluation_weights": {
+      "gpa": 0.25,
+      "course_rigor": 0.25,
+      "extracurriculars": 0.18,
+      "leadership": 0.12,
+      "essay": 0.2
+    },
+    "summary": "Columbia's admissions process reflects its Core Curriculum ethos — readers look for intellectually voracious students who engage with big ideas across disciplines and thrive in the intensity of New York City. Columbia rates talent/ability as 'Important' rather than 'Very Important,' distinguishing it from some peers. Draft informed by Columbia Common Data Set 2024-2025; VERIFY undergrad.admissions.columbia.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — Columbia is test-optional; test scores are 'Considered' but not 'Very Important'",
+      "The Core Curriculum is Columbia's defining academic feature — admissions readers expect applicants to demonstrate genuine enthusiasm for required engagement with foundational texts",
+      "Columbia does NOT conduct admissions interviews — rated 'Not Considered' in CDS C7",
+      "NYC location is integral — Columbia looks for students who will use the city as a classroom, not just an amenity",
+      "Columbia has separate CDS documents for Columbia College/Engineering vs. General Studies — schema uses CC/SEAS data"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY undergrad.admissions.columbia.edu for entry year — Columbia is test-optional and rates test scores only 'Considered' in CDS C7."
+    },
+    "school_priorities": [
+      {
+        "theme": "Core Curriculum Engagement",
+        "reader_looks_for": "Genuine appetite for broad intellectual engagement — Columbia's required Core courses span literature, philosophy, music, art, and science."
+      },
+      {
+        "theme": "New York City Integration",
+        "reader_looks_for": "Evidence that the applicant will leverage NYC — internships, cultural institutions, community engagement."
+      },
+      {
+        "theme": "Depth of Intellectual Reflection",
+        "reader_looks_for": "Capacity for serious engagement with ideas and texts — Columbia's culture values students who can articulate what they think and why."
+      },
+      {
+        "theme": "Academic Intensity and Rigor",
+        "reader_looks_for": "Demonstrated ability to handle a demanding academic load — Columbia's curriculum is notoriously rigorous."
+      }
+    ],
+    "institutional_tone": "Columbia's admissions office reads with a distinctly intellectual, almost philosophical lens. They value students who can articulate ideas with precision and who show genuine engagement with the life of the mind. The New York City ethos — fast-paced, diverse, independent — permeates the reading.",
+    "anti_patterns": [
+      "Not mentioning the Core Curriculum in a 'Why Columbia' essay",
+      "Treating NYC as a backdrop rather than an active part of your educational vision",
+      "Surface-level intellectual engagement — name-dropping philosophers without genuine thought",
+      "Applications focused entirely on one narrow STEM field without showing capacity for the Core's broad humanities engagement",
+      "Expecting a suburban campus experience",
+      "Generic Ivy League framing"
+    ]
+  },
+  {
+    "name": "University of Pennsylvania",
+    "location": "Philadelphia, Pennsylvania, USA",
+    "selectivity_level": "Highly Selective",
+    "acceptance_rate_estimate": "≈5–6% (VERIFY latest cycle — UPenn)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Business (Wharton)",
+      "Finance",
+      "Nursing",
+      "Bioengineering",
+      "Economics",
+      "Computer Science",
+      "International Relations"
+    ],
+    "traits": {
+      "intellectual_vitality": 9,
+      "academic_rigor": 10,
+      "leadership": 9,
+      "initiative": 10,
+      "collaboration": 8,
+      "community_impact": 8,
+      "reflection_depth": 8,
+      "thematic_direction": 9,
+      "resilience": 8
+    },
+    "evaluation_weights": {
+      "gpa": 0.28,
+      "course_rigor": 0.25,
+      "extracurriculars": 0.15,
+      "leadership": 0.12,
+      "essay": 0.2
+    },
+    "summary": "Penn uniquely combines Ivy League liberal arts with pre-professional intensity through its four undergraduate schools (College, Wharton, Engineering, Nursing). Penn rates extracurriculars only 'Important' rather than 'Very Important,' placing extra weight on academic GPA, rigor, essays, and character. Draft informed by UPenn Common Data Set 2024-2025; VERIFY admissions.upenn.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — Penn is currently test-optional but returning to test-required for 2025-26 cycle",
+      "Penn has FOUR undergraduate schools — applicants apply to one (College, Wharton, Engineering, Nursing) and 'Why Penn' must address the specific school",
+      "Penn's dual-degree and interdisciplinary programs (M&T, Huntsman, LSM, Vagelos) are signature",
+      "Extracurriculars rated only 'Important' in CDS C7 — Penn places more weight on academics, essays, and character than on activity count",
+      "Penn does consider demonstrated interest (interviews offered) — unlike most Ivy peers"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY admissions.upenn.edu for entry year — Penn is test-optional for 2024-25 but returning to test-required for 2025-26. Test scores rated 'Considered' in CDS C7."
+    },
+    "school_priorities": [
+      {
+        "theme": "Pre-Professional Initiative",
+        "reader_looks_for": "Evidence of real-world application of academic interests — internships, startups, ventures, or projects that show the student doesn't just study but acts."
+      },
+      {
+        "theme": "Interdisciplinary Thinking",
+        "reader_looks_for": "Demonstrated ability to connect ideas across fields — Penn's One University policy lets students cross school boundaries."
+      },
+      {
+        "theme": "School-Specific Fit",
+        "reader_looks_for": "Clear articulation of why the specific undergraduate school (Wharton vs. College vs. Engineering vs. Nursing) is the right fit."
+      },
+      {
+        "theme": "Impact-Oriented Leadership",
+        "reader_looks_for": "Leadership that produces tangible results — Penn values quantifiable impact more than title-collecting."
+      }
+    ],
+    "institutional_tone": "Penn reads with a practical, impact-oriented lens. The admissions office values students who show initiative and tangible results alongside intellectual depth. Penn is less contemplative than Yale or Princeton and more action-biased.",
+    "anti_patterns": [
+      "Applying to Wharton without demonstrating genuine business/finance interest beyond 'I want to make money'",
+      "Generic 'Why Penn' essays that don't name specific courses, professors, or programs within your chosen school",
+      "Pure academic profiles without any real-world initiative",
+      "Ignoring the One University / dual-degree ecosystem",
+      "Confusing Penn with Penn State",
+      "Activity lists with many clubs but no leadership impact"
+    ]
+  },
+  {
+    "name": "Duke University",
+    "location": "Durham, North Carolina, USA",
+    "selectivity_level": "Highly Selective",
+    "acceptance_rate_estimate": "≈5–6% (VERIFY latest cycle — Duke)",
+    "essay_importance": "Considered",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Computer Science",
+      "Public Policy",
+      "Biomedical Engineering",
+      "Economics",
+      "Biology",
+      "Political Science",
+      "Environmental Science"
+    ],
+    "traits": {
+      "intellectual_vitality": 9,
+      "academic_rigor": 10,
+      "leadership": 9,
+      "initiative": 9,
+      "collaboration": 9,
+      "community_impact": 9,
+      "reflection_depth": 7,
+      "thematic_direction": 8,
+      "resilience": 8
+    },
+    "evaluation_weights": {
+      "gpa": 0.28,
+      "course_rigor": 0.27,
+      "extracurriculars": 0.2,
+      "leadership": 0.13,
+      "essay": 0.12
+    },
+    "summary": "Duke combines elite academics with a vibrant campus culture that blends Southern warmth and competitive intensity. Unlike most ultra-selective peers, Duke rates demonstrated interest as 'Considered' and has shifted essays to 'Considered' in its 2024-25 CDS, placing heavier weight on academic performance, recommendations, and extracurricular achievement. Draft informed by Duke Common Data Set 2024-2025; VERIFY admissions.duke.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Essay importance — Duke CDS 2024-25 rates essays as 'Considered' (previously 'Very Important'), which may reflect Duke's shift to a points-free holistic system",
+      "Duke tracks demonstrated interest ('Considered' in C7) — campus visits, attending info sessions, and engaging with admissions matter here",
+      "Duke offers optional alumni interviews AND the GLIMPSE video platform (60-90 seconds) — using these demonstrates interest",
+      "Duke has two undergraduate schools: Trinity College of Arts & Sciences and Pratt School of Engineering",
+      "Duke's work-hard-play-hard culture is real — readers look for students who can balance academic intensity with engaged campus life"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY admissions.duke.edu for entry year — Duke is test-optional and rates scores 'Considered' in CDS C7. ~47% of enrolled students submitted SAT, ~46% ACT."
+    },
+    "school_priorities": [
+      {
+        "theme": "Academic Excellence with Campus Engagement",
+        "reader_looks_for": "Strong academics combined with evidence of deep campus community involvement."
+      },
+      {
+        "theme": "Demonstrated Interest in Duke Specifically",
+        "reader_looks_for": "Unlike most top schools, Duke considers demonstrated interest. Visiting campus, engaging with the GLIMPSE video, and writing a specific 'Why Duke' all matter."
+      },
+      {
+        "theme": "Interdisciplinary Problem-Solving",
+        "reader_looks_for": "Evidence of applying knowledge across domains — Duke's Bass Connections program and interdisciplinary ethos."
+      },
+      {
+        "theme": "Leadership with Impact",
+        "reader_looks_for": "Not just holding titles but creating measurable impact."
+      }
+    ],
+    "institutional_tone": "Duke reads applications with a blend of academic seriousness and cultural warmth. The admissions office values students who show they've researched Duke specifically. Readers appreciate authenticity and energy over polish.",
+    "anti_patterns": [
+      "Not demonstrating interest in Duke — unlike most Ivy-tier schools, Duke notices and it matters",
+      "Treating Duke as a safety Ivy or backup to HYPSM",
+      "Ignoring the Trinity vs. Pratt distinction",
+      "Pure academics without social engagement — Duke's work-hard-play-hard culture means they want students who will attend basketball games AND publish research",
+      "Skipping the GLIMPSE video — it's optional but expected",
+      "Essays that are purely intellectual without showing personality"
+    ]
+  },
+  {
+    "name": "Northwestern University",
+    "location": "Evanston, Illinois, USA",
+    "selectivity_level": "Highly Selective",
+    "acceptance_rate_estimate": "≈7–8% (VERIFY latest cycle — Northwestern)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Journalism (Medill)",
+      "Theater/Performance",
+      "Economics",
+      "Engineering (McCormick)",
+      "Communication Studies",
+      "Material Science",
+      "Music (Bienen)"
+    ],
+    "traits": {
+      "intellectual_vitality": 9,
+      "academic_rigor": 10,
+      "leadership": 9,
+      "initiative": 9,
+      "collaboration": 9,
+      "community_impact": 8,
+      "reflection_depth": 8,
+      "thematic_direction": 9,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.25,
+      "course_rigor": 0.25,
+      "extracurriculars": 0.2,
+      "leadership": 0.1,
+      "essay": 0.2
+    },
+    "summary": "Northwestern combines rigorous academics with a distinctly creative, interdisciplinary, and professionally oriented culture. Its six undergraduate schools each have distinct identities, and applicants must demonstrate fit with their chosen school. Northwestern considers demonstrated interest. Draft informed by Northwestern Common Data Set 2024-2025; VERIFY admissions.northwestern.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — Northwestern is test-optional and rates test scores 'Considered' in CDS C7",
+      "Northwestern considers demonstrated interest ('Considered' in CDS C7) — engaging with admissions and specifying a school matters",
+      "Northwestern has SIX undergraduate schools — the 'Why Northwestern' must address the specific school",
+      "The quarter system means faster pace and more courses — readers look for students who can handle intensity and breadth",
+      "Northwestern's proximity to Chicago is integral to many programs"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY admissions.northwestern.edu for entry year — Northwestern is test-optional and rates scores 'Considered.' ~69% of enrolled students submitted test scores."
+    },
+    "school_priorities": [
+      {
+        "theme": "Creative-Academic Duality",
+        "reader_looks_for": "Evidence of combining creative pursuits with academic rigor — Northwestern uniquely values students who are both analytically sharp and creatively expressive."
+      },
+      {
+        "theme": "School-Specific Fit",
+        "reader_looks_for": "Clear articulation of why the specific undergraduate school (Weinberg, McCormick, Medill, Communication, Bienen, SESP) fits your goals."
+      },
+      {
+        "theme": "Demonstrated Interest",
+        "reader_looks_for": "Engagement with Northwestern's admissions process — campus visits, info sessions, ED application."
+      },
+      {
+        "theme": "Collaborative Leadership",
+        "reader_looks_for": "Evidence of working effectively with others to produce results."
+      }
+    ],
+    "institutional_tone": "Northwestern reads with an eye for versatile, creative, high-achieving students who can navigate its fast-paced quarter system. The admissions office values students who show genuine passion for their chosen school's specific offerings.",
+    "anti_patterns": [
+      "Not specifying which of the six undergraduate schools you're applying to and why",
+      "Ignoring demonstrated interest — Northwestern considers it",
+      "Pure STEM or pure humanities without any creative dimension",
+      "Treating Northwestern as a Chicago school — it's in Evanston with its own distinct campus culture",
+      "Quarter-system unawareness",
+      "Generic 'Why Northwestern' essays that mention prestige without specific programs"
+    ]
+  },
+  {
+    "name": "Rice University",
+    "location": "Houston, Texas, USA",
+    "selectivity_level": "Highly Selective",
+    "acceptance_rate_estimate": "≈7–9% (VERIFY latest cycle — Rice)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Engineering (Bioengineering, Mechanical, Electrical)",
+      "Computer Science",
+      "Architecture",
+      "Biology/Biochemistry",
+      "Economics",
+      "Music",
+      "Physics"
+    ],
+    "traits": {
+      "intellectual_vitality": 9,
+      "academic_rigor": 10,
+      "leadership": 8,
+      "initiative": 9,
+      "collaboration": 10,
+      "community_impact": 9,
+      "reflection_depth": 8,
+      "thematic_direction": 8,
+      "resilience": 8
+    },
+    "evaluation_weights": {
+      "gpa": 0.25,
+      "course_rigor": 0.25,
+      "extracurriculars": 0.18,
+      "leadership": 0.12,
+      "essay": 0.2
+    },
+    "summary": "Rice rates nine factors as 'Very Important' — including standardized test scores — making it one of the most comprehensively demanding schools despite its test-optional policy. The residential college system, unusually collaborative culture, and Houston location define Rice's identity. Notably, Rice does not consider legacy status. Draft informed by Rice Common Data Set 2024-2025; VERIFY admission.rice.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — Rice is test-optional but rates test scores 'Very Important' in CDS C7, strongly signaling that strong scores help significantly",
+      "Rice does NOT consider legacy (alumni relation rated 'Not Considered') — one of the few elite schools to explicitly exclude this factor",
+      "The residential college system (11 colleges, random assignment, all four years) is Rice's social foundation",
+      "Rice's 'The Box' tradition (submit an image of something that appeals to you) is a unique application component",
+      "Rice considers demonstrated interest — interviews and engagement with admissions matter"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY admission.rice.edu for entry year — Rice is test-optional but rates test scores 'Very Important' in CDS C7. 48% submitted SAT, 22% submitted ACT."
+    },
+    "school_priorities": [
+      {
+        "theme": "Collaborative Community Fit",
+        "reader_looks_for": "Evidence of genuine collaborative spirit — Rice's 'culture of care' and residential college system mean readers actively screen for students who will contribute to communal life."
+      },
+      {
+        "theme": "The Box — Creativity and Self-Expression",
+        "reader_looks_for": "Rice's unique image submission requirement reveals personality, humor, and creativity."
+      },
+      {
+        "theme": "Houston Integration",
+        "reader_looks_for": "Awareness that Rice's campus sits in the heart of Houston — the Texas Medical Center, energy industry, NASA, and diverse urban culture are all part of the Rice experience."
+      },
+      {
+        "theme": "Academic Rigor with Joy",
+        "reader_looks_for": "Students who are intellectually serious but not grim about it — Rice's culture combines intense academics with a distinctly fun, supportive atmosphere."
+      }
+    ],
+    "institutional_tone": "Rice reads with warmth and a keen eye for community fit. The admissions office is looking for students who are brilliant but also genuinely kind, collaborative, and a little quirky. The tone is more approachable than most elite schools.",
+    "anti_patterns": [
+      "Treating 'The Box' as an afterthought",
+      "Applications that read as hypercompetitive or individualistic",
+      "Not demonstrating awareness of the residential college system",
+      "Ignoring Houston",
+      "Withholding strong test scores — Rice rates them 'Very Important' even while test-optional",
+      "Generic elite-school essays"
+    ]
+  },
+  {
+    "name": "University of Florida",
+    "location": "Gainesville, Florida, USA",
+    "selectivity_level": "Selective",
+    "acceptance_rate_estimate": "≈23–26% (VERIFY latest cycle — UF)",
+    "essay_importance": "Important",
+    "extracurricular_importance": "Very Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Business (Warrington)",
+      "Engineering",
+      "Biology/Pre-Med",
+      "Agricultural Sciences",
+      "Journalism/Communications",
+      "Computer Science",
+      "Accounting"
+    ],
+    "traits": {
+      "intellectual_vitality": 7,
+      "academic_rigor": 9,
+      "leadership": 8,
+      "initiative": 8,
+      "collaboration": 7,
+      "community_impact": 8,
+      "reflection_depth": 6,
+      "thematic_direction": 7,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.3,
+      "course_rigor": 0.28,
+      "extracurriculars": 0.18,
+      "leadership": 0.1,
+      "essay": 0.14
+    },
+    "summary": "UF is among the most academically rigorous public universities, requiring standardized testing and placing heavy weight on GPA and course rigor. Uniquely, UF does not consider recommendations, interviews, class rank, or legacy — making it one of the most metrics-driven selective schools. Draft informed by University of Florida Common Data Set 2024-2025; VERIFY admissions.ufl.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — UF requires SAT or ACT scores (also accepts CLT)",
+      "UF does NOT consider recommendations — one of the few selective schools to exclude them entirely",
+      "UF does NOT consider legacy/alumni relation — admissions is purely merit-based",
+      "No interviews are offered or considered",
+      "UF has strong in-state preference — Florida residents represent the vast majority of enrolled students",
+      "53% of enrolled students had a 4.0 GPA and 94% had 3.75+"
+    ],
+    "standardized_testing": {
+      "policy": "test_required",
+      "reviewer_note": "VERIFY admissions.ufl.edu for entry year — UF requires SAT, ACT, or CLT. Test scores rated 'Important' in CDS C7. 80% of enrollees submitted SAT, 40% submitted ACT."
+    },
+    "school_priorities": [
+      {
+        "theme": "Academic Metrics Above All",
+        "reader_looks_for": "High GPA in rigorous coursework combined with strong test scores — UF's process is more quantitative than most selective schools since it excludes recommendations and interviews."
+      },
+      {
+        "theme": "Extracurricular Depth and Impact",
+        "reader_looks_for": "Sustained commitment to activities with demonstrated leadership and community impact."
+      },
+      {
+        "theme": "Florida Connection",
+        "reader_looks_for": "In-state applicants have a significant advantage."
+      },
+      {
+        "theme": "Talent and Ability",
+        "reader_looks_for": "UF rates talent/ability 'Very Important' — special skills can differentiate otherwise similar academic profiles."
+      }
+    ],
+    "institutional_tone": "UF reads with a data-forward, efficient lens. Without recommendations or interviews, the admissions process relies heavily on transcript analysis, test scores, and the student's own voice in essays and activity descriptions.",
+    "anti_patterns": [
+      "Relying on recommendation letters to compensate for academic weaknesses — UF doesn't read them",
+      "Applying without test scores — UF requires them",
+      "Thin activity lists without leadership",
+      "Out-of-state applicants treating UF as a safety",
+      "Generic essays that don't convey personality",
+      "Neglecting course rigor"
+    ]
+  },
+  {
+    "name": "Georgia Institute of Technology",
+    "location": "Atlanta, Georgia, USA",
+    "selectivity_level": "Very Selective",
+    "acceptance_rate_estimate": "≈13–15% (VERIFY latest cycle — Georgia Tech)",
+    "essay_importance": "Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Computer Science",
+      "Engineering (Mechanical, Electrical, Aerospace, Civil)",
+      "Business (Scheller)",
+      "Industrial Engineering",
+      "Biomedical Engineering",
+      "Mathematics",
+      "Physics"
+    ],
+    "traits": {
+      "intellectual_vitality": 8,
+      "academic_rigor": 10,
+      "leadership": 7,
+      "initiative": 9,
+      "collaboration": 8,
+      "community_impact": 7,
+      "reflection_depth": 6,
+      "thematic_direction": 9,
+      "resilience": 8
+    },
+    "evaluation_weights": {
+      "gpa": 0.3,
+      "course_rigor": 0.3,
+      "extracurriculars": 0.14,
+      "leadership": 0.1,
+      "essay": 0.16
+    },
+    "summary": "Georgia Tech is a STEM powerhouse with a heavily academics-forward admissions process. With 92.5% of enrolled students reporting a 4.0 GPA, the academic bar is among the highest of any public university. Georgia Tech requires testing, rates character as 'Very Important,' and gives strong preference to Georgia residents. Draft informed by Georgia Tech Common Data Set 2024-2025; VERIFY admission.gatech.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — Georgia Tech requires SAT or ACT; test scores rated 'Considered' in CDS C7",
+      "Georgia residents have a dramatically higher admit rate (~33%) vs. out-of-state (~10%) — state residency rated 'Very Important'",
+      "92.5% of enrolled students had a 4.0 GPA — the highest percentage in this entire 15-school batch",
+      "Georgia Tech does NOT consider legacy, class rank, or demonstrated interest",
+      "Major selection matters — Engineering and CS are more competitive than other programs",
+      "GT has a two-tier Early Action system: EA1 for Georgia residents (Oct deadline), EA2 for all others (Nov deadline)"
+    ],
+    "standardized_testing": {
+      "policy": "test_required",
+      "reviewer_note": "VERIFY admission.gatech.edu for entry year — Georgia Tech requires SAT or ACT. Test scores rated 'Considered' in CDS C7. 77% submitted SAT, 35% submitted ACT."
+    },
+    "school_priorities": [
+      {
+        "theme": "STEM Readiness and Course Rigor",
+        "reader_looks_for": "AP Calc BC, AP Physics C, advanced lab sciences, and programming experience."
+      },
+      {
+        "theme": "Problem-Solving Demonstrated Through Projects",
+        "reader_looks_for": "Tangible evidence of building things — robotics, apps, research, engineering projects."
+      },
+      {
+        "theme": "Character and Community Contribution",
+        "reader_looks_for": "Georgia Tech uniquely rates character 'Very Important' for a STEM school — they want collaborative, community-minded students."
+      },
+      {
+        "theme": "Why This Major at Georgia Tech",
+        "reader_looks_for": "The supplement asks 'Why Tech and Why This Major' — readers expect specific connections."
+      }
+    ],
+    "institutional_tone": "Georgia Tech reads with a builder's eye. The admissions office wants to see what you've made, solved, or created — not just what grades you've earned. The tone is pragmatic, innovation-focused, and distinctly Southern-tech-optimist.",
+    "anti_patterns": [
+      "Applying to CS or Engineering without demonstrable STEM experience beyond coursework",
+      "Out-of-state applicants treating GT as a safety — with a ~10% non-resident admit rate, it's a reach",
+      "Generic 'Why Georgia Tech' essays that don't address your specific major",
+      "Weak math/science course load",
+      "Ignoring the Atlanta ecosystem",
+      "Pure academics without character evidence"
+    ]
+  },
+  {
+    "name": "University of Illinois Urbana-Champaign",
+    "location": "Champaign, Illinois, USA",
+    "selectivity_level": "Selective",
+    "acceptance_rate_estimate": "≈40–43% (VERIFY latest cycle — UIUC)",
+    "essay_importance": "Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Computer Science (Grainger)",
+      "Engineering (Mechanical, Electrical, Civil)",
+      "Business (Gies)",
+      "Accounting",
+      "Chemistry",
+      "Physics",
+      "Agriculture"
+    ],
+    "traits": {
+      "intellectual_vitality": 8,
+      "academic_rigor": 9,
+      "leadership": 6,
+      "initiative": 7,
+      "collaboration": 7,
+      "community_impact": 6,
+      "reflection_depth": 6,
+      "thematic_direction": 8,
+      "resilience": 6
+    },
+    "evaluation_weights": {
+      "gpa": 0.3,
+      "course_rigor": 0.3,
+      "extracurriculars": 0.15,
+      "leadership": 0.08,
+      "essay": 0.17
+    },
+    "summary": "UIUC admits by major — not just to the university — making it one of the few public schools where your intended program dramatically affects your chances. Only GPA and rigor are rated 'Very Important'; UIUC does not consider recommendations, class rank, or demonstrated interest. CS and Engineering are significantly more competitive than the overall 40% admit rate suggests. Draft informed by UIUC Common Data Set 2024-2025; VERIFY admissions.illinois.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — UIUC is test-optional; test scores rated only 'Considered' in CDS C7",
+      "UIUC admits by MAJOR — CS and Engineering admit rates are dramatically lower than the overall 40%",
+      "UIUC does NOT consider recommendations",
+      "UIUC rates first-generation status as 'Important' — higher than most peer institutions",
+      "67.2% of enrolled students had a 4.0 GPA",
+      "International students represent 16% of undergrads"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY admissions.illinois.edu for entry year — UIUC is test-optional and rates scores only 'Considered.' 48% of enrollees submitted SAT, 16% submitted ACT."
+    },
+    "school_priorities": [
+      {
+        "theme": "Major-Specific Readiness",
+        "reader_looks_for": "Demonstrated preparation for your intended major — for CS, show coding projects and math beyond AP Calc."
+      },
+      {
+        "theme": "Academic Rigor in Context",
+        "reader_looks_for": "The most demanding curriculum available at your school — UIUC evaluates rigor relative to what's offered."
+      },
+      {
+        "theme": "Essay as Sole Qualitative Voice",
+        "reader_looks_for": "With no recommendations considered, your essay must convey personality, motivation, and fit."
+      },
+      {
+        "theme": "First-Generation and Access",
+        "reader_looks_for": "UIUC explicitly values first-generation students ('Important' in CDS)."
+      }
+    ],
+    "institutional_tone": "UIUC reads with a pragmatic, major-focused lens. Admissions officers are assessing whether you're prepared for the specific academic rigor of your chosen program, not whether you 'fit' a holistic ideal.",
+    "anti_patterns": [
+      "Applying to CS or Engineering with the same profile you'd use for a less competitive major",
+      "Not explaining why your specific major at UIUC",
+      "Expecting recommendations to compensate for academic gaps — UIUC doesn't read them",
+      "Submitting a weak essay — without recs, the essay is your only qualitative differentiator",
+      "Applying without test scores to CS or Engineering",
+      "Ignoring UIUC's research infrastructure like NCSA and Beckman Institute"
+    ]
+  },
+  {
+    "name": "Purdue University",
+    "location": "West Lafayette, Indiana, USA",
+    "selectivity_level": "Moderately Selective",
+    "acceptance_rate_estimate": "≈49–53% (VERIFY latest cycle — Purdue)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Engineering (Aerospace, Mechanical, Electrical, Computer)",
+      "Computer Science",
+      "Pharmacy",
+      "Agriculture",
+      "Aviation/Aeronautics",
+      "Business (Krannert)",
+      "Physics"
+    ],
+    "traits": {
+      "intellectual_vitality": 7,
+      "academic_rigor": 8,
+      "leadership": 6,
+      "initiative": 8,
+      "collaboration": 7,
+      "community_impact": 6,
+      "reflection_depth": 6,
+      "thematic_direction": 8,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.28,
+      "course_rigor": 0.25,
+      "extracurriculars": 0.15,
+      "leadership": 0.1,
+      "essay": 0.22
+    },
+    "summary": "Purdue is unique among large public universities in rating essays 'Very Important' — the same weight as GPA and rigor. This reflects Purdue's genuinely holistic review process despite its 50% acceptance rate. Like UIUC, Purdue admits by major, so competitive programs like Engineering and CS have significantly lower actual admit rates. Draft informed by Purdue Common Data Set 2024-2025; VERIFY admissions.purdue.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — Purdue is test-optional; test scores rated 'Important' in CDS C7",
+      "Purdue rates essays 'Very Important' — unusual for a 50% admit rate public school",
+      "Purdue admits by MAJOR — Engineering and CS admit rates are dramatically lower than 50%",
+      "Purdue does NOT consider legacy or talent/ability",
+      "First-generation status rated 'Important'",
+      "Score ranges are the widest in this batch (SAT 1210–1470, ACT 27–34)",
+      "Purdue considers demonstrated interest"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY admissions.purdue.edu for entry year — Purdue is test-optional and rates scores 'Important.' The wide SAT range (1210–1470) reflects that competitive engineering applicants need 1400+ while other programs are accessible at lower scores."
+    },
+    "school_priorities": [
+      {
+        "theme": "Major-Specific Preparation",
+        "reader_looks_for": "Clear alignment between your coursework, activities, and intended major."
+      },
+      {
+        "theme": "Essay Quality and Authenticity",
+        "reader_looks_for": "Purdue rates essays 'Very Important' — the 'Why Purdue' prompt requires specific connections to courses, labs, and programs."
+      },
+      {
+        "theme": "First-Generation and Access Background",
+        "reader_looks_for": "Purdue explicitly values first-gen applicants."
+      },
+      {
+        "theme": "Maker and Builder Mentality",
+        "reader_looks_for": "Evidence of creating, building, or solving problems."
+      }
+    ],
+    "institutional_tone": "Purdue reads with a practical, Midwestern directness. The admissions office values students who know what they want to study and can articulate why Purdue's specific programs will help them get there.",
+    "anti_patterns": [
+      "Applying to Engineering or CS without STEM preparation",
+      "Treating the essay casually — Purdue rates it 'Very Important'",
+      "Generic 'Why Purdue' essays",
+      "Assuming Purdue is an easy admit based on the headline 50% rate",
+      "Ignoring Purdue's aerospace/aviation legacy",
+      "Not leveraging first-gen status if applicable"
+    ]
+  },
+  {
+    "name": "University of Virginia",
+    "location": "Charlottesville, Virginia, USA",
+    "selectivity_level": "Very Selective",
+    "acceptance_rate_estimate": "≈16–18% (VERIFY latest cycle — UVA)",
+    "essay_importance": "Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Business (McIntire)",
+      "Economics",
+      "Government/Political Science",
+      "History",
+      "Biology/Pre-Med",
+      "Engineering (SEAS)",
+      "English"
+    ],
+    "traits": {
+      "intellectual_vitality": 8,
+      "academic_rigor": 10,
+      "leadership": 8,
+      "initiative": 8,
+      "collaboration": 8,
+      "community_impact": 9,
+      "reflection_depth": 7,
+      "thematic_direction": 7,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.28,
+      "course_rigor": 0.27,
+      "extracurriculars": 0.16,
+      "leadership": 0.12,
+      "essay": 0.17
+    },
+    "summary": "UVA is the most selective public university in this batch, with 90.5% of enrolled students reporting a 4.0 GPA. As Virginia's flagship, state residency is rated 'Very Important' — UVA maintains roughly 2/3 Virginia enrollment by mandate. Character and personal qualities are elevated to 'Very Important' alongside academics. Draft informed by University of Virginia Common Data Set 2024-2025; VERIFY admission.virginia.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — UVA is test-optional; test scores rated 'Considered' in CDS C7",
+      "State residency rated 'Very Important' — Virginia residents have a ~23% admit rate vs. ~12% for non-residents",
+      "90.5% of enrolled students had a 4.0 GPA",
+      "Character/personal qualities rated 'Very Important' — linked to UVA's Honor System",
+      "UVA does NOT consider legacy — explicitly rated 'Not Considered' in CDS C7",
+      "UVA offers both Early Decision (binding) and Early Action (non-binding) — ED has ~28% accept rate vs. ~15% in RD"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY admission.virginia.edu for entry year — UVA is test-optional; scores rated 'Considered.' 45.6% submitted SAT, 13.8% submitted ACT. ACT 25th/75th: 32/34 (from CDS 2023-24; 2024-25 reported insufficient ACT data)."
+    },
+    "school_priorities": [
+      {
+        "theme": "Honor and Character",
+        "reader_looks_for": "Evidence of personal integrity, ethical leadership, and commitment to community standards."
+      },
+      {
+        "theme": "Virginia Connection (for in-state applicants)",
+        "reader_looks_for": "Virginia residents should demonstrate engagement with their local communities and awareness of UVA's public mission."
+      },
+      {
+        "theme": "Intellectual Curiosity in Liberal Arts Tradition",
+        "reader_looks_for": "UVA values broad intellectual engagement across disciplines — the Jeffersonian ideal."
+      },
+      {
+        "theme": "Campus Community Contribution",
+        "reader_looks_for": "UVA's Lawn, Rotunda, and tradition-rich campus culture mean readers assess whether applicants will actively participate."
+      }
+    ],
+    "institutional_tone": "UVA reads with a distinctly tradition-conscious, honor-forward lens. The admissions office looks for students who embody the Jeffersonian ideal — intellectually curious, personally honorable, and committed to contributing to a community larger than themselves.",
+    "anti_patterns": [
+      "Out-of-state applicants assuming UVA's public status makes it less competitive",
+      "Ignoring UVA's Honor System and tradition of self-governance",
+      "Applications that read as purely career-oriented without intellectual curiosity",
+      "Not leveraging Virginia residency if applicable",
+      "Generic public-school framing",
+      "Weak character evidence — UVA rates character 'Very Important'"
+    ]
+  },
+  {
+    "name": "University of California, San Diego",
+    "location": "La Jolla, California, USA",
+    "selectivity_level": "Selective",
+    "acceptance_rate_estimate": "≈24–29% (VERIFY latest cycle — UCSD)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Biology/Bioengineering",
+      "Computer Science",
+      "Engineering (Jacobs School)",
+      "Economics",
+      "Mathematics",
+      "Cognitive Science",
+      "Marine Biology/Oceanography"
+    ],
+    "traits": {
+      "intellectual_vitality": 8,
+      "academic_rigor": 9,
+      "leadership": 7,
+      "initiative": 8,
+      "collaboration": 7,
+      "community_impact": 8,
+      "reflection_depth": 7,
+      "thematic_direction": 8,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.35,
+      "course_rigor": 0.3,
+      "extracurriculars": 0.15,
+      "leadership": 0.05,
+      "essay": 0.15
+    },
+    "summary": "UCSD is test-blind — SAT/ACT scores are not considered in any form. With no recommendations or interviews, the UC application's Personal Insight Questions (PIQs) and transcript carry nearly all the weight. UCSD rates essays 'Very Important,' making PIQ quality a critical differentiator. Draft informed by UCSD Common Data Set 2024-2025; VERIFY admissions.ucsd.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: UCSD is TEST-BLIND — SAT/ACT scores are not read, not considered, not used in any admissions decision",
+      "UCSD uses the UC Application with 4 Personal Insight Questions (PIQs), 350 words each — NOT the Common App",
+      "UCSD does NOT consider recommendations, interviews, legacy, or demonstrated interest",
+      "UCSD has 8 residential colleges — each with its own GE requirements, culture, and traditions",
+      "State residency rated 'Important' — California residents have a significant advantage",
+      "UCSD is heavily STEM-focused but has strong social sciences"
+    ],
+    "standardized_testing": {
+      "policy": "test_blind",
+      "reviewer_note": "UCSD is TEST-BLIND as part of the UC system. SAT and ACT scores are not considered for admission decisions under any circumstances."
+    },
+    "school_priorities": [
+      {
+        "theme": "GPA and Course Rigor as Primary Filters",
+        "reader_looks_for": "UC-capped weighted GPA in the 4.1–4.3 range for competitive applicants. Maximum AP/IB/honors coursework available."
+      },
+      {
+        "theme": "PIQ Quality as the Voice of the Application",
+        "reader_looks_for": "With no recs, no interviews, and no test scores, the four PIQs are the only qualitative window."
+      },
+      {
+        "theme": "Research and Innovation Orientation",
+        "reader_looks_for": "UCSD is one of the top research universities — evidence of intellectual curiosity, independent projects, or research experience."
+      },
+      {
+        "theme": "Community Engagement and Diversity",
+        "reader_looks_for": "UC system values contributions to diverse communities."
+      }
+    ],
+    "institutional_tone": "UCSD reads with a systematic, GPA-forward approach tempered by genuine attention to the PIQs. The admissions process is designed for massive scale (130K+ applications) so readers spend limited time per file — PIQs must be immediately compelling and specific.",
+    "anti_patterns": [
+      "Submitting test scores expecting them to help — UCSD is test-blind",
+      "Generic PIQs that could apply to any UC campus",
+      "Expecting recommendations to bolster a weak GPA — UCSD doesn't read them",
+      "Treating all UC campuses as interchangeable",
+      "Vague community service descriptions in PIQs",
+      "Not maximizing A-G coursework and AP/IB rigor"
+    ]
+  },
+  {
+    "name": "University of California, Davis",
+    "location": "Davis, California, USA",
+    "selectivity_level": "Selective",
+    "acceptance_rate_estimate": "≈41–45% (VERIFY latest cycle — UC Davis)",
+    "essay_importance": "Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Agricultural Sciences",
+      "Veterinary Science (pre-vet)",
+      "Biological Sciences",
+      "Environmental Science",
+      "Food Science",
+      "Viticulture/Enology",
+      "Computer Science"
+    ],
+    "traits": {
+      "intellectual_vitality": 7,
+      "academic_rigor": 8,
+      "leadership": 6,
+      "initiative": 7,
+      "collaboration": 8,
+      "community_impact": 8,
+      "reflection_depth": 6,
+      "thematic_direction": 7,
+      "resilience": 7
+    },
+    "evaluation_weights": {
+      "gpa": 0.35,
+      "course_rigor": 0.3,
+      "extracurriculars": 0.15,
+      "leadership": 0.05,
+      "essay": 0.15
+    },
+    "summary": "UC Davis is test-blind with a broad-access mission, combining strong STEM and agricultural programs with one of the most community-oriented campus cultures in the UC system. Only GPA and rigor are rated 'Very Important'; essays, extracurriculars, and talent are all 'Important.' No recommendations, interviews, legacy, or class rank considered. Draft informed by UC Davis Common Data Set 2024-2025; VERIFY admissions.ucdavis.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: UC Davis is TEST-BLIND — SAT/ACT scores are not considered in any form",
+      "UC Davis uses the UC Application with 4 PIQs (350 words each) — NOT the Common App",
+      "UC Davis does NOT consider recommendations, interviews, legacy, class rank, or demonstrated interest",
+      "81.9% of enrolled students had a 4.0 GPA (weighted)",
+      "State residency rated 'Important' — California residents are prioritized",
+      "UC Davis has a distinctly community-oriented, sustainability-focused campus culture"
+    ],
+    "standardized_testing": {
+      "policy": "test_blind",
+      "reviewer_note": "UC Davis is TEST-BLIND as part of the UC system. SAT and ACT scores are not considered for admission decisions under any circumstances."
+    },
+    "school_priorities": [
+      {
+        "theme": "Academic Achievement in Context",
+        "reader_looks_for": "Strong GPA in the most rigorous courses available — UC Davis evaluates transcripts relative to what the student's school offers."
+      },
+      {
+        "theme": "Community Engagement and Sustainability",
+        "reader_looks_for": "UC Davis values students who contribute to their communities and care about environmental or social sustainability."
+      },
+      {
+        "theme": "PIQ Authenticity",
+        "reader_looks_for": "Personal, specific PIQ responses that show genuine self-awareness — Davis readers appreciate warmth and honesty over polish."
+      },
+      {
+        "theme": "Fit with UC Davis's Collaborative Culture",
+        "reader_looks_for": "Evidence of collaborative spirit and willingness to engage with a diverse, community-focused campus."
+      }
+    ],
+    "institutional_tone": "UC Davis reads with a warm, access-oriented lens. The admissions office values students who show genuine engagement with their communities and intellectual curiosity across domains. The tone is approachable and community-centered.",
+    "anti_patterns": [
+      "Submitting test scores expecting them to help — UC Davis is test-blind",
+      "PIQs that only list achievements without reflection",
+      "Treating UC Davis as a safety without showing genuine interest",
+      "Ignoring Davis's agricultural and sustainability identity",
+      "Expecting recommendations or interviews to compensate — Davis doesn't use them",
+      "Identical PIQs submitted to all UC campuses"
+    ]
+  },
+  {
+    "name": "New York University",
+    "location": "New York, New York, USA",
+    "selectivity_level": "Highly Selective",
+    "acceptance_rate_estimate": "≈8–10% (VERIFY latest cycle — NYU)",
+    "essay_importance": "Very Important",
+    "extracurricular_importance": "Important",
+    "academic_rigor_importance": "Very Important",
+    "major_strengths": [
+      "Business (Stern)",
+      "Film/Television (Tisch)",
+      "Performing Arts (Tisch)",
+      "Computer Science (Tandon/CAS)",
+      "Economics",
+      "Global Liberal Studies",
+      "Nursing (Meyers)"
+    ],
+    "traits": {
+      "intellectual_vitality": 9,
+      "academic_rigor": 9,
+      "leadership": 8,
+      "initiative": 9,
+      "collaboration": 7,
+      "community_impact": 8,
+      "reflection_depth": 8,
+      "thematic_direction": 9,
+      "resilience": 8
+    },
+    "evaluation_weights": {
+      "gpa": 0.25,
+      "course_rigor": 0.22,
+      "extracurriculars": 0.15,
+      "leadership": 0.12,
+      "essay": 0.26
+    },
+    "summary": "NYU has transformed from a 30% admit rate school to a 9.2% ultra-selective institution in under a decade. NYU rates test scores 'Very Important' despite being test-optional, and uniquely considers demonstrated interest. With multiple undergraduate schools, school-specific fit is critical. Draft informed by NYU Common Data Set 2024-2025; VERIFY admissions.nyu.edu for cycle-specific rates and policies.",
+    "culture_notes": [
+      "VERIFY: Test policy — NYU is test-optional but rates test scores 'Very Important' in CDS C7. Test-flexible: accepts SAT, ACT, 3 AP exams, IB Diploma, A-Levels, and more",
+      "NYU considers demonstrated interest — campus visits, info sessions, opening emails from admissions all matter",
+      "NYU has 10+ undergraduate schools/programs — applicants apply to a specific school and must demonstrate fit",
+      "NYU is the most global university in this 15-school set — campuses in NYC, Abu Dhabi, and Shanghai",
+      "Only 18% of enrolled students had a 4.0 GPA — the sweet spot is 3.75–3.99 (54% of enrollees)",
+      "NYU offers ED I and ED II — both binding, with ED providing a significant admissions advantage",
+      "26% of undergrads are international — highest in this batch"
+    ],
+    "standardized_testing": {
+      "policy": "test_optional",
+      "reviewer_note": "VERIFY admissions.nyu.edu for entry year — NYU is test-optional but rates scores 'Very Important' in CDS C7. Test-flexible: accepts SAT, ACT, 3 APs, IB Diploma, A-Levels, and other international exams. 28% submitted SAT, 10% submitted ACT, but ~60% submitted some form of testing."
+    },
+    "school_priorities": [
+      {
+        "theme": "School-Specific Fit",
+        "reader_looks_for": "Clear articulation of why the specific NYU school (Stern, Tisch, CAS, Tandon, etc.) is the right fit."
+      },
+      {
+        "theme": "Global Mindset and Bridge-Building",
+        "reader_looks_for": "NYU's essay prompt asks about being a 'bridge builder' who connects people, groups, and ideas across divides."
+      },
+      {
+        "theme": "Demonstrated Interest",
+        "reader_looks_for": "NYU considers demonstrated interest — attending info sessions, campus visits, engaging with admissions communications. ED applications signal strong interest."
+      },
+      {
+        "theme": "Character and Authenticity",
+        "reader_looks_for": "NYU rates character 'Important' and values students who show initiative, resilience, and genuine purpose."
+      }
+    ],
+    "institutional_tone": "NYU reads with a globally-minded, culturally sophisticated lens. The admissions office values students who are ambitious, self-directed, and genuinely excited about NYU's specific offerings — not students who see NYU as a backup to the Ivies.",
+    "anti_patterns": [
+      "Treating NYU as a safety or backup to Ivy schools — NYU considers demonstrated interest and can tell",
+      "Not specifying which undergraduate school and why",
+      "Ignoring the global campus network — Abu Dhabi, Shanghai, study-away sites",
+      "Withholding strong test scores — NYU rates them 'Very Important' even while test-optional",
+      "Not applying ED if NYU is your top choice — ED acceptance rate is significantly higher",
+      "Essays that focus solely on NYC as a perk rather than a classroom",
+      "Forgetting the 'bridge builder' framing in the current essay prompt"
     ]
   }
 ]

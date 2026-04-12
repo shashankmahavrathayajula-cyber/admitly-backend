@@ -1,21 +1,59 @@
 {
   "_documentation": "School-specific benchmarks for rubric-anchored scoring. Each dimension defines what 'strong', 'average', and 'weak' look like at THIS school based on CDS data and published admit profiles. Analyzers interpolate between these anchors instead of using base-5-plus-bumps.",
-
   "Stanford University": {
     "academic": {
-      "strong": { "gpa_min": 3.95, "rigor": "most_demanding", "sat_min": 1550, "act_min": 35 },
-      "average": { "gpa_min": 3.85, "rigor": "ap_ib", "sat_min": 1480, "act_min": 33 },
-      "weak": { "gpa_min": 3.6, "rigor": "honors", "sat_min": 1350, "act_min": 30 }
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1550,
+        "act_min": 35
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1480,
+        "act_min": 33
+      },
+      "weak": {
+        "gpa_min": 3.6,
+        "rigor": "honors",
+        "sat_min": 1350,
+        "act_min": 30
+      }
     },
     "activities": {
-      "strong": { "count_min": 4, "leadership_min": 2, "avg_years_min": 3, "founder_or_national": true },
-      "average": { "count_min": 3, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "weak": { "count_min": 1, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false }
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 3, "national_or_international_min": 2 },
-      "average": { "count_min": 2, "national_or_international_min": 1 },
-      "weak": { "count_min": 1, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
       "essay_importance_multiplier": 1.2,
@@ -24,22 +62,60 @@
       "weak_word_min": 50
     }
   },
-
   "Harvard University": {
     "academic": {
-      "strong": { "gpa_min": 3.95, "rigor": "most_demanding", "sat_min": 1550, "act_min": 35 },
-      "average": { "gpa_min": 3.85, "rigor": "ap_ib", "sat_min": 1490, "act_min": 34 },
-      "weak": { "gpa_min": 3.65, "rigor": "honors", "sat_min": 1370, "act_min": 31 }
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1550,
+        "act_min": 35
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1490,
+        "act_min": 34
+      },
+      "weak": {
+        "gpa_min": 3.65,
+        "rigor": "honors",
+        "sat_min": 1370,
+        "act_min": 31
+      }
     },
     "activities": {
-      "strong": { "count_min": 4, "leadership_min": 2, "avg_years_min": 3, "founder_or_national": true },
-      "average": { "count_min": 3, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "weak": { "count_min": 1, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false }
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 3, "national_or_international_min": 2 },
-      "average": { "count_min": 2, "national_or_international_min": 1 },
-      "weak": { "count_min": 1, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
       "essay_importance_multiplier": 1.2,
@@ -48,22 +124,60 @@
       "weak_word_min": 50
     }
   },
-
   "Massachusetts Institute of Technology": {
     "academic": {
-      "strong": { "gpa_min": 3.95, "rigor": "most_demanding", "sat_min": 1560, "act_min": 36 },
-      "average": { "gpa_min": 3.85, "rigor": "ap_ib", "sat_min": 1500, "act_min": 34 },
-      "weak": { "gpa_min": 3.6, "rigor": "honors", "sat_min": 1380, "act_min": 31 }
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1560,
+        "act_min": 36
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1500,
+        "act_min": 34
+      },
+      "weak": {
+        "gpa_min": 3.6,
+        "rigor": "honors",
+        "sat_min": 1380,
+        "act_min": 31
+      }
     },
     "activities": {
-      "strong": { "count_min": 3, "leadership_min": 2, "avg_years_min": 3, "founder_or_national": true },
-      "average": { "count_min": 2, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "weak": { "count_min": 1, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false }
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 3, "national_or_international_min": 2 },
-      "average": { "count_min": 2, "national_or_international_min": 1 },
-      "weak": { "count_min": 1, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
       "essay_importance_multiplier": 1.1,
@@ -72,22 +186,60 @@
       "weak_word_min": 50
     }
   },
-
   "University of California, Los Angeles": {
     "academic": {
-      "strong": { "gpa_min": 3.9, "rigor": "most_demanding", "sat_min": null, "act_min": null },
-      "average": { "gpa_min": 3.75, "rigor": "ap_ib", "sat_min": null, "act_min": null },
-      "weak": { "gpa_min": 3.5, "rigor": "honors", "sat_min": null, "act_min": null }
+      "strong": {
+        "gpa_min": 3.9,
+        "rigor": "most_demanding",
+        "sat_min": null,
+        "act_min": null
+      },
+      "average": {
+        "gpa_min": 3.75,
+        "rigor": "ap_ib",
+        "sat_min": null,
+        "act_min": null
+      },
+      "weak": {
+        "gpa_min": 3.5,
+        "rigor": "honors",
+        "sat_min": null,
+        "act_min": null
+      }
     },
     "activities": {
-      "strong": { "count_min": 4, "leadership_min": 2, "avg_years_min": 3, "founder_or_national": true },
-      "average": { "count_min": 3, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "weak": { "count_min": 1, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false }
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 3, "national_or_international_min": 1 },
-      "average": { "count_min": 2, "national_or_international_min": 0 },
-      "weak": { "count_min": 0, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 1
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
       "essay_importance_multiplier": 1.2,
@@ -96,22 +248,60 @@
       "weak_word_min": 50
     }
   },
-
   "University of Southern California": {
     "academic": {
-      "strong": { "gpa_min": 3.9, "rigor": "most_demanding", "sat_min": 1520, "act_min": 34 },
-      "average": { "gpa_min": 3.75, "rigor": "ap_ib", "sat_min": 1420, "act_min": 32 },
-      "weak": { "gpa_min": 3.5, "rigor": "honors", "sat_min": 1300, "act_min": 29 }
+      "strong": {
+        "gpa_min": 3.9,
+        "rigor": "most_demanding",
+        "sat_min": 1520,
+        "act_min": 34
+      },
+      "average": {
+        "gpa_min": 3.75,
+        "rigor": "ap_ib",
+        "sat_min": 1420,
+        "act_min": 32
+      },
+      "weak": {
+        "gpa_min": 3.5,
+        "rigor": "honors",
+        "sat_min": 1300,
+        "act_min": 29
+      }
     },
     "activities": {
-      "strong": { "count_min": 4, "leadership_min": 2, "avg_years_min": 3, "founder_or_national": true },
-      "average": { "count_min": 3, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "weak": { "count_min": 1, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false }
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 3, "national_or_international_min": 1 },
-      "average": { "count_min": 2, "national_or_international_min": 0 },
-      "weak": { "count_min": 0, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 1
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
       "essay_importance_multiplier": 1.1,
@@ -120,22 +310,60 @@
       "weak_word_min": 50
     }
   },
-
   "University of California, Berkeley": {
     "academic": {
-      "strong": { "gpa_min": 3.92, "rigor": "most_demanding", "sat_min": null, "act_min": null },
-      "average": { "gpa_min": 3.8, "rigor": "ap_ib", "sat_min": null, "act_min": null },
-      "weak": { "gpa_min": 3.5, "rigor": "honors", "sat_min": null, "act_min": null }
+      "strong": {
+        "gpa_min": 3.92,
+        "rigor": "most_demanding",
+        "sat_min": null,
+        "act_min": null
+      },
+      "average": {
+        "gpa_min": 3.8,
+        "rigor": "ap_ib",
+        "sat_min": null,
+        "act_min": null
+      },
+      "weak": {
+        "gpa_min": 3.5,
+        "rigor": "honors",
+        "sat_min": null,
+        "act_min": null
+      }
     },
     "activities": {
-      "strong": { "count_min": 4, "leadership_min": 2, "avg_years_min": 3, "founder_or_national": true },
-      "average": { "count_min": 3, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "weak": { "count_min": 1, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false }
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 3, "national_or_international_min": 1 },
-      "average": { "count_min": 2, "national_or_international_min": 0 },
-      "weak": { "count_min": 0, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 1
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
       "essay_importance_multiplier": 1.15,
@@ -144,22 +372,60 @@
       "weak_word_min": 50
     }
   },
-
   "University of Michigan – Ann Arbor": {
     "academic": {
-      "strong": { "gpa_min": 3.9, "rigor": "most_demanding", "sat_min": 1500, "act_min": 34 },
-      "average": { "gpa_min": 3.75, "rigor": "ap_ib", "sat_min": 1400, "act_min": 32 },
-      "weak": { "gpa_min": 3.4, "rigor": "honors", "sat_min": 1280, "act_min": 28 }
+      "strong": {
+        "gpa_min": 3.9,
+        "rigor": "most_demanding",
+        "sat_min": 1500,
+        "act_min": 34
+      },
+      "average": {
+        "gpa_min": 3.75,
+        "rigor": "ap_ib",
+        "sat_min": 1400,
+        "act_min": 32
+      },
+      "weak": {
+        "gpa_min": 3.4,
+        "rigor": "honors",
+        "sat_min": 1280,
+        "act_min": 28
+      }
     },
     "activities": {
-      "strong": { "count_min": 4, "leadership_min": 2, "avg_years_min": 3, "founder_or_national": false },
-      "average": { "count_min": 3, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "weak": { "count_min": 1, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false }
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 3, "national_or_international_min": 1 },
-      "average": { "count_min": 2, "national_or_international_min": 0 },
-      "weak": { "count_min": 0, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 1
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
       "essay_importance_multiplier": 1.1,
@@ -168,76 +434,1120 @@
       "weak_word_min": 50
     }
   },
-
   "The University of Texas at Austin": {
     "academic": {
-      "strong": { "gpa_min": 3.85, "rigor": "most_demanding", "sat_min": 1450, "act_min": 33 },
-      "average": { "gpa_min": 3.6, "rigor": "ap_ib", "sat_min": 1320, "act_min": 30 },
-      "weak": { "gpa_min": 3.2, "rigor": "honors", "sat_min": 1180, "act_min": 26 }
+      "strong": {
+        "gpa_min": 3.85,
+        "rigor": "most_demanding",
+        "sat_min": 1450,
+        "act_min": 33
+      },
+      "average": {
+        "gpa_min": 3.6,
+        "rigor": "ap_ib",
+        "sat_min": 1320,
+        "act_min": 30
+      },
+      "weak": {
+        "gpa_min": 3.2,
+        "rigor": "honors",
+        "sat_min": 1180,
+        "act_min": 26
+      }
     },
     "activities": {
-      "strong": { "count_min": 4, "leadership_min": 2, "avg_years_min": 2, "founder_or_national": false },
-      "average": { "count_min": 2, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "weak": { "count_min": 1, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false }
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 2, "national_or_international_min": 1 },
-      "average": { "count_min": 1, "national_or_international_min": 0 },
-      "weak": { "count_min": 0, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
-      "essay_importance_multiplier": 1.0,
+      "essay_importance_multiplier": 1,
       "strong_word_min": 350,
       "average_word_min": 150,
       "weak_word_min": 50
     }
   },
-
   "University of Washington": {
     "academic": {
-      "strong": { "gpa_min": 3.85, "rigor": "ap_ib", "sat_min": null, "act_min": null },
-      "average": { "gpa_min": 3.6, "rigor": "honors", "sat_min": null, "act_min": null },
-      "weak": { "gpa_min": 3.2, "rigor": "standard", "sat_min": null, "act_min": null }
+      "strong": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": null,
+        "act_min": null
+      },
+      "average": {
+        "gpa_min": 3.6,
+        "rigor": "honors",
+        "sat_min": null,
+        "act_min": null
+      },
+      "weak": {
+        "gpa_min": 3.2,
+        "rigor": "standard",
+        "sat_min": null,
+        "act_min": null
+      }
     },
     "activities": {
-      "strong": { "count_min": 3, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "average": { "count_min": 2, "leadership_min": 1, "avg_years_min": 1, "founder_or_national": false },
-      "weak": { "count_min": 1, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false }
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 1,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 2, "national_or_international_min": 0 },
-      "average": { "count_min": 1, "national_or_international_min": 0 },
-      "weak": { "count_min": 0, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
-      "essay_importance_multiplier": 1.0,
+      "essay_importance_multiplier": 1,
       "strong_word_min": 300,
       "average_word_min": 150,
       "weak_word_min": 50
     }
   },
-
   "Washington State University": {
     "academic": {
-      "strong": { "gpa_min": 3.6, "rigor": "ap_ib", "sat_min": 1300, "act_min": 29 },
-      "average": { "gpa_min": 3.2, "rigor": "honors", "sat_min": 1150, "act_min": 25 },
-      "weak": { "gpa_min": 2.8, "rigor": "standard", "sat_min": 1000, "act_min": 21 }
+      "strong": {
+        "gpa_min": 3.6,
+        "rigor": "ap_ib",
+        "sat_min": 1300,
+        "act_min": 29
+      },
+      "average": {
+        "gpa_min": 3.2,
+        "rigor": "honors",
+        "sat_min": 1150,
+        "act_min": 25
+      },
+      "weak": {
+        "gpa_min": 2.8,
+        "rigor": "standard",
+        "sat_min": 1000,
+        "act_min": 21
+      }
     },
     "activities": {
-      "strong": { "count_min": 3, "leadership_min": 1, "avg_years_min": 2, "founder_or_national": false },
-      "average": { "count_min": 2, "leadership_min": 0, "avg_years_min": 1, "founder_or_national": false },
-      "weak": { "count_min": 0, "leadership_min": 0, "avg_years_min": 0, "founder_or_national": false }
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 0,
+        "leadership_min": 0,
+        "avg_years_min": 0,
+        "founder_or_national": false
+      }
     },
     "honors": {
-      "strong": { "count_min": 2, "national_or_international_min": 0 },
-      "average": { "count_min": 1, "national_or_international_min": 0 },
-      "weak": { "count_min": 0, "national_or_international_min": 0 }
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
     },
     "narrative": {
       "essay_importance_multiplier": 0.8,
       "strong_word_min": 250,
       "average_word_min": 100,
       "weak_word_min": 30
+    }
+  },
+  "Yale University": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1560,
+        "act_min": 35
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1520,
+        "act_min": 34
+      },
+      "weak": {
+        "gpa_min": 3.75,
+        "rigor": "honors",
+        "sat_min": 1480,
+        "act_min": 33
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.2,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "Princeton University": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1560,
+        "act_min": 35
+      },
+      "average": {
+        "gpa_min": 3.88,
+        "rigor": "ap_ib",
+        "sat_min": 1530,
+        "act_min": 34
+      },
+      "weak": {
+        "gpa_min": 3.75,
+        "rigor": "honors",
+        "sat_min": 1500,
+        "act_min": 34
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.2,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "Columbia University in the City of New York": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1560,
+        "act_min": 36
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1535,
+        "act_min": 35
+      },
+      "weak": {
+        "gpa_min": 3.75,
+        "rigor": "honors",
+        "sat_min": 1510,
+        "act_min": 34
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.2,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "University of Pennsylvania": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1570,
+        "act_min": 36
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1540,
+        "act_min": 35
+      },
+      "weak": {
+        "gpa_min": 3.75,
+        "rigor": "honors",
+        "sat_min": 1510,
+        "act_min": 34
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.2,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "Duke University": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1570,
+        "act_min": 35
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1535,
+        "act_min": 34
+      },
+      "weak": {
+        "gpa_min": 3.75,
+        "rigor": "honors",
+        "sat_min": 1500,
+        "act_min": 34
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "Northwestern University": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1560,
+        "act_min": 35
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1535,
+        "act_min": 34
+      },
+      "weak": {
+        "gpa_min": 3.75,
+        "rigor": "honors",
+        "sat_min": 1510,
+        "act_min": 34
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.2,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "Rice University": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1560,
+        "act_min": 35
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1535,
+        "act_min": 34
+      },
+      "weak": {
+        "gpa_min": 3.75,
+        "rigor": "honors",
+        "sat_min": 1510,
+        "act_min": 34
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 2
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.2,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "University of Florida": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.9,
+        "rigor": "most_demanding",
+        "sat_min": 1470,
+        "act_min": 33
+      },
+      "average": {
+        "gpa_min": 3.75,
+        "rigor": "ap_ib",
+        "sat_min": 1400,
+        "act_min": 31
+      },
+      "weak": {
+        "gpa_min": 3.5,
+        "rigor": "honors",
+        "sat_min": 1330,
+        "act_min": 29
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 3,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.1,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "Georgia Institute of Technology": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1530,
+        "act_min": 34
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1450,
+        "act_min": 32
+      },
+      "weak": {
+        "gpa_min": 3.7,
+        "rigor": "honors",
+        "sat_min": 1370,
+        "act_min": 30
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 3,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.1,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "University of Illinois Urbana-Champaign": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.9,
+        "rigor": "most_demanding",
+        "sat_min": 1510,
+        "act_min": 34
+      },
+      "average": {
+        "gpa_min": 3.75,
+        "rigor": "ap_ib",
+        "sat_min": 1440,
+        "act_min": 32
+      },
+      "weak": {
+        "gpa_min": 3.5,
+        "rigor": "honors",
+        "sat_min": 1370,
+        "act_min": 30
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 3,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.1,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "Purdue University": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.8,
+        "rigor": "ap_ib",
+        "sat_min": 1470,
+        "act_min": 34
+      },
+      "average": {
+        "gpa_min": 3.5,
+        "rigor": "ap_ib",
+        "sat_min": 1350,
+        "act_min": 31
+      },
+      "weak": {
+        "gpa_min": 3.2,
+        "rigor": "honors",
+        "sat_min": 1210,
+        "act_min": 27
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.2,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "University of Virginia": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.95,
+        "rigor": "most_demanding",
+        "sat_min": 1520,
+        "act_min": 34
+      },
+      "average": {
+        "gpa_min": 3.85,
+        "rigor": "ap_ib",
+        "sat_min": 1470,
+        "act_min": 33
+      },
+      "weak": {
+        "gpa_min": 3.7,
+        "rigor": "honors",
+        "sat_min": 1410,
+        "act_min": 32
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 1
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.1,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
+    }
+  },
+  "University of California, San Diego": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.9,
+        "rigor": "most_demanding",
+        "sat_min": null,
+        "act_min": null
+      },
+      "average": {
+        "gpa_min": 3.75,
+        "rigor": "ap_ib",
+        "sat_min": null,
+        "act_min": null
+      },
+      "weak": {
+        "gpa_min": 3.5,
+        "rigor": "honors",
+        "sat_min": null,
+        "act_min": null
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 3,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.2,
+      "strong_word_min": 350,
+      "average_word_min": 150,
+      "weak_word_min": 50
+    }
+  },
+  "University of California, Davis": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.85,
+        "rigor": "most_demanding",
+        "sat_min": null,
+        "act_min": null
+      },
+      "average": {
+        "gpa_min": 3.65,
+        "rigor": "ap_ib",
+        "sat_min": null,
+        "act_min": null
+      },
+      "weak": {
+        "gpa_min": 3.4,
+        "rigor": "honors",
+        "sat_min": null,
+        "act_min": null
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "average": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 1,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "average": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 0,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.1,
+      "strong_word_min": 350,
+      "average_word_min": 150,
+      "weak_word_min": 50
+    }
+  },
+  "New York University": {
+    "academic": {
+      "strong": {
+        "gpa_min": 3.9,
+        "rigor": "most_demanding",
+        "sat_min": 1550,
+        "act_min": 35
+      },
+      "average": {
+        "gpa_min": 3.75,
+        "rigor": "ap_ib",
+        "sat_min": 1520,
+        "act_min": 34
+      },
+      "weak": {
+        "gpa_min": 3.5,
+        "rigor": "honors",
+        "sat_min": 1480,
+        "act_min": 33
+      }
+    },
+    "activities": {
+      "strong": {
+        "count_min": 4,
+        "leadership_min": 2,
+        "avg_years_min": 3,
+        "founder_or_national": true
+      },
+      "average": {
+        "count_min": 3,
+        "leadership_min": 1,
+        "avg_years_min": 2,
+        "founder_or_national": false
+      },
+      "weak": {
+        "count_min": 2,
+        "leadership_min": 0,
+        "avg_years_min": 1,
+        "founder_or_national": false
+      }
+    },
+    "honors": {
+      "strong": {
+        "count_min": 3,
+        "national_or_international_min": 1
+      },
+      "average": {
+        "count_min": 2,
+        "national_or_international_min": 0
+      },
+      "weak": {
+        "count_min": 1,
+        "national_or_international_min": 0
+      }
+    },
+    "narrative": {
+      "essay_importance_multiplier": 1.2,
+      "strong_word_min": 400,
+      "average_word_min": 200,
+      "weak_word_min": 50
     }
   }
 }
