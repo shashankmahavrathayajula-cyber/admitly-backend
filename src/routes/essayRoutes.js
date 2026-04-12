@@ -10,6 +10,7 @@
  *   essayType?: string (optional, e.g. "Personal Statement", "Supplemental Essay"),
  *   application?: object (optional — student profile for cross-referencing;
  *                         if omitted, analysis proceeds without cross-referencing)
+ *   force?: boolean (optional — if true, skip similarity duplicate check; daily limit still applies)
  * }
  *
  * Returns: structured essay analysis object
@@ -120,6 +121,10 @@ function validateEssayRequest(body) {
     errors.push('"essayType" must be a string if provided');
   }
 
+  if (body.force != null && typeof body.force !== 'boolean') {
+    errors.push('"force" must be a boolean if provided');
+  }
+
   return {
     valid: errors.length === 0,
     errors: errors.length ? errors : undefined,
@@ -132,7 +137,7 @@ router.post('/analyzeEssay', essayAuth, attachTier, async (req, res, next) => {
     return res.status(400).json({ error: 'Validation failed', details: validation.errors });
   }
 
-  const { essayText, universityName, essayType, application } = req.body;
+  const { essayText, universityName, essayType, application, force } = req.body;
 
   // Find the university profile
   const profiles = universityDataLoader.getByNames([universityName]);
@@ -170,14 +175,16 @@ router.post('/analyzeEssay', essayAuth, attachTier, async (req, res, next) => {
       });
     }
 
-    const changeCheck = await checkEssayChanges(req.userId, universityName, essayType, essayText);
-    if (changeCheck.isDuplicate) {
-      return res.status(200).json({
-        duplicate: true,
-        previousResult: changeCheck.previousResult,
-        previousDate: changeCheck.previousDate,
-        message: changeCheck.message,
-      });
+    if (force !== true) {
+      const changeCheck = await checkEssayChanges(req.userId, universityName, essayType, essayText);
+      if (changeCheck.isDuplicate) {
+        return res.status(200).json({
+          duplicate: true,
+          previousResult: changeCheck.previousResult,
+          previousDate: changeCheck.previousDate,
+          message: changeCheck.message,
+        });
+      }
     }
 
     const result = await analyzeEssay(
