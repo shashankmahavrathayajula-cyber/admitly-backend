@@ -16,9 +16,10 @@ const app = require('./app');
 const config = require('./config');
 const universityDataLoader = require('./loaders/universityDataLoader');
 
-// Temporary debug: confirm env vars are loaded (remove or guard with NODE_ENV if desired)
-console.log('OPENAI_API_KEY loaded:', !!process.env.OPENAI_API_KEY);
-console.log('USE_AI_ANALYZERS:', process.env.USE_AI_ANALYZERS);
+if (process.env.NODE_ENV !== 'production') {
+  console.log('OPENAI_API_KEY loaded:', !!process.env.OPENAI_API_KEY);
+  console.log('USE_AI_ANALYZERS:', process.env.USE_AI_ANALYZERS);
+}
 
 // Load and validate university dataset before starting the server.
 // Exits process if file is missing, JSON invalid, or schema validation fails.
@@ -29,7 +30,7 @@ app.listen(config.port, () => {
   if (config.isDevelopment) {
     console.log('Development mode: evaluation pipeline logging enabled.');
   }
-  if (config.useAIAnalyzers) {
+  if (config.useAIAnalyzers && process.env.NODE_ENV !== 'production') {
     const hasKey = typeof process.env.OPENAI_API_KEY === 'string' && process.env.OPENAI_API_KEY.trim().length > 0;
     if (hasKey) {
       console.log('AI analyzers enabled.');

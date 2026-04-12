@@ -28,8 +28,8 @@ router.post('/', async (req, res) => {
   try {
     event = constructWebhookEvent(req.body, signature);
   } catch (err) {
-    console.error('[Stripe Webhook] Signature verification failed:', err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+    console.error('[Stripe Webhook] Signature verification failed');
+    return res.status(400).send('Webhook signature verification failed');
   }
 
   console.log(`[Stripe Webhook] Received event: ${event.type}`);

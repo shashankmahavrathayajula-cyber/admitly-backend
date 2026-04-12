@@ -109,7 +109,11 @@ async function runAIAnalysis(prompt, options = {}) {
 
   if (!response.ok) {
     const errText = await response.text();
-    console.error('[openaiClient] API error', response.status, errText);
+    const safeDetail =
+      process.env.NODE_ENV === 'production'
+        ? `(status ${response.status})`
+        : `${response.status} ${errText.slice(0, 500)}`;
+    console.error('[openaiClient] API error', safeDetail);
     return null;
   }
 
@@ -191,7 +195,11 @@ async function runInsightSynthesis(prompt, options = {}) {
 
   if (!response.ok) {
     const errText = await response.text();
-    console.error('[openaiClient] Insight synthesis API error', response.status, errText);
+    const safeDetail =
+      process.env.NODE_ENV === 'production'
+        ? `(status ${response.status})`
+        : `${response.status} ${errText.slice(0, 500)}`;
+    console.error('[openaiClient] Insight synthesis API error', safeDetail);
     return null;
   }
 

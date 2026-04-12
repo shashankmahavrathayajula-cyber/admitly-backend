@@ -72,9 +72,27 @@ async function createCheckoutSession(userId, userEmail, tier, successUrl, cancel
  */
 async function handleCheckoutCompleted(session) {
   const userId = session.metadata?.user_id;
-  const tier = session.metadata?.tier;
+  let tier = session.metadata?.tier;
   const customerId = session.customer;
   const sessionId = session.id;
+
+  try {
+    const full = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ['line_items.data.price'],
+    });
+    const lineItem = full.line_items?.data?.[0];
+    const priceObj = lineItem?.price;
+    const paidPriceId = typeof priceObj === 'string' ? priceObj : priceObj?.id;
+    const tierFromPrice = paidPriceId ? TIER_MAP[paidPriceId] : null;
+    if (tierFromPrice) {
+      if (tier && tier !== tierFromPrice) {
+        console.warn('[Stripe] Checkout metadata tier does not match paid price; using paid price tier');
+      }
+      tier = tierFromPrice;
+    }
+  } catch (e) {
+    console.error('[Stripe] Could not verify checkout line items:', e.message);
+  }
 
   if (!userId || !tier) {
     console.error('[Stripe] Missing metadata in checkout session:', session.id);
@@ -104,7 +122,7 @@ async function handleCheckoutCompleted(session) {
     throw error;
   }
 
-  console.log(`[Stripe] Subscription saved: user=${userId}, tier=${tier}, expires=${expiresAt}`);
+  console.log(`[Stripe] Subscription saved tier=${tier} expires=${expiresAt}`);
 }
 
 /**

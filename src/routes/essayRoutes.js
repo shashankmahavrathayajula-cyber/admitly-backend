@@ -5,7 +5,7 @@
  * cross-referenced with the student's application profile.
  *
  * Body: {
- *   essayText: string (required, min 20 chars, max 10000 chars),
+ *   essayText: string (required, min 20 chars, max 15000 chars),
  *   universityName: string (required, must match a supported school),
  *   essayType?: string (optional, e.g. "Personal Statement", "Supplemental Essay"),
  *   application?: object (optional — student profile for cross-referencing;
@@ -109,8 +109,8 @@ function validateEssayRequest(body) {
     errors.push('Missing required field: "essayText" (string)');
   } else if (body.essayText.trim().length < 20) {
     errors.push('"essayText" must be at least 20 characters');
-  } else if (body.essayText.length > 10000) {
-    errors.push('"essayText" must be under 10,000 characters');
+  } else if (body.essayText.length > 15000) {
+    errors.push('"essayText" must be under 15,000 characters');
   }
 
   if (!body.universityName || typeof body.universityName !== 'string') {

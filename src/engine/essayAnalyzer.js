@@ -101,7 +101,7 @@ Type: ${essayType || 'Personal Statement'}
 Word count: ${wordCount}
 
 """
-${essayText.slice(0, 8000)}
+${essayText.slice(0, 15000)}
 """
 
 === DELIVERABLES ===
