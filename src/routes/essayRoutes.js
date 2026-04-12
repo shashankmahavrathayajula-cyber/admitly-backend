@@ -34,30 +34,64 @@ function essayAuth(req, res, next) {
   return requireAuth(req, res, next);
 }
 
-// Essay-specific rate limiting (separate from evaluation limits)
-const essayLimits = new Map();
+async function checkEssayDailyLimit(userId, userTier) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-function essayRateLimit(req, res, next) {
-  const userId = req.userId;
-  const tier = req.userTier || 'free';
-  const today = new Date().toISOString().slice(0, 10);
-  const key = `essay:${userId}:${today}`;
-  const count = essayLimits.get(key) || 0;
+  const { count, error } = await supabase
+    .from('essay_analyses')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .gte('created_at', today.toISOString());
 
-  // Free: 1 per day, Paid: 10 per day
-  const maxAllowed = tier === 'free' ? 1 : 10;
+  if (error) return { allowed: true }; // fail open
 
-  if (count >= maxAllowed) {
-    return res.status(403).json({
-      error: tier === 'free'
-        ? 'You\'ve used your free essay analysis. Upgrade to Season Pass for unlimited essay feedback.'
-        : 'Daily essay analysis limit reached. Try again tomorrow.',
-      upgradeRequired: tier === 'free',
-      retryable: tier !== 'free',
-    });
+  const limit = userTier === 'premium' ? 20 : userTier === 'season_pass' ? 10 : 1;
+  if (count >= limit) {
+    return {
+      allowed: false,
+      message: `You've reached your daily essay analysis limit (${limit}/day). Your analyses reset tomorrow. This keeps Admitly fast and affordable for everyone.`,
+      limit,
+      used: count,
+    };
   }
-  essayLimits.set(key, count + 1);
-  next();
+  return { allowed: true, remaining: limit - count };
+}
+
+async function checkEssayChanges(userId, universityName, essayType, newEssayText) {
+  const resolvedType = essayType || 'Personal Statement';
+
+  const { data: prev, error } = await supabase
+    .from('essay_analyses')
+    .select('result, created_at')
+    .eq('user_id', userId)
+    .eq('university_name', universityName)
+    .eq('essay_type', resolvedType)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error || !prev || !prev.result) return { isDuplicate: false };
+
+  const prevWords = new Set((prev.result.essayText || '').toLowerCase().split(/\s+/).filter(Boolean));
+  const newWords = new Set(newEssayText.toLowerCase().split(/\s+/).filter(Boolean));
+
+  if (prevWords.size === 0) return { isDuplicate: false };
+
+  const intersection = [...newWords].filter(w => prevWords.has(w)).length;
+  const similarity = intersection / Math.max(prevWords.size, newWords.size);
+
+  if (similarity > 0.85) {
+    return {
+      isDuplicate: true,
+      previousResult: prev.result,
+      previousDate: prev.created_at,
+      message:
+        'Your essay is very similar to your last analysis for this school. Make more substantial revisions to get meaningful new feedback. Your previous analysis is shown below.',
+    };
+  }
+
+  return { isDuplicate: false };
 }
 
 /**
@@ -92,7 +126,7 @@ function validateEssayRequest(body) {
   };
 }
 
-router.post('/analyzeEssay', essayAuth, attachTier, essayRateLimit, async (req, res, next) => {
+router.post('/analyzeEssay', essayAuth, attachTier, async (req, res, next) => {
   const validation = validateEssayRequest(req.body);
   if (!validation.valid) {
     return res.status(400).json({ error: 'Validation failed', details: validation.errors });
@@ -124,6 +158,28 @@ router.post('/analyzeEssay', essayAuth, attachTier, essayRateLimit, async (req, 
   console.log(`[API] POST /api/analyzeEssay for ${universityName} (user: ${req.userId})`);
 
   try {
+    const userTier = req.userTier || 'free';
+
+    const daily = await checkEssayDailyLimit(req.userId, userTier);
+    if (!daily.allowed) {
+      return res.status(429).json({
+        error: daily.message,
+        message: daily.message,
+        limit: daily.limit,
+        used: daily.used,
+      });
+    }
+
+    const changeCheck = await checkEssayChanges(req.userId, universityName, essayType, essayText);
+    if (changeCheck.isDuplicate) {
+      return res.status(200).json({
+        duplicate: true,
+        previousResult: changeCheck.previousResult,
+        previousDate: changeCheck.previousDate,
+        message: changeCheck.message,
+      });
+    }
+
     const result = await analyzeEssay(
       essayText,
       universityProfile,
@@ -135,9 +191,11 @@ router.post('/analyzeEssay', essayAuth, attachTier, essayRateLimit, async (req, 
       return res.status(502).json({ error: result.error, school: result.school });
     }
 
-    // Save analysis to Supabase (fire-and-forget)
-    saveEssayAnalysis(req.userId, universityName, essayType, result)
-      .catch(err => console.error('[EssayAnalyzer] Background save failed:', err.message));
+    const resultWithText = { ...result, essayText: essayText.substring(0, 2000) };
+
+    saveEssayAnalysis(req.userId, universityName, essayType, resultWithText).catch(err =>
+      console.error('[EssayAnalyzer] Background save failed:', err.message)
+    );
 
     res.json(result);
   } catch (err) {
@@ -151,12 +209,15 @@ router.post('/analyzeEssay', essayAuth, attachTier, essayRateLimit, async (req, 
  */
 async function saveEssayAnalysis(userId, universityName, essayType, result) {
   try {
-    if (result.error) return; // Don't save failed analyses
+    if (result.error) return;
     const { error } = await supabase
       .from('essay_analyses')
       .insert({
         user_id: userId,
         university_name: universityName,
+        school_name: universityName,
+        essay_type: essayType || 'Personal Statement',
+        result: result,
       });
     if (error) {
       console.error('[EssayAnalyzer] Save failed:', error.message);

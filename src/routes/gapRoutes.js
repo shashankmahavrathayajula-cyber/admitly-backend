@@ -21,6 +21,7 @@ const { generateGapAnalysis } = require('../engine/gapAnalysis');
 const evaluationEngine = require('../engine/evaluationEngine');
 const universityDataLoader = require('../loaders/universityDataLoader');
 const { normalizeApplicationInput } = require('../schemas/canonicalApplication');
+const { supabase } = require('../lib/supabase');
 
 const router = express.Router();
 
@@ -38,30 +39,28 @@ function gapAuth(req, res, next) {
   return requireAuth(req, res, next);
 }
 
-// Gap analysis rate limiting (separate from evaluation and essay limits)
-const gapLimits = new Map();
+async function checkGapDailyLimit(userId, userTier) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-function gapRateLimit(req, res, next) {
-  const userId = req.userId;
-  const tier = req.userTier || 'free';
-  const today = new Date().toISOString().slice(0, 10);
-  const key = `gap:${userId}:${today}`;
-  const count = gapLimits.get(key) || 0;
+  const { count, error } = await supabase
+    .from('gap_analyses')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .gte('created_at', today.toISOString());
 
-  // Free: 1 per day, Paid: 5 per day
-  const maxAllowed = tier === 'free' ? 1 : 5;
+  if (error) return { allowed: true };
 
-  if (count >= maxAllowed) {
-    return res.status(403).json({
-      error: tier === 'free'
-        ? 'You\'ve used your free action plan. Upgrade to Season Pass for unlimited gap analyses.'
-        : 'Daily gap analysis limit reached. Try again tomorrow.',
-      upgradeRequired: tier === 'free',
-      retryable: tier !== 'free',
-    });
+  const limit = userTier === 'premium' ? 10 : userTier === 'season_pass' ? 5 : 1;
+  if (count >= limit) {
+    return {
+      allowed: false,
+      message: `You've reached your daily action plan limit (${limit}/day). Your plans reset tomorrow.`,
+      limit,
+      used: count,
+    };
   }
-  gapLimits.set(key, count + 1);
-  next();
+  return { allowed: true };
 }
 
 function validateGapRequest(body) {
@@ -96,7 +95,7 @@ function validateGapRequest(body) {
   };
 }
 
-router.post('/gapAnalysis', gapAuth, attachTier, gapRateLimit, async (req, res, next) => {
+router.post('/gapAnalysis', gapAuth, attachTier, async (req, res, next) => {
   const validation = validateGapRequest(req.body);
   if (!validation.valid) {
     return res.status(400).json({ error: 'Validation failed', details: validation.errors });
@@ -146,12 +145,39 @@ router.post('/gapAnalysis', gapAuth, attachTier, gapRateLimit, async (req, res, 
         ? req.body.timelineStage
         : 'applying';
 
+    const userTier = req.userTier || 'free';
+    const gapDaily = await checkGapDailyLimit(req.userId, userTier);
+    if (!gapDaily.allowed) {
+      return res.status(429).json({
+        error: gapDaily.message,
+        message: gapDaily.message,
+        limit: gapDaily.limit,
+        used: gapDaily.used,
+      });
+    }
+
     const result = await generateGapAnalysis(evalResult, universityProfile, normalizedApp || application, {
       timelineStage,
     });
 
     if (result.error) {
       return res.status(502).json({ error: result.error, school: result.school });
+    }
+
+    try {
+      const { error: saveError } = await supabase
+        .from('gap_analyses')
+        .insert({
+          user_id: req.userId,
+          university_name: universityName,
+          timeline_stage: timelineStage || null,
+          result: result,
+        });
+      if (saveError) {
+        console.error('[GapAnalysis] Save failed:', saveError.message);
+      }
+    } catch (saveErr) {
+      console.error('[GapAnalysis] Save failed:', saveErr.message);
     }
 
     res.json(result);
