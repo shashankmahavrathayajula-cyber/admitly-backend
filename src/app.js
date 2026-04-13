@@ -6,6 +6,7 @@ const essayRoutes = require('./routes/essayRoutes');
 const gapRoutes = require('./routes/gapRoutes');
 const schoolListRoutes = require('./routes/schoolListRoutes');
 const stripeRoutes = require('./routes/stripeRoutes');
+const promoRoutes = require('./routes/promoRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -43,6 +44,7 @@ app.use('/api', essayRoutes);
 app.use('/api', gapRoutes);
 app.use('/api', schoolListRoutes);
 app.use('/api', stripeRoutes);
+app.use('/api/promo', promoRoutes);
 
 app.use(errorHandler);
 
