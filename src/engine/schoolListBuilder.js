@@ -19,16 +19,17 @@ const { normalizeApplicationInput } = require('../schemas/canonicalApplication')
  * Uses cache where available.
  *
  * @param {object} application - Normalized application profile
+ * @param {string} userId - Authenticated user (scopes evaluation_cache)
  * @returns {Promise<Array>} Array of evaluation results with school name and band
  */
-async function evaluateAllSchools(application) {
+async function evaluateAllSchools(application, userId) {
   const schools = universityDataLoader.getUniversities();
-  const payloadHash = hashPayload(application);
+  const payloadHash = hashPayload(application, userId);
   const results = [];
 
   for (const school of schools) {
     // Check cache first
-    const cached = await getCached(payloadHash, school.name);
+    const cached = await getCached(payloadHash, school.name, userId);
     if (cached) {
       console.log(`[SchoolList] Cache HIT: ${school.name}`);
       results.push(cached);
@@ -41,7 +42,7 @@ async function evaluateAllSchools(application) {
     results.push(result);
 
     // Cache for future use (fire-and-forget)
-    setCache(payloadHash, school.name, result)
+    setCache(payloadHash, school.name, result, userId)
       .catch(err => console.error(`[SchoolList] Cache write failed: ${err.message}`));
   }
 
@@ -209,11 +210,12 @@ function avg(arr) {
  * Build a complete school list recommendation.
  *
  * @param {object} application - Raw application profile
+ * @param {string} userId - Authenticated user (scopes evaluation_cache)
  * @returns {Promise<object>} Complete recommendation with classified schools
  */
-async function buildSchoolList(application) {
+async function buildSchoolList(application, userId) {
   const normalized = normalizeApplicationInput(application);
-  const evaluationResults = await evaluateAllSchools(normalized);
+  const evaluationResults = await evaluateAllSchools(normalized, userId);
   const classified = classifySchools(evaluationResults);
   const recommendation = generateRecommendation(classified, normalized);
 

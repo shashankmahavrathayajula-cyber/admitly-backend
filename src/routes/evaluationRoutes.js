@@ -58,7 +58,7 @@ router.post('/evaluateApplication', requireAuth, attachTier, checkEvaluationLimi
     console.log('[API] POST /api/evaluateApplication received, universities:', universities?.length ?? 0, universities ?? []);
   }
   try {
-    const results = await evaluationService.evaluateApplication(application, universities);
+    const results = await evaluationService.evaluateApplication(application, universities, req.userId);
     if (config.isDevelopment) {
       console.log('FINAL EVALUATION RESULT:', JSON.stringify(results, null, 2));
     }

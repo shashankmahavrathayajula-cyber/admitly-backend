@@ -73,7 +73,7 @@ router.post('/buildSchoolList', listAuth, attachTier, maybeCheckSchoolListAccess
   console.log(`[API] POST /api/buildSchoolList (user: ${req.userId})`);
 
   try {
-    const result = await buildSchoolList(req.body.application);
+    const result = await buildSchoolList(req.body.application, req.userId);
     res.json(result);
   } catch (err) {
     console.error('[SchoolListBuilder] Failed:', err);
