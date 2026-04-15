@@ -22,37 +22,97 @@ const { effectiveAdmitRate } = require('./universitySignals');
 // ════════════════════════════════════════════════
 
 /**
+ * Generate a context-aware note based on actual score relative to school target.
+ * Thresholds are relative to the school's target, not absolute numbers,
+ * because a 5.0 at Stanford (target 8.0) is weak but 5.0 at WSU (target 5.0) is on target.
+ */
+function getContextualNote(dimension, currentScore, target) {
+  const gap = Math.max(0, target - currentScore);
+  const gapRatio = target > 0 ? gap / target : 0;
+
+  // Relative to this school's expectations
+  const isExcellent = currentScore >= target + 1.0;
+  const isStrong = currentScore >= target;
+  const isClose = gapRatio <= 0.15; // within 15% of target
+  const isWeak = gapRatio >= 0.35; // 35%+ below target
+  const isCritical = currentScore < 3.0 && gap >= 3.0; // absolute floor + big gap
+
+  const notes = {
+    academic: {
+      excellent: 'Your academic profile is a strong asset at this school. Maintain your current trajectory.',
+      strong: 'Academics are solid for this school. Focus energy on dimensions with more room to grow.',
+      close: 'GPA and course rigor are mostly set, but a strong final semester and any remaining test opportunities can close this small gap.',
+      weak: 'Academic preparation is below this school\'s target. If test scores can still be improved, prioritize that. Otherwise, lean heavily on essays and activities to compensate.',
+      critical: 'This is a significant academic gap for this school. Strong essays, activities, and demonstrated fit become essential to offset academic concerns.',
+    },
+    activities: {
+      excellent: 'Your extracurricular profile demonstrates clear impact and commitment. Protect this strength.',
+      strong: 'Activity impact meets this school\'s expectations. Focus on documenting outcomes and connecting activities to your narrative.',
+      close: 'Nearly there. Focus on documenting measurable outcomes in your strongest existing commitments.',
+      weak: 'Extracurricular impact needs attention. Deepen 1-2 existing commitments and document specific, quantifiable outcomes.',
+      critical: 'This is a major gap. Prioritize taking on a meaningful role in an existing organization and documenting clear results.',
+    },
+    honors: {
+      excellent: 'Your recognition profile is strong. These validate your achievements effectively.',
+      strong: 'Honors and recognition meet this school\'s expectations. No urgent action needed here.',
+      close: 'Look for near-term recognition opportunities — competitions, honor societies, or departmental awards in your intended major.',
+      weak: 'Pursue achievable recognitions: AP Scholar designation, honor societies like NHS, or subject-specific competitions with upcoming deadlines.',
+      critical: 'No meaningful recognitions listed. Even school-level honors, honor roll, or departmental awards add signal. Identify 2-3 you can pursue within your timeline.',
+    },
+    narrative: {
+      excellent: 'Your essay is a strong asset. Minor refinements only — do not overhaul what works.',
+      strong: 'Narrative meets this school\'s expectations. Focus on polishing specifics rather than rewriting.',
+      close: 'Targeted essay revisions can close this gap. This is your highest-ROI area since essays are fully in your control.',
+      weak: 'Essay and narrative need significant work. This is your highest-ROI area — invest time here before anything else.',
+      critical: 'Narrative is critically weak. A strong, authentic essay can compensate for gaps in other dimensions. Make this your top priority.',
+    },
+    institutionalFit: {
+      excellent: 'Your application reads as intentional for this school, not generic. This is a meaningful advantage.',
+      strong: 'Institutional fit is solid. Strengthen further by referencing specific programs or opportunities in your essays.',
+      close: 'Show deeper knowledge of this school. Research specific programs, courses, or faculty and weave them into your application.',
+      weak: 'Fit needs work. Research this school deeply — name specific programs, courses, or opportunities that connect to your goals in your essays.',
+      critical: 'No clear connection to this school is visible. Without demonstrated fit, even strong stats may not be enough.',
+    },
+  };
+
+  const dimNotes = notes[dimension];
+  if (!dimNotes) return '';
+
+  if (isExcellent) return dimNotes.excellent;
+  if (isStrong) return dimNotes.strong;
+  if (isCritical) return dimNotes.critical;
+  if (isWeak) return dimNotes.weak;
+  if (isClose) return dimNotes.close;
+  return dimNotes.weak; // default to weak if none of the above match
+}
+
+/**
  * Dimension metadata for display and weight lookup.
  */
 const DIMENSIONS = {
   academic: {
     label: 'Academic Preparation',
     changeable: 'limited',
-    changeNote: 'GPA and course rigor are mostly locked by senior year. Test scores may have one more attempt.',
     aggregatorKey: 'academic',
   },
   activities: {
     label: 'Extracurricular Impact',
     changeable: 'moderate',
-    changeNote: 'New activities started now look thin, but deepening existing commitments and documenting outcomes is highly effective.',
     aggregatorKey: 'activities',
   },
   honors: {
     label: 'Honors & Recognition',
     changeable: 'limited',
-    changeNote: 'Major awards take years to earn. Focus on competitions or recognitions you can pursue in the next 3-6 months.',
     aggregatorKey: 'honors',
   },
   narrative: {
     label: 'Essay & Narrative',
     changeable: 'high',
-    changeNote: 'Essays are fully in your control and carry significant weight. This is where effort pays off most.',
     aggregatorKey: 'narrative',
   },
   institutionalFit: {
     label: 'Institutional Fit',
     changeable: 'high',
-    changeNote: 'Fit is demonstrated through essays, activity framing, and showing genuine knowledge of the school. Highly improvable.',
     aggregatorKey: 'institutionalFit',
   },
 };
@@ -179,7 +239,7 @@ function computeGapMap(dimensionScores, universityProfile) {
       weight: Math.round(weight * 1000) / 1000,
       weightedImpact: Math.round(weightedImpact * 100) / 100,
       changeable: meta.changeable,
-      changeNote: meta.changeNote,
+      changeNote: getContextualNote(dim, current, target),
       alreadyStrong,
     });
   }
@@ -288,7 +348,8 @@ function adjustChangeability(gapMap, stage) {
     if (stage === 'exploring' || stage === 'building') {
       if (adjusted.dimension === 'academic') adjusted.changeable = stage === 'exploring' ? 'high' : 'moderate';
       if (adjusted.dimension === 'honors') adjusted.changeable = 'moderate';
-      adjusted.changeNote = getTimelineChangeNote(adjusted.dimension, stage);
+      const timelineNote = getTimelineChangeNote(adjusted.dimension, stage);
+      adjusted.changeNote = adjusted.changeNote + ' ' + timelineNote;
     }
     return adjusted;
   });
@@ -413,7 +474,8 @@ Return ONLY valid JSON (no markdown, no preamble):
 11. Forbidden vocabulary: comprehensive, robust, leverage, delve, journey, holistic, utilize, passionate, well-rounded.
 12. Write as if the student is sitting across from you and this session determines whether they get into their dream school.
 13. For dimensions with very low scores (below 3.0) where the student has NOTHING listed (e.g., zero honors, zero activities), the action must suggest specific, achievable things they can pursue within the timeline — not just "get more awards." Name specific competitions, honor societies, or recognition programs relevant to their intended major.
-14. Honor the ACTION PLAN TIMELINE section above — actions must match ${timeline.actionStyle} and obey the IMPORTANT / avoidAdvice constraints for this stage.`;
+14. Honor the ACTION PLAN TIMELINE section above — actions must match ${timeline.actionStyle} and obey the IMPORTANT / avoidAdvice constraints for this stage.
+15. Do NOT describe a dimension as "needs improvement" or "a concern" if the student scores at or above the target for that dimension in the gap map above. If a dimension is already strong, acknowledge it as a strength and focus your actions on actual gaps. Cross-reference every claim against the gap map data — never contradict the numbers.`;
 }
 
 // ════════════════════════════════════════════════

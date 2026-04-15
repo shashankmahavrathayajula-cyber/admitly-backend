@@ -171,7 +171,8 @@ Evaluate as a $300/hour counselor in a private session. Return ONLY valid JSON (
 7. Do NOT manufacture weaknesses for balance. If something genuinely works, say it works.
 8. Forbidden vocabulary: comprehensive, robust, leverage, delve, journey, holistic, utilize, impactful, passionate (unless quoting the student).
 9. If the essay triggers an anti-pattern, name it plainly. Do not soften.
-10. Write as if the student is sitting across from you and has one week before the deadline. Every word of feedback should serve that urgency.`;
+10. Write as if the student is sitting across from you and has one week before the deadline. Every word of feedback should serve that urgency.
+11. SCORE-TEXT CONSISTENCY: Your scores must match your written assessments. If strategicFit is 9/10, your assessment must not say the essay "needs significant improvement" in strategic fit. If a score is 3/10, do not praise it as "well-aligned." Every score and its corresponding text must tell the same story.`;
 }
 
 /**

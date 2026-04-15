@@ -105,6 +105,7 @@ Differentiation (critical—same applicant might apply to multiple schools):
 Rules:
 - Write to the student: use "your application" / "you" where natural; write as a counselor to the applicant, not in internal admissions shorthand.
 - mostImportantNextStep: One imperative for THIS school only; reference one priority theme by exact title or name the city/campus (Pullman vs Seattle) if it clarifies fit.
+- Consistency constraint: Your coreInsight and mostImportantNextStep must not contradict the dimension scores. If the weakest dimension is honors at 2.0/10 and the strongest is academic at 8.5/10, do not frame academics as a concern or honors as adequate. Always align your language with the actual numbers.
 - Use ONLY the evidence below plus subscores—do not invent applicant facts.
 - Do NOT re-hash raw GPA unless the bullets already center on academics.
 
