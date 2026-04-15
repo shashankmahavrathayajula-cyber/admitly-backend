@@ -12,7 +12,7 @@ const router = express.Router();
 /**
  * POST /api/evaluateApplication
  * Body: { application: object, universities: string[] }
- * Returns: array of evaluation objects (scores 0–10, coreInsight, mostImportantNextStep, capped lists, optional admissionsSummary)
+ * Returns: { results: array of evaluation objects (scores 0–10, …); limitNote?, upgradeRequired? when batch was trimmed for free tier }
  */
 router.post('/evaluateApplication', requireAuth, attachTier, checkEvaluationLimit, rateLimit, async (req, res, next) => {
   const validation = validateEvaluateRequest(req.body);
@@ -58,13 +58,21 @@ router.post('/evaluateApplication', requireAuth, attachTier, checkEvaluationLimi
     console.log('[API] POST /api/evaluateApplication received, universities:', universities?.length ?? 0, universities ?? []);
   }
   try {
-    const results = await evaluationService.evaluateApplication(application, universities, req.userId);
+    const evaluationResults = await evaluationService.evaluateApplication(application, universities, req.userId);
     if (config.isDevelopment) {
-      console.log('FINAL EVALUATION RESULT:', JSON.stringify(results, null, 2));
+      console.log('FINAL EVALUATION RESULT:', JSON.stringify(evaluationResults, null, 2));
     }
-    saveEvaluation(req.userId, req.body.application, req.body.universities, results)
+    saveEvaluation(req.userId, req.body.application, req.body.universities, evaluationResults)
       .catch(err => console.error('[Storage] Background save failed:', err));
-    res.json(results);
+
+    const response = {
+      results: evaluationResults,
+    };
+    if (req.evaluationLimitNote) {
+      response.limitNote = req.evaluationLimitNote;
+      response.upgradeRequired = true;
+    }
+    res.json(response);
   } catch (err) {
     next(err);
   }
