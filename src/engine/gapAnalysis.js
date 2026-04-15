@@ -315,6 +315,11 @@ function buildActionPlanPrompt(gapMap, priorityStack, universityProfile, applica
     `${g.label}: ${g.current}/10 → target ${g.target}/10 (gap: ${g.gap}, weight: ${(g.weight * 100).toFixed(0)}%, changeable: ${g.changeable})${g.alreadyStrong ? ' ✓ ALREADY STRONG' : ''}`
   ).join('\n');
 
+  const criticalGaps = gapMap
+    .filter(g => g.current < 4.0 && !g.alreadyStrong)
+    .map(g => `⚠️ CRITICAL: ${g.label} is at ${g.current}/10 — this MUST be addressed in the action plan`)
+    .join('\n');
+
   const topPriorities = priorityStack.priorities.slice(0, 3).map(p =>
     `${p.label}: gap ${p.gap}, weighted impact ${p.weightedImpact}, changeability: ${p.changeable}`
   ).join('\n');
@@ -336,6 +341,9 @@ IMPORTANT: ${timeline.avoidAdvice}
 
 === STUDENT'S DIMENSIONAL GAP MAP ===
 ${gapSummary}
+
+=== CRITICAL GAPS (must be addressed — do NOT skip these) ===
+${criticalGaps || 'No critical gaps (all dimensions above 4.0)'}
 
 === TOP PRIORITY AREAS (ranked by impact × changeability) ===
 ${topPriorities}
@@ -392,18 +400,20 @@ Return ONLY valid JSON (no markdown, no preamble):
 }
 
 === HARD RULES ===
-1. The actionPlan must have EXACTLY 5 actions, ordered by priority (highest impact first).
-2. At least 2 actions must be "Quick win" or "Medium effort" — the student needs early momentum.
-3. At least 1 action must be a compound action that improves 2+ dimensions simultaneously.
-4. Every action must reference a specific ${schoolName} priority by name.
-5. estimatedImpact must include a numeric score range (e.g., "+0.3 to +0.5") — not vague language.
-6. essayStrategy must name a SPECIFIC experience from the student's activities to build the essay around (or, for exploring-stage students, the experience/thread to cultivate over time for a future essay).
-7. Do NOT recommend starting a new club or organization if it's within 4 months of deadlines — readers see through last-minute padding.
-8. Do NOT recommend things the student is already doing well — focus energy on gaps.
-9. honestAssessment must name the student's admissions band (reach/target/safety) and explain why.
-10. Forbidden vocabulary: comprehensive, robust, leverage, delve, journey, holistic, utilize, passionate, well-rounded.
-11. Write as if the student is sitting across from you and this session determines whether they get into their dream school.
-12. Honor the ACTION PLAN TIMELINE section above — actions must match ${timeline.actionStyle} and obey the IMPORTANT / avoidAdvice constraints for this stage.`;
+1. The actionPlan must have EXACTLY 5 actions.
+2. COVERAGE REQUIREMENT (NON-NEGOTIABLE): Every dimension in the gap map that scores BELOW 4.0 MUST have at least one dedicated action item addressing it. If honors is 1.5/10, there MUST be an action specifically about improving honors — even if honors has low weight. Students see their lowest score and expect guidance on fixing it. Ignoring their worst dimension destroys trust. After covering all sub-4.0 dimensions, fill the remaining slots with the highest-ROI actions.
+3. At least 2 actions must be "Quick win" or "Medium effort" — the student needs early momentum.
+4. At least 1 action must be a compound action that improves 2+ dimensions simultaneously.
+5. Every action must reference a specific ${schoolName} priority by name.
+6. estimatedImpact must include a numeric score range (e.g., "+0.3 to +0.5") — not vague language.
+7. essayStrategy must name a SPECIFIC experience from the student's activities to build the essay around. If the student has no activities listed, suggest an essay topic based on their intended major or academic interests.
+8. Do NOT recommend starting a new club or organization if it's within 4 months of deadlines — readers see through last-minute padding.
+9. Do NOT recommend things the student is already doing well — focus energy on gaps.
+10. honestAssessment must name the student's admissions band (reach/target/safety) and explain why.
+11. Forbidden vocabulary: comprehensive, robust, leverage, delve, journey, holistic, utilize, passionate, well-rounded.
+12. Write as if the student is sitting across from you and this session determines whether they get into their dream school.
+13. For dimensions with very low scores (below 3.0) where the student has NOTHING listed (e.g., zero honors, zero activities), the action must suggest specific, achievable things they can pursue within the timeline — not just "get more awards." Name specific competitions, honor societies, or recognition programs relevant to their intended major.
+14. Honor the ACTION PLAN TIMELINE section above — actions must match ${timeline.actionStyle} and obey the IMPORTANT / avoidAdvice constraints for this stage.`;
 }
 
 // ════════════════════════════════════════════════
