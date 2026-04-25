@@ -27,20 +27,19 @@ const TABLE_ROW_H = 26;
 const TABLE_HEADER_H = 26;
 const PATTERNS_AFTER_TABLE_GAP = 10;
 
-/** Mirrors insightPostProcess.js DIM_KEYWORDS for weakness ↔ dimension matching */
 const DIM_KEYWORDS = {
-  academic: ['gpa', 'grade', 'transcript', 'course', 'rigor', 'ap ', ' ib', 'sat', 'act', 'class', 'academic', 'school'],
-  activities: ['extracurricular', 'activity', 'club', 'sport', 'volunteer', 'leadership', 'officer', 'president', 'captain', 'team'],
-  honors: ['award', 'honor', 'scholar', 'recognition', 'medal', 'prize'],
-  narrative: ['essay', 'personal statement', 'writing', 'story', 'voice', 'narrative', 'reflection'],
-  institutionalFit: ['fit', 'major', 'campus', 'culture', 'mission', 'institution', 'university', 'program', 'computer science'],
+  academicStrength: ['gpa', 'grade', 'transcript', 'course rigor', 'ap course', 'sat ', 'act ', 'academic preparation', 'academic profile', 'class rank', 'test score', 'coursework'],
+  activityImpact: ['extracurricular', 'activit', 'club', 'sport', 'volunteer', 'leadership depth', 'president', 'captain', 'team', 'organization', 'involvement', 'participation', 'community service', 'food distribution'],
+  honorsAwards: ['award', 'honor', 'scholar', 'recognition', 'medal', 'prize', 'competition', 'distinction', 'national merit', 'ap scholar', "dean's list", 'honor roll', 'certificate'],
+  narrativeStrength: ['essay', 'personal statement', 'writing', 'story', 'voice', 'narrative', 'reflection', 'piq', 'prose', 'anecdote', 'memoir', 'draft', 'rewrite'],
+  institutionalFit: ['fit', 'why us', 'why this school', 'campus visit', 'specific program', 'specific faculty', 'supplement', 'demonstrated interest', 'school-specific', 'tailored to'],
 };
 
 const DIMENSION_ROWS = [
-  { field: 'academicStrength', insight: 'academic', label: 'Academic Strength' },
-  { field: 'activityImpact', insight: 'activities', label: 'Activity Impact' },
-  { field: 'honorsAwards', insight: 'honors', label: 'Honors & Awards' },
-  { field: 'narrativeStrength', insight: 'narrative', label: 'Narrative Strength' },
+  { field: 'academicStrength', insight: 'academicStrength', label: 'Academic Strength' },
+  { field: 'activityImpact', insight: 'activityImpact', label: 'Activity Impact' },
+  { field: 'honorsAwards', insight: 'honorsAwards', label: 'Honors & Awards' },
+  { field: 'narrativeStrength', insight: 'narrativeStrength', label: 'Narrative Strength' },
   { field: 'institutionalFit', insight: 'institutionalFit', label: 'Institutional Fit' },
 ];
 
@@ -164,16 +163,53 @@ function matchWeaknessToDimension(weaknesses, dimensions) {
   const results = {};
   const used = new Set();
 
-  for (const dim of dimensions) {
+  for (let idx = 0; idx < dimensions.length; idx += 1) {
+    const dim = dimensions[idx];
     const keywords = DIM_KEYWORDS[dim.key] || [];
     let bestMatch = null;
+    let bestScore = 0;
 
     for (const w of weaknesses) {
       if (used.has(w)) continue;
       const text = w.toLowerCase();
-      if (keywords.some((k) => text.includes(String(k).toLowerCase()))) {
+
+      let matchCount = 0;
+      for (const k of keywords) {
+        const kw = String(k).toLowerCase();
+        if (kw.length >= 4 && text.includes(kw)) matchCount += 1;
+      }
+
+      let otherMaxCount = 0;
+      for (const otherDim of dimensions) {
+        if (otherDim.key === dim.key) continue;
+        const otherKeywords = DIM_KEYWORDS[otherDim.key] || [];
+        let otherCount = 0;
+        for (const k of otherKeywords) {
+          const kw = String(k).toLowerCase();
+          if (kw.length >= 4 && text.includes(kw)) otherCount += 1;
+        }
+        otherMaxCount = Math.max(otherMaxCount, otherCount);
+      }
+
+      let higherPriorityMaxCount = 0;
+      for (const higherDim of dimensions.slice(0, idx)) {
+        const higherKeywords = DIM_KEYWORDS[higherDim.key] || [];
+        let higherCount = 0;
+        for (const k of higherKeywords) {
+          const kw = String(k).toLowerCase();
+          if (kw.length >= 4 && text.includes(kw)) higherCount += 1;
+        }
+        higherPriorityMaxCount = Math.max(higherPriorityMaxCount, higherCount);
+      }
+
+      if (
+        matchCount > 0 &&
+        matchCount >= otherMaxCount &&
+        matchCount > higherPriorityMaxCount &&
+        matchCount > bestScore
+      ) {
         bestMatch = w;
-        break;
+        bestScore = matchCount;
       }
     }
 

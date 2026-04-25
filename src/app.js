@@ -17,6 +17,7 @@ app.use(
     origin: [
       'https://admitly-insight-engine.lovable.app',
       'https://useadmitly.com',
+      'https://www.useadmitly.com',
       'http://localhost:8080',
       'http://localhost:5173',
     ],
