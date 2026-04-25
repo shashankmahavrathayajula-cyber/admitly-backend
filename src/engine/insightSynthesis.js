@@ -78,7 +78,9 @@ function ruleBasedSynthesis(applicationProfile, universityProfile, aggregated) {
 
   let outInsight = coreInsight.trim();
   if (outInsight.length > 720) {
-    outInsight = `${outInsight.slice(0, 717)}…`;
+    const truncated = outInsight.slice(0, 720);
+    const lastPeriod = truncated.lastIndexOf('.');
+    outInsight = lastPeriod > 400 ? truncated.slice(0, lastPeriod + 1) : `${truncated}…`;
   }
 
   return {

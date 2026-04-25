@@ -99,6 +99,18 @@ async function handleCheckoutCompleted(session) {
     return;
   }
 
+  // Idempotency: skip if this session was already processed.
+  const { data: existing } = await supabase
+    .from('subscriptions')
+    .select('stripe_session_id')
+    .eq('stripe_session_id', sessionId)
+    .maybeSingle();
+
+  if (existing) {
+    console.log('[Stripe] Duplicate webhook event, skipping:', sessionId);
+    return;
+  }
+
   // Season expires Jan 31 of the NEXT year if we're past Jan 31 of this year
   const now = new Date();
   const thisYearExpiry = new Date(now.getFullYear(), 0, 31, 23, 59, 59);

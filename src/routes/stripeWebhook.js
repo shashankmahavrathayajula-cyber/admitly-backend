@@ -38,6 +38,12 @@ router.post('/', async (req, res) => {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object;
+        const userId = session.metadata?.user_id;
+        const tier = session.metadata?.tier;
+        if (!userId || !tier) {
+          console.error('[Stripe Webhook] Missing metadata — unrecoverable:', session.id);
+          return res.status(400).json({ error: 'Missing metadata' });
+        }
         await handleCheckoutCompleted(session);
         break;
       }
@@ -47,6 +53,7 @@ router.post('/', async (req, res) => {
 
     res.json({ received: true });
   } catch (err) {
+    // Transient errors (DB writes, network) — let Stripe retry.
     console.error('[Stripe Webhook] Processing error:', err.message);
     res.status(500).json({ error: 'Webhook processing failed' });
   }

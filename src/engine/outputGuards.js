@@ -34,6 +34,7 @@ const PHRASE_REPLACEMENTS = [
   [/\bauthentic\s+intellectual\s+curiosity\b/gi, 'specific curiosity in coursework'],
   [/\bwell[-\s]?aligned\s+with\b/gi, 'consistent with'],
   [/\bshows?\s+strong\s+alignment\s+with\b/gi, 'matches'],
+  [/\bimpactful\b/gi, 'concrete'],
 ];
 
 function sanitizeOneLine(text) {

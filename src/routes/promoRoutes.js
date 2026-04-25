@@ -36,16 +36,21 @@ router.post('/redeem', requireAuth, async (req, res) => {
       return res.status(410).json({ error: 'This promo code has reached its usage limit.' });
     }
 
-    // Check if user already has an active subscription
+    // Snapshot existing subscription (full row) for rollback / customer-id preservation.
     const { data: existing } = await supabase
       .from('subscriptions')
-      .select('tier, expires_at')
+      .select('*')
       .eq('user_id', userId)
-      .single();
+      .maybeSingle();
 
     if (existing && new Date(existing.expires_at) > new Date() && existing.tier === 'premium') {
       return res.status(409).json({ error: 'You already have Premium access.' });
     }
+
+    // Preserve a real Stripe customer ID if present; otherwise mark as a promo grant.
+    const customerIdToSet = existing?.stripe_customer_id?.startsWith('cus_')
+      ? existing.stripe_customer_id
+      : `PROMO_${trimmed}`;
 
     // Grant the subscription
     const { error: subError } = await supabase
@@ -53,7 +58,7 @@ router.post('/redeem', requireAuth, async (req, res) => {
       .upsert({
         user_id: userId,
         tier: promo.tier,
-        stripe_customer_id: `PROMO_${trimmed}`,
+        stripe_customer_id: customerIdToSet,
         expires_at: promo.expires_at,
       }, { onConflict: 'user_id' });
 
@@ -62,11 +67,25 @@ router.post('/redeem', requireAuth, async (req, res) => {
       return res.status(500).json({ error: 'Something went wrong. Please try again.' });
     }
 
-    // Increment usage count
-    await supabase
+    // Atomically increment usage count with optimistic concurrency. If the counter
+    // could not be incremented (race or DB error), roll back the subscription grant.
+    const { data: incremented, error: incrError } = await supabase
       .from('promo_codes')
       .update({ current_uses: promo.current_uses + 1 })
-      .eq('id', promo.id);
+      .eq('id', promo.id)
+      .eq('current_uses', promo.current_uses)
+      .select();
+
+    if (incrError || !incremented || incremented.length === 0) {
+      console.error('[Promo] Counter increment failed; rolling back subscription:',
+        incrError?.message || 'concurrent redemption');
+      if (existing) {
+        await supabase.from('subscriptions').upsert(existing, { onConflict: 'user_id' });
+      } else {
+        await supabase.from('subscriptions').delete().eq('user_id', userId);
+      }
+      return res.status(409).json({ error: 'This promo code was just redeemed. Please try again.' });
+    }
 
     res.json({
       success: true,

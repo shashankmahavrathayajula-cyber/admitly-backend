@@ -92,6 +92,9 @@ async function runAIAnalysis(prompt, options = {}) {
     messages: [{ role: 'user', content: prompt }],
   };
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 60000);
+
   let response;
   try {
     response = await fetch(OPENAI_API_URL, {
@@ -101,10 +104,17 @@ async function runAIAnalysis(prompt, options = {}) {
         Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
       body: JSON.stringify(body),
+      signal: controller.signal,
     });
   } catch (err) {
-    console.error('[openaiClient] Request failed:', err.message);
+    if (err.name === 'AbortError') {
+      console.error('[openaiClient] Request timed out after 60s');
+    } else {
+      console.error('[openaiClient] Request failed:', err.message);
+    }
     return null;
+  } finally {
+    clearTimeout(timeoutId);
   }
 
   if (!response.ok) {
@@ -178,6 +188,9 @@ async function runInsightSynthesis(prompt, options = {}) {
     messages: [{ role: 'user', content: prompt }],
   };
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 60000);
+
   let response;
   try {
     response = await fetch(OPENAI_API_URL, {
@@ -187,10 +200,17 @@ async function runInsightSynthesis(prompt, options = {}) {
         Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
       body: JSON.stringify(body),
+      signal: controller.signal,
     });
   } catch (err) {
-    console.error('[openaiClient] Insight synthesis request failed:', err.message);
+    if (err.name === 'AbortError') {
+      console.error('[openaiClient] Insight synthesis timed out after 60s');
+    } else {
+      console.error('[openaiClient] Insight synthesis request failed:', err.message);
+    }
     return null;
+  } finally {
+    clearTimeout(timeoutId);
   }
 
   if (!response.ok) {

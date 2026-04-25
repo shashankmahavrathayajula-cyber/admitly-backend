@@ -27,8 +27,7 @@ router.post('/counselor-questions', requireAuth, attachTier, requirePremium, asy
     res.json({ questions });
   } catch (err) {
     console.error('[CounselorQuestions] Failed:', err.message);
-    // Return empty questions on failure rather than 500 — the PDF can still be generated without them
-    res.json({ questions: [] });
+    res.status(502).json({ questions: [], error: 'Discussion guide generation failed' });
   }
 });
 
@@ -87,7 +86,7 @@ router.post('/counselor-pdf', requireAuth, attachTier, requirePremium, async (re
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader(
       'Content-Disposition',
-      `attachment; filename="Admitly-Counselor-Summary-${studentName.replace(/\s+/g, '-')}.pdf"`
+      `attachment; filename="Admitly-Counselor-Summary-${studentName.replace(/[^A-Za-z0-9._-]/g, '-').replace(/-+/g, '-')}.pdf"`
     );
     res.setHeader('Content-Length', pdfBuffer.length);
     res.send(pdfBuffer);

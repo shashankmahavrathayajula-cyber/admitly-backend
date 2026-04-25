@@ -178,11 +178,11 @@ router.post('/analyzeEssay', essayAuth, attachTier, async (req, res, next) => {
     if (force !== true) {
       const changeCheck = await checkEssayChanges(req.userId, universityName, essayType, essayText);
       if (changeCheck.isDuplicate) {
-        return res.status(200).json({
+        return res.status(409).json({
           duplicate: true,
           previousResult: changeCheck.previousResult,
           previousDate: changeCheck.previousDate,
-          message: changeCheck.message,
+          message: changeCheck.message || 'This essay has already been analyzed for this school.',
         });
       }
     }

@@ -87,8 +87,8 @@ async function checkEvaluationLimit(req, res, next) {
       .eq('user_id', req.userId);
 
     if (listError) {
-      console.warn('[TierAccess] Failed to list evaluations for limit check:', listError.message);
-      return next(); // Fail open — don't block on db errors
+      console.error('[TierAccess] Failed to list evaluations for limit check:', listError.message);
+      return res.status(503).json({ error: 'Service temporarily unavailable. Please try again.' });
     }
 
     const evalIds = (evalRows || []).map(r => r.id).filter(Boolean);
@@ -101,8 +101,8 @@ async function checkEvaluationLimit(req, res, next) {
         .in('evaluation_id', evalIds);
 
       if (countError) {
-        console.warn('[TierAccess] Failed to count evaluation_results:', countError.message);
-        return next(); // Fail open
+        console.error('[TierAccess] Failed to count evaluation_results:', countError.message);
+        return res.status(503).json({ error: 'Service temporarily unavailable. Please try again.' });
       }
       used = resultCount ?? 0;
     }
@@ -130,8 +130,8 @@ async function checkEvaluationLimit(req, res, next) {
 
     next();
   } catch (err) {
-    console.warn('[TierAccess] Evaluation limit check failed:', err.message);
-    next(); // Fail open
+    console.error('[TierAccess] Evaluation limit check failed:', err.message);
+    return res.status(503).json({ error: 'Service temporarily unavailable. Please try again.' });
   }
 }
 

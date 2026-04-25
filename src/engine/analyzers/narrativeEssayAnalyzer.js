@@ -8,7 +8,6 @@ const { getBenchmarks, scoreNarrative } = require('../benchmarkScoring');
 const JSON_FORMAT_INSTRUCTIONS = `
 Return your evaluation as valid JSON only, with no other text:
 {
-  "score": number from 1-10,
   "strengths": ["string", ...],
   "weaknesses": ["string", ...],
   "suggestions": ["string", ...]
@@ -188,8 +187,14 @@ async function analyze(applicationProfile, universityProfile) {
     if (result) {
       const benchmarks = getBenchmarks(universityProfile.name);
       const benchmarkScore = scoreNarrative(applicationProfile, benchmarks);
-      const guarded = reinforceQuoteRule({ ...result, score: benchmarkScore }, essayExcerpt);
-      return guarded;
+      // Score is rule-based; the AI provides only qualitative feedback (strengths/weaknesses/suggestions).
+      const aiFeedback = {
+        strengths: Array.isArray(result.strengths) ? result.strengths : [],
+        weaknesses: Array.isArray(result.weaknesses) ? result.weaknesses : [],
+        suggestions: Array.isArray(result.suggestions) ? result.suggestions : [],
+        score: Math.max(1.0, Math.min(9.5, Math.round(benchmarkScore * 10) / 10)),
+      };
+      return reinforceQuoteRule(aiFeedback, essayExcerpt);
     }
   }
 
