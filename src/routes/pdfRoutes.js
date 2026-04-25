@@ -7,6 +7,32 @@ const { generateDiscussionGuide } = require('../engine/counselorQuestions');
 const router = express.Router();
 
 /**
+ * POST /api/counselor-questions
+ * Returns LLM-generated discussion questions for the counselor report.
+ * Body: { evaluations, essayAnalyses, profile }
+ * Returns: { questions: [...] }
+ */
+router.post('/counselor-questions', requireAuth, attachTier, requirePremium, async (req, res, next) => {
+  try {
+    const { evaluations, essayAnalyses = [], profile = {} } = req.body;
+
+    if (!evaluations || !Array.isArray(evaluations) || evaluations.length === 0) {
+      return res.status(400).json({ error: 'At least one evaluation result is required.' });
+    }
+
+    console.log(`[CounselorQuestions] Generating questions for ${evaluations.length} schools`);
+
+    const questions = await generateDiscussionGuide(evaluations, essayAnalyses, profile);
+
+    res.json({ questions });
+  } catch (err) {
+    console.error('[CounselorQuestions] Failed:', err.message);
+    // Return empty questions on failure rather than 500 — the PDF can still be generated without them
+    res.json({ questions: [] });
+  }
+});
+
+/**
  * POST /api/counselor-pdf
  * Body: { studentName, profile, evaluations, essayAnalyses }
  * Returns: application/pdf
