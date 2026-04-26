@@ -135,6 +135,21 @@ async function handleCheckoutCompleted(session) {
   }
 
   console.log(`[Stripe] Subscription saved tier=${tier} expires=${expiresAt}`);
+
+  // Decrement pioneer spots counter (best-effort; subscription is the source of truth).
+  const { data: pioneerConfig } = await supabase
+    .from('app_config')
+    .select('value')
+    .eq('key', 'pioneer_spots_remaining')
+    .single();
+
+  if (pioneerConfig && parseInt(pioneerConfig.value) > 0) {
+    await supabase
+      .from('app_config')
+      .update({ value: String(parseInt(pioneerConfig.value) - 1) })
+      .eq('key', 'pioneer_spots_remaining')
+      .eq('value', pioneerConfig.value); // optimistic concurrency — prevents double-decrement
+  }
 }
 
 /**

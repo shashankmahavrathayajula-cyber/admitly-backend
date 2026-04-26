@@ -9,6 +9,7 @@
 const express = require('express');
 const { requireAuth } = require('../middleware/requireAuth');
 const { createCheckoutSession, getUserTier } = require('../services/stripeService');
+const { supabase } = require('../lib/supabase');
 
 const router = express.Router();
 
@@ -74,6 +75,30 @@ router.get('/user-tier', requireAuth, async (req, res, next) => {
   } catch (err) {
     console.error('[Stripe] Tier check error:', err.message);
     next(err);
+  }
+});
+
+/**
+ * GET /api/pioneer-spots
+ * Public endpoint (no auth) — used by the landing page to show remaining pioneer spots.
+ * Returns: { spots: number, active: boolean }
+ */
+router.get('/pioneer-spots', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('app_config')
+      .select('value')
+      .eq('key', 'pioneer_spots_remaining')
+      .single();
+
+    if (error || !data) {
+      return res.json({ spots: 0, active: false });
+    }
+
+    const spots = parseInt(data.value);
+    res.json({ spots, active: spots > 0 });
+  } catch {
+    res.json({ spots: 0, active: false });
   }
 });
 
