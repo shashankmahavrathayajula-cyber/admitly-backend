@@ -48,9 +48,22 @@ function buildProfileContext(application) {
 /**
  * Build the analysis prompt — v2 counselor-grade.
  */
-function buildEssayAnalysisPrompt(essayText, universityProfile, profileContext, essayType) {
+function buildEssayAnalysisPrompt(essayText, universityProfile, profileContext, essayType, essayPrompt) {
   const priorities = getSchoolPriorities(universityProfile);
   const schoolName = universityProfile.name || 'this institution';
+
+  const trimmedEssayPrompt = (essayPrompt || '').trim();
+  const hasEssayPrompt = trimmedEssayPrompt.length > 0;
+
+  const essayPromptSection = hasEssayPrompt
+    ? `\n=== ESSAY PROMPT ===
+The student is responding to this prompt: "${trimmedEssayPrompt}"
+Evaluate whether the essay DIRECTLY answers this specific prompt. If the essay drifts from the prompt or answers a different question, flag this as a critical weakness.\n`
+    : '';
+
+  const promptAlignmentRule = hasEssayPrompt
+    ? `\n12. PROMPT ALIGNMENT: The student was asked "${trimmedEssayPrompt}". If their essay does not directly address this prompt — even if the writing is excellent — flag it as the #1 priority weakness. A well-written essay that doesn't answer the question is worse than a mediocre essay that does.`
+    : '';
 
   const prioritiesText = priorities
     .map((p, i) => `${i + 1}. "${p.theme}" — Readers look for: ${p.reader_looks_for}`)
@@ -95,7 +108,7 @@ ${antiPatterns || 'None listed.'}
 ${profileSummary}
 
 CROSS-REFERENCING RULE: Before you claim the essay "doesn't mention" or "lacks" something, CHECK the profile above. If the student's activities include leadership, founding, community work, or STEM engagement, do NOT claim those are absent from the application — they may simply not be in the essay, which is a different (and less severe) issue. Distinguish between "the APPLICATION lacks X" (wrong if it's in the profile) and "the ESSAY doesn't leverage X that exists in your profile" (correct and actionable).
-
+${essayPromptSection}
 === ESSAY TO REVIEW ===
 Type: ${essayType || 'Personal Statement'}
 Word count: ${wordCount}
@@ -172,7 +185,7 @@ Evaluate as a $300/hour counselor in a private session. Return ONLY valid JSON (
 8. Forbidden vocabulary: comprehensive, robust, leverage, delve, journey, holistic, utilize, impactful, passionate (unless quoting the student).
 9. If the essay triggers an anti-pattern, name it plainly. Do not soften.
 10. Write as if the student is sitting across from you and has one week before the deadline. Every word of feedback should serve that urgency.
-11. SCORE-TEXT CONSISTENCY: Your scores must match your written assessments. If strategicFit is 9/10, your assessment must not say the essay "needs significant improvement" in strategic fit. If a score is 3/10, do not praise it as "well-aligned." Every score and its corresponding text must tell the same story.`;
+11. SCORE-TEXT CONSISTENCY: Your scores must match your written assessments. If strategicFit is 9/10, your assessment must not say the essay "needs significant improvement" in strategic fit. If a score is 3/10, do not praise it as "well-aligned." Every score and its corresponding text must tell the same story.${promptAlignmentRule}`;
 }
 
 /**
@@ -274,7 +287,8 @@ async function analyzeEssay(essayText, universityProfile, application, options =
     essayText.trim(),
     universityProfile,
     profileContext,
-    options.essayType || 'Personal Statement'
+    options.essayType || 'Personal Statement',
+    options.essayPrompt
   );
 
   // First attempt

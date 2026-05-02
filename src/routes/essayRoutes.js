@@ -121,6 +121,10 @@ function validateEssayRequest(body) {
     errors.push('"essayType" must be a string if provided');
   }
 
+  if (body.essayPrompt != null && typeof body.essayPrompt !== 'string') {
+    errors.push('"essayPrompt" must be a string if provided');
+  }
+
   if (body.force != null && typeof body.force !== 'boolean') {
     errors.push('"force" must be a boolean if provided');
   }
@@ -137,7 +141,7 @@ router.post('/analyzeEssay', essayAuth, attachTier, async (req, res, next) => {
     return res.status(400).json({ error: 'Validation failed', details: validation.errors });
   }
 
-  const { essayText, universityName, essayType, application, force } = req.body;
+  const { essayText, universityName, essayType, essayPrompt, application, force } = req.body;
 
   // Find the university profile
   const profiles = universityDataLoader.getByNames([universityName]);
@@ -191,7 +195,7 @@ router.post('/analyzeEssay', essayAuth, attachTier, async (req, res, next) => {
       essayText,
       universityProfile,
       normalizedApp,
-      { essayType: essayType || 'Personal Statement' }
+      { essayType: essayType || 'Personal Statement', essayPrompt }
     );
 
     if (result.error) {
